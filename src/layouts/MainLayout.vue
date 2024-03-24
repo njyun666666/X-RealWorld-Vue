@@ -2,13 +2,14 @@
 import Brand from '@/components/Brand.vue'
 import { breakpoints } from '@/libs/common'
 import { useNavStore } from '@/stores/nav'
-import { useStorage } from '@vueuse/core'
+import { useDark, useStorage } from '@vueuse/core'
 import { watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const nav = useNavStore()
 const { locale } = useI18n()
 const lang = useStorage('lang', 'zh-Hant')
+const isDark = useDark()
 
 watch(locale, () => {
   document.documentElement.setAttribute('lang', locale.value)
@@ -31,7 +32,12 @@ watch(breakpoints.active(), () => {
       </button>
       <Brand />
       <div className="grow"></div>
-      <div>
+      <div class="space-x-2">
+        <select v-model="isDark">
+          <option :value="false">light</option>
+          <option :value="true">dark</option>
+        </select>
+
         <select v-model="locale">
           <option value="en">en</option>
           <option value="zh-Hant">zh-Hant</option>
