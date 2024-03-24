@@ -9,8 +9,8 @@ const router = createRouter({
       children: [
         {
           path: '/',
-          name: 'home',
-          component: () => import('@/pages/HomeView.vue')
+          name: 'bashboard',
+          component: () => import('@/pages/Dashboard/DashboardPage.vue')
         },
         {
           path: '/about',
@@ -18,6 +18,10 @@ const router = createRouter({
           component: () => import('@/pages/AboutView.vue')
         }
       ]
+    },
+    {
+      path: '/login',
+      component: () => import('@/pages/Login/LoginPage.vue')
     }
   ]
 })

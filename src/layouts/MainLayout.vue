@@ -1,9 +1,19 @@
 <script setup lang="ts">
+import Brand from '@/components/Brand.vue'
 import { breakpoints } from '@/libs/common'
 import { useNavStore } from '@/stores/nav'
+import { useStorage } from '@vueuse/core'
 import { watch } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const nav = useNavStore()
+const { locale } = useI18n()
+const lang = useStorage('lang', 'zh-Hant')
+
+watch(locale, () => {
+  document.documentElement.setAttribute('lang', locale.value)
+  lang.value = locale.value
+})
 
 watch(breakpoints.active(), () => {
   if (breakpoints.sm) {
@@ -19,9 +29,14 @@ watch(breakpoints.active(), () => {
       <button class="bg-red-300 sm:hidden" @click="() => (nav.navMobileOpenState = true)">
         {{ nav.navMobileOpenState }}
       </button>
-      <div class="font-mono text-3xl font-bold text-primary">Vue-Project</div>
+      <Brand />
       <div className="grow"></div>
-      <div></div>
+      <div>
+        <select v-model="locale">
+          <option value="en">en</option>
+          <option value="zh-Hant">zh-Hant</option>
+        </select>
+      </div>
     </header>
 
     <nav
