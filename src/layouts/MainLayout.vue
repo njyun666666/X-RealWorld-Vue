@@ -46,7 +46,12 @@ watch(breakpoints.active(), () => {
       <RouterLink to="/about">About</RouterLink>
       <button
         class="hidden bg-red-300 xl:block"
-        @click="() => (navDefaultExpanded = !navDefaultExpanded)"
+        @click="
+          () => {
+            navDefaultExpanded = !navDefaultExpanded
+            navExpandedState = navDefaultExpanded
+          }
+        "
       >
         {{ navDefaultExpanded }}
       </button>
