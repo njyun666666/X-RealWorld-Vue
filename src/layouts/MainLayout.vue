@@ -1,46 +1,41 @@
 <script setup lang="ts">
 import { breakpoints } from '@/libs/common'
-import { useStorage } from '@vueuse/core'
-import { ref, watch } from 'vue'
+import { useNavStore } from '@/stores/nav'
+import { watch } from 'vue'
 
-const navDefaultExpanded = useStorage('navDefaultExpanded', true)
-const navExpandedState = ref(false)
-const navMobileOpenState = ref(false)
+const nav = useNavStore()
 
 watch(breakpoints.active(), () => {
   if (breakpoints.sm) {
-    navMobileOpenState.value = false
+    nav.navMobileOpenState = false
   }
 })
 </script>
 <template>
   <div class="fixed h-full w-full overflow-hidden">
     <header
-      class="bg-background flex h-12 w-full items-center space-x-2 overflow-hidden border-b p-2"
+      class="flex h-12 w-full items-center space-x-2 overflow-hidden border-b bg-background p-2"
     >
-      <button
-        class="bg-red-300 sm:hidden"
-        @click="() => (navMobileOpenState = !navMobileOpenState)"
-      >
-        {{ navMobileOpenState }}
+      <button class="bg-red-300 sm:hidden" @click="() => (nav.navMobileOpenState = true)">
+        {{ nav.navMobileOpenState }}
       </button>
-      <div class="text-primary font-mono text-3xl font-bold">Vue-Project</div>
+      <div class="font-mono text-3xl font-bold text-primary">Vue-Project</div>
       <div className="grow"></div>
       <div></div>
     </header>
 
     <nav
       :class="[
-        'group/nav bg-background absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden duration-200',
-        'sm:w-13 sm:top-12 sm:h-[calc(100%-theme(height.12))] sm:border-0',
+        'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-background duration-200',
+        'sm:top-12 sm:h-[calc(100%-theme(height.12))] sm:w-13 sm:border-0',
         {
-          'border-r': navMobileOpenState,
-          '!w-64': navMobileOpenState || navExpandedState,
-          'xl:w-64': navDefaultExpanded
+          'border-r': nav.navMobileOpenState,
+          '!w-64': nav.navMobileOpenState || nav.navExpandedState,
+          'xl:w-64': nav.navDefaultExpanded
         }
       ]"
-      @mouseenter="() => (navExpandedState = true)"
-      @mouseleave="() => (navExpandedState = false)"
+      @mouseenter="() => (nav.navExpandedState = true)"
+      @mouseleave="() => (nav.navExpandedState = false)"
     >
       <RouterLink to="/">Home</RouterLink>
       <RouterLink to="/about">About</RouterLink>
@@ -48,36 +43,36 @@ watch(breakpoints.active(), () => {
         class="hidden bg-red-300 xl:block"
         @click="
           () => {
-            navDefaultExpanded = !navDefaultExpanded
-            navExpandedState = navDefaultExpanded
+            nav.navDefaultExpanded = !nav.navDefaultExpanded
+            nav.navExpandedState = nav.navDefaultExpanded
           }
         "
       >
-        {{ navDefaultExpanded }}
+        {{ nav.navDefaultExpanded }}
       </button>
     </nav>
 
     <div
-      v-if="navMobileOpenState"
+      v-if="nav.navMobileOpenState"
       class="absolute left-0 top-0 z-[9] h-full w-full bg-black/80 duration-200"
-      @click="() => (navMobileOpenState = false)"
+      @click="() => (nav.navMobileOpenState = false)"
     ></div>
 
     <main
       :class="[
-        'bg-foreground/5 absolute left-0 top-12 h-[calc(100%-theme(height.12))] w-full overflow-hidden pl-0 duration-200',
+        'absolute left-0 top-12 h-[calc(100%-theme(height.12))] w-full overflow-hidden bg-foreground/5 pl-0 duration-200',
         'sm:pl-13',
         {
-          'xl:pl-64': navDefaultExpanded
+          'xl:pl-64': nav.navDefaultExpanded
         }
       ]"
     >
       <div class="pl-72">
-        navMobileOpenState: {{ navMobileOpenState }}
+        navMobileOpenState: {{ nav.navMobileOpenState }}
         <br />
-        navDefaultExpanded: {{ navDefaultExpanded }}
+        navDefaultExpanded: {{ nav.navDefaultExpanded }}
         <br />
-        navExpandedState: {{ navExpandedState }}
+        navExpandedState: {{ nav.navExpandedState }}
       </div>
 
       <RouterView />
