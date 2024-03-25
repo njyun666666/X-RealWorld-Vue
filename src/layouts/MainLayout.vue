@@ -49,6 +49,10 @@ watch(breakpoints.active(), () => {
           <option value="en">en</option>
           <option value="zh-Hant">zh-Hant</option>
         </select>
+
+        <button type="button" class="rounded bg-surface-500 p-1" @click="() => login.logout()">
+          {{ $t('UserNav.Logout') }}
+        </button>
       </div>
     </header>
 
