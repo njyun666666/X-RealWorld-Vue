@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 0 0% 3.9%;
+  --border: 0 0% 70%;
+  --primary: var(--primary-500);
+  --primary-50: 236 253 245;
+  --primary-100: 209 250 229;
+  --primary-200: 167 243 208;
+  --primary-300: 110 231 183;
+  --primary-400: 52 211 153;
+  --primary-500: 16 185 129;
+  --primary-600: 5 150 105;
+  --primary-700: 4 120 87;
+  --primary-800: 6 95 70;
+  --primary-900: 4 78 56;
+  --primary-950: 2 44 34;
+}
+
+html.dark {
+  color-scheme: dark;
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --border: 0 0% 30%;
+  --primary: var(--primary-400);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  h1 {
+    @apply pb-4 text-3xl font-bold;
+  }
+}
