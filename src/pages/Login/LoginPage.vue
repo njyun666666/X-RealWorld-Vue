@@ -6,16 +6,14 @@ import Page from '@/pages/Page.vue'
 import type { AxiosError } from 'axios'
 import { useLoginStore } from '@/stores/login'
 import router from '@/router'
-import { useField, useForm } from 'vee-validate'
+import { useForm } from 'vee-validate'
 import { z } from 'zod'
 import { useI18n } from 'vue-i18n'
 import { toTypedSchema } from '@vee-validate/zod'
-import { ref } from 'vue'
 import { cn } from '@/libs/utils'
 
 const login = useLoginStore()
 const { t } = useI18n()
-const submitting = ref(false)
 
 const formSchema = z.object({
   email: z
@@ -30,7 +28,7 @@ const formSchema = z.object({
     .min(1, { message: t('message.required') })
 })
 
-const { handleSubmit, errors } = useForm({
+const { defineField, handleSubmit, errors, isSubmitting } = useForm({
   validationSchema: toTypedSchema(formSchema),
   initialValues: {
     email: 'admin@example.com',
@@ -38,12 +36,10 @@ const { handleSubmit, errors } = useForm({
   }
 })
 
-const { value: email } = useField('email')
-const { value: password } = useField('password')
+const [email] = defineField('email')
+const [password] = defineField('password')
 
 const onSubmit = handleSubmit(async (values) => {
-  submitting.value = true
-
   await loginService
     .login(values)
     .then(async ({ data }) => {
@@ -53,13 +49,11 @@ const onSubmit = handleSubmit(async (values) => {
     .catch((error: AxiosError<ResponseErrors>) => {
       console.log(error.response?.data)
     })
-
-  submitting.value = false
 })
 </script>
 
 <template>
-  <Page title="Login">
+  <Page :title="$t('login.title')">
     <div className="flex w-full flex-col items-center p-2">
       <div className="mb-16 mt-8">
         <Brand />
@@ -87,10 +81,10 @@ const onSubmit = handleSubmit(async (values) => {
             <div class="text-center">
               <button
                 type="submit"
-                :class="cn('rounded bg-primary p-2', { 'bg-surface-500': submitting })"
-                :disabled="submitting"
+                :class="cn('rounded bg-primary p-2', { 'bg-surface-500': isSubmitting })"
+                :disabled="isSubmitting"
               >
-                {{ submitting ? 'submitting' : $t('login.login') }}
+                {{ isSubmitting ? 'submitting' : $t('login.login') }}
               </button>
             </div>
           </div>
