@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import Brand from '@/components/Brand.vue'
 import { breakpoints } from '@/libs/common'
+import router from '@/router'
+import { useLoginStore } from '@/stores/login'
 import { useNavStore } from '@/stores/nav'
 import { useDark, useStorage } from '@vueuse/core'
 import { watch } from 'vue'
@@ -10,6 +12,11 @@ const nav = useNavStore()
 const { locale } = useI18n()
 const lang = useStorage('lang', 'zh-Hant')
 const isDark = useDark()
+const login = useLoginStore()
+
+watch(login, () => {
+  if (!login.loginState) router.replace('/login')
+})
 
 watch(locale, () => {
   document.documentElement.setAttribute('lang', locale.value)

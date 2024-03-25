@@ -1,3 +1,4 @@
+import { useLoginStore } from '@/stores/login'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -6,6 +7,10 @@ const router = createRouter({
     {
       path: '/',
       component: () => import('@/layouts/MainLayout.vue'),
+      beforeEnter: () => {
+        const login = useLoginStore()
+        if (!login.loginState) return '/login'
+      },
       children: [
         {
           path: '/',
