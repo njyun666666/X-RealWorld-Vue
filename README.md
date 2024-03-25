@@ -1,39 +1,47 @@
-# vue-project
+# Vue+.NET 練習
 
-This template should help get you started developing with Vue 3 in Vite.
+## [Demo](https://vue-project-jyun.vercel.app/)
 
-## Recommended IDE Setup
+## 練習項目
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- RWD Layout
+- 淺色/深色主題
+- 多國語系
+- 串接 API
+- 資料新增修改
+- JWT 驗證登入
 
-## Type Support for `.vue` Imports in TS
+## 前端
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+[GitHub](https://github.com/njyun666666/PM.React)
 
-## Customize configuration
+### 部署
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+使用[Vercel](https://vercel.com)連接GitHub自動部署
 
-## Project Setup
+### 使用技術/套件
 
-```sh
-npm install
-```
+- Vue 3
+- Vite
+- Pinia
+- Vue-i18n
+- Vue Router
+- VeeValidate
+- Zod
+- Typescript
+- Axios
+- Tailwind CSS
 
-### Compile and Hot-Reload for Development
+## 後端 API
 
-```sh
-npm run dev
-```
+[GitHub](https://github.com/njyun666666/PM.Net)
 
-### Type-Check, Compile and Minify for Production
+### 部署
 
-```sh
-npm run build
-```
+使用GCP Cloud Run連接GitHub + Dockerfile自動部署
 
-### Lint with [ESLint](https://eslint.org/)
+### 使用技術/套件
 
-```sh
-npm run lint
-```
+- .NET 7 WebAPI
+- EF Core
+- MySQL
