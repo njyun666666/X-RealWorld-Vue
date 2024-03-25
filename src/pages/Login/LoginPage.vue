@@ -59,7 +59,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <Page title="Login">
+  <Page :title="$t('login.title')">
     <div className="flex w-full flex-col items-center p-2">
       <div className="mb-16 mt-8">
         <Brand />

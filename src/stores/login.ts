@@ -24,7 +24,6 @@ export const useLoginStore = defineStore('login', () => {
   const logout = () => {
     access_token.value = null
     refresh_token.value = null
-    console.log('logout')
   }
 
   const payload = computed(() => {
