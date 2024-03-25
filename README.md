@@ -13,7 +13,7 @@
 
 ## 前端
 
-[GitHub](https://github.com/njyun666666/PM.React)
+[GitHub](https://github.com/njyun666666/vue-project)
 
 ### 部署
 
