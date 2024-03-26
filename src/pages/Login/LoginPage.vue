@@ -5,15 +5,16 @@ import { loginService } from '@/libs/services/loginService'
 import Page from '@/pages/Page.vue'
 import type { AxiosError } from 'axios'
 import { useLoginStore } from '@/stores/login'
-import router from '@/router'
 import { useForm } from 'vee-validate'
 import { z } from 'zod'
 import { useI18n } from 'vue-i18n'
 import { toTypedSchema } from '@vee-validate/zod'
 import { cn } from '@/libs/utils'
+import { useRouter } from 'vue-router'
 
 const login = useLoginStore()
 const { t } = useI18n()
+const router = useRouter()
 
 const formSchema = z.object({
   email: z
@@ -44,7 +45,7 @@ const onSubmit = handleSubmit(async (values) => {
     .login(values)
     .then(async ({ data }) => {
       login.setToken(data)
-      await router.push('/')
+      await router.push({ name: 'index' })
     })
     .catch((error: AxiosError<ResponseErrors>) => {
       console.log(error.response?.data)

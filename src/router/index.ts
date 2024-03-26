@@ -6,29 +6,45 @@ const router = createRouter({
   routes: [
     {
       path: '/',
+      meta: { requiresAuth: true },
       component: () => import('@/layouts/MainLayout.vue'),
-      beforeEnter: () => {
-        const login = useLoginStore()
-        if (!login.loginState) return '/login'
-      },
       children: [
         {
           path: '/',
-          name: 'bashboard',
+          name: 'index',
           component: () => import('@/pages/Dashboard/DashboardPage.vue')
         },
         {
           path: '/about',
-          name: 'about',
+          meta: { roles: ['company'] },
           component: () => import('@/pages/AboutView.vue')
+        },
+        {
+          path: '/message/:message',
+          name: 'message',
+          component: () => import('@/pages/MessagePage.vue')
         }
       ]
     },
     {
       path: '/login',
+      name: 'login',
       component: () => import('@/pages/Login/LoginPage.vue')
-    }
+    },
+    { path: '/:pathMatch(.*)*', redirect: { name: 'index' } }
   ]
+})
+
+router.beforeEach((to, from) => {
+  const login = useLoginStore()
+
+  if (to.meta.requiresAuth && !login.loginState) {
+    return '/login'
+  }
+
+  if (to.meta.roles && !login.checkRole(to.meta.roles)) {
+    return { name: 'message', params: { message: 'Forbidden' } }
+  }
 })
 
 export default router
