@@ -18,7 +18,7 @@ const router = useRouter()
 watch(
   () => login.loginState,
   (loginState) => {
-    if (!loginState) router.replace('/login')
+    if (!loginState) router.replace({ name: 'login' })
   }
 )
 
