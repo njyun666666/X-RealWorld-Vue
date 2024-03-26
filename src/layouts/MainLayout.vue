@@ -15,9 +15,12 @@ const isDark = useDark()
 const login = useLoginStore()
 const router = useRouter()
 
-watch(login, () => {
-  if (!login.loginState) router.replace('/login')
-})
+watch(
+  () => login.loginState,
+  (loginState) => {
+    if (!loginState) router.replace('/login')
+  }
+)
 
 watch(locale, () => {
   document.documentElement.setAttribute('lang', locale.value)

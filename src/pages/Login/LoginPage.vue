@@ -45,7 +45,7 @@ const onSubmit = handleSubmit(async (values) => {
     .login(values)
     .then(async ({ data }) => {
       login.setToken(data)
-      await router.push('/')
+      await router.push({ name: 'index' })
     })
     .catch((error: AxiosError<ResponseErrors>) => {
       console.log(error.response?.data)
