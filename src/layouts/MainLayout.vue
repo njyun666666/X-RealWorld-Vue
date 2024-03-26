@@ -7,6 +7,7 @@ import { useDark, useStorage } from '@vueuse/core'
 import { watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
+import { cn } from '@/libs/utils'
 
 const nav = useNavStore()
 const { locale } = useI18n()
@@ -61,15 +62,17 @@ watch(breakpoints.active(), () => {
     </header>
 
     <nav
-      :class="[
-        'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-background duration-200',
-        'sm:top-12 sm:h-[calc(100%-theme(height.12))] sm:w-13 sm:border-0',
-        {
-          'border-r': nav.navMobileOpenState,
-          '!w-64': nav.navMobileOpenState || nav.navExpandedState,
-          'xl:w-64': nav.navDefaultExpanded
-        }
-      ]"
+      :class="
+        cn(
+          'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-background duration-200',
+          'sm:top-12 sm:h-[calc(100%-theme(height.12))] sm:w-13 sm:border-0',
+          {
+            'border-r': nav.navMobileOpenState,
+            '!w-64': nav.navMobileOpenState || nav.navExpandedState,
+            'xl:w-64': nav.navDefaultExpanded
+          }
+        )
+      "
       @mouseenter="() => (nav.navExpandedState = true)"
       @mouseleave="() => (nav.navExpandedState = false)"
     >
@@ -95,13 +98,15 @@ watch(breakpoints.active(), () => {
     ></div>
 
     <main
-      :class="[
-        'absolute left-0 top-12 h-[calc(100%-theme(height.12))] w-full overflow-hidden bg-foreground/5 pl-0 duration-200',
-        'sm:pl-13',
-        {
-          'xl:pl-64': nav.navDefaultExpanded
-        }
-      ]"
+      :class="
+        cn(
+          'absolute left-0 top-12 h-[calc(100%-theme(height.12))] w-full overflow-hidden bg-foreground/5 pl-0 duration-200',
+          'sm:pl-13',
+          {
+            'xl:pl-64': nav.navDefaultExpanded
+          }
+        )
+      "
     >
       <div class="pl-72">
         navMobileOpenState: {{ nav.navMobileOpenState }}
