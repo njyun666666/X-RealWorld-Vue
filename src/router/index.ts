@@ -31,6 +31,10 @@ const router = createRouter({
       name: 'login',
       component: () => import('@/pages/Login/LoginPage.vue')
     },
+    {
+      path: '/test',
+      component: () => import('@/pages/Comp1Page.vue')
+    },
     { path: '/:pathMatch(.*)*', redirect: { name: 'index' } }
   ]
 })
