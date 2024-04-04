@@ -11,6 +11,8 @@ import { useI18n } from 'vue-i18n'
 import { toTypedSchema } from '@vee-validate/zod'
 import { cn } from '@/libs/utils'
 import { useRouter } from 'vue-router'
+import InputText from 'primevue/inputtext'
+import Button from 'primevue/button'
 
 const login = useLoginStore()
 const { t } = useI18n()
@@ -62,31 +64,35 @@ const onSubmit = handleSubmit(async (values) => {
       <div className="w-full md:w-2/5 text-center">
         <form @submit="onSubmit">
           <div class="space-y-5 text-left">
-            <div>
-              <div>{{ $t('field.email') }}</div>
-              <input name="email" v-model="email" type="email" class="w-full rounded p-2" />
-              <div class="text-red-500">{{ errors.email }}</div>
+            <div class="flex flex-col gap-2">
+              <label for="email">{{ $t('field.email') }}</label>
+              <InputText
+                id="email"
+                autoComplete="username"
+                v-model="email"
+                :invalid="!!errors.email"
+              />
+              <small class="text-error">{{ errors.email }}</small>
             </div>
 
-            <div>
-              <div>{{ $t('field.password') }}</div>
-              <input
-                name="password"
-                v-model="password"
+            <div class="flex flex-col gap-2">
+              <label for="password">{{ $t('field.password') }}</label>
+              <InputText
+                id="password"
                 type="password"
-                class="w-full rounded p-2"
+                autoComplete="current-password"
+                v-model="password"
+                :invalid="!!errors.password"
               />
-              <div class="text-red-500">{{ errors.password }}</div>
+              <small class="text-error">{{ errors.password }}</small>
             </div>
 
             <div class="text-center">
-              <button
+              <Button
                 type="submit"
-                :class="cn('rounded bg-primary p-2', { 'bg-surface-500': isSubmitting })"
+                :label="isSubmitting ? 'submitting' : $t('login.login')"
                 :disabled="isSubmitting"
-              >
-                {{ isSubmitting ? 'submitting' : $t('login.login') }}
-              </button>
+              />
             </div>
           </div>
         </form>
