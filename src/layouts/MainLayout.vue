@@ -37,7 +37,7 @@ watch(breakpoints.active(), () => {
 <template>
   <div class="fixed h-full w-full overflow-hidden">
     <header
-      class="flex h-12 w-full items-center space-x-2 overflow-hidden border-b bg-background p-2"
+      class="flex h-12 w-full items-center space-x-2 overflow-hidden border-b bg-surface-50 p-2 dark:bg-surface-900"
     >
       <button class="bg-red-300 sm:hidden" @click="() => (nav.navMobileOpenState = true)">
         {{ nav.navMobileOpenState }}
@@ -64,7 +64,7 @@ watch(breakpoints.active(), () => {
     <nav
       :class="
         cn(
-          'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-background duration-200',
+          'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-surface-50 duration-200 dark:bg-surface-900',
           'sm:top-12 sm:h-[calc(100%-theme(height.12))] sm:w-13 sm:border-0',
           {
             'border-r': nav.navMobileOpenState,
@@ -100,7 +100,7 @@ watch(breakpoints.active(), () => {
     <main
       :class="
         cn(
-          'absolute left-0 top-12 h-[calc(100%-theme(height.12))] w-full overflow-hidden bg-foreground/5 pl-0 duration-200',
+          'absolute left-0 top-12 h-[calc(100%-theme(height.12))] w-full overflow-hidden pl-0 duration-200',
           'sm:pl-13',
           {
             'xl:pl-64': nav.navDefaultExpanded

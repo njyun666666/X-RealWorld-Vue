@@ -24,7 +24,7 @@ export default {
         surface: {
           DEFAULT: 'hsl(var(--surface))',
           0: colors.white,
-          ...colors.zinc
+          ...colors.neutral
         },
         error: {
           DEFAULT: 'hsl(var(--error))',
