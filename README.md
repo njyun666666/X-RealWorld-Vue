@@ -31,6 +31,7 @@
 - Typescript
 - Axios
 - Tailwind CSS
+- PrimeVue V4
 
 ## 後端 API
 
