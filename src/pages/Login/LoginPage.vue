@@ -9,7 +9,6 @@ import { useForm } from 'vee-validate'
 import { z } from 'zod'
 import { useI18n } from 'vue-i18n'
 import { toTypedSchema } from '@vee-validate/zod'
-import { cn } from '@/libs/utils'
 import { useRouter } from 'vue-router'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
@@ -88,11 +87,7 @@ const onSubmit = handleSubmit(async (values) => {
             </div>
 
             <div class="text-center">
-              <Button
-                type="submit"
-                :label="isSubmitting ? 'submitting' : $t('login.login')"
-                :disabled="isSubmitting"
-              />
+              <Button type="submit" :label="$t('login.login')" :loading="isSubmitting" />
             </div>
           </div>
         </form>

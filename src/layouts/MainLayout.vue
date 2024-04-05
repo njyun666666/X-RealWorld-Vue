@@ -3,16 +3,14 @@ import Brand from '@/components/Brand.vue'
 import { breakpoints } from '@/libs/common'
 import { useLoginStore } from '@/stores/login'
 import { useNavStore } from '@/stores/nav'
-import { useDark, useStorage } from '@vueuse/core'
 import { watch } from 'vue'
-import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
 import { cn } from '@/libs/utils'
+import UserNav from './UserNav.vue'
+import ScrollPanel from 'primevue/scrollpanel'
+import Button from 'primevue/button'
 
 const nav = useNavStore()
-const { locale } = useI18n()
-const lang = useStorage('lang', 'zh-Hant')
-const isDark = useDark()
 const login = useLoginStore()
 const router = useRouter()
 
@@ -22,11 +20,6 @@ watch(
     if (!loginState) router.replace({ name: 'login' })
   }
 )
-
-watch(locale, () => {
-  document.documentElement.setAttribute('lang', locale.value)
-  lang.value = locale.value
-})
 
 watch(breakpoints.active(), () => {
   if (breakpoints.sm) {
@@ -39,25 +32,18 @@ watch(breakpoints.active(), () => {
     <header
       class="flex h-12 w-full items-center space-x-2 overflow-hidden border-b bg-surface-50 p-2 dark:bg-surface-900"
     >
-      <button class="bg-red-300 sm:hidden" @click="() => (nav.navMobileOpenState = true)">
-        {{ nav.navMobileOpenState }}
-      </button>
+      <Button
+        class="sm:!hidden"
+        text
+        severity="secondary"
+        @click="() => (nav.navMobileOpenState = true)"
+      >
+        <font-awesome-icon icon="fa-solid fa-bars" />
+      </Button>
       <Brand />
       <div className="grow"></div>
-      <div class="space-x-2">
-        <select v-model="isDark">
-          <option :value="false">light</option>
-          <option :value="true">dark</option>
-        </select>
-
-        <select v-model="locale">
-          <option value="en">en</option>
-          <option value="zh-Hant">zh-Hant</option>
-        </select>
-
-        <button type="button" class="rounded bg-surface-500 p-1" @click="() => login.logout()">
-          {{ $t('UserNav.Logout') }}
-        </button>
+      <div>
+        <UserNav />
       </div>
     </header>
 
@@ -108,15 +94,11 @@ watch(breakpoints.active(), () => {
         )
       "
     >
-      <div class="pl-72">
-        navMobileOpenState: {{ nav.navMobileOpenState }}
-        <br />
-        navDefaultExpanded: {{ nav.navDefaultExpanded }}
-        <br />
-        navExpandedState: {{ nav.navExpandedState }}
-      </div>
-
-      <RouterView />
+      <ScrollPanel class="h-full w-full" :pt="{ barY: '!bg-foreground/20' }">
+        <div class="p-4">
+          <RouterView />
+        </div>
+      </ScrollPanel>
     </main>
   </div>
 </template>
