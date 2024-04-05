@@ -97,6 +97,7 @@ watch(locale, () => {
         <a class="align-items-center flex" v-bind="props.action">
           <font-awesome-icon v-if="item.icon" :icon="item.icon" class="mr-2" />
           <span>
+            <!-- // -->
             {{ item.isI18n ? t(item.label as string) : item.label }}
           </span>
           <i v-if="hasSubmenu" class="pi pi-angle-right ml-auto"></i>
