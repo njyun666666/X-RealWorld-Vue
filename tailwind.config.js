@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-undef
 const colors = require('tailwindcss/colors')
 
 /** @type {import('tailwindcss').Config} */

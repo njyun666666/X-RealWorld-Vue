@@ -15,10 +15,9 @@
   },
   "lint-staged": {
     "*.{vue,js,ts}": [
-      "lint",
-      "type-check"
+      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
     ],
-    "**/*": "prettier --write --ignore-unknown"
+    "**/*": "prettier --write src/"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
