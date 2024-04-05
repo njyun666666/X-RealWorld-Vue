@@ -35,14 +35,4 @@
 
 ## 後端 API
 
-[GitHub](https://github.com/njyun666666/PM.Net)
-
-### 部署
-
-使用GCP Cloud Run連接GitHub + Dockerfile自動部署
-
-### 使用技術/套件
-
-- .NET 7 WebAPI
-- EF Core
-- MySQL
+使用[RealWorld API](https://main--realworld-docs.netlify.app/docs/specs/frontend-specs/api#demo-api)

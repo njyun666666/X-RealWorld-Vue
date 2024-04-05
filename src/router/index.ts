@@ -6,18 +6,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      meta: { requiresAuth: true },
+      // meta: { requiresAuth: true },
       component: () => import('@/layouts/MainLayout.vue'),
       children: [
         {
           path: '/',
           name: 'index',
           component: () => import('@/pages/Dashboard/DashboardPage.vue')
-        },
-        {
-          path: '/about',
-          meta: { roles: ['company'] },
-          component: () => import('@/pages/AboutView.vue')
         },
         {
           path: '/message/:message',
@@ -46,9 +41,9 @@ router.beforeEach((to, from) => {
     return '/login'
   }
 
-  if (to.meta.roles && !login.checkRole(to.meta.roles)) {
-    return { name: 'message', params: { message: 'Forbidden' } }
-  }
+  // if (to.meta.roles && !login.checkRole(to.meta.roles)) {
+  //   return { name: 'message', params: { message: 'Forbidden' } }
+  // }
 })
 
 export default router
