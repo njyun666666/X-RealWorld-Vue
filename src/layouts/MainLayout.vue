@@ -17,7 +17,7 @@ const router = useRouter()
 watch(
   () => login.loginState,
   (loginState) => {
-    if (!loginState) router.replace({ name: 'login' })
+    // if (!loginState) router.replace({ name: 'login' })
   }
 )
 
@@ -30,7 +30,7 @@ watch(breakpoints.active(), () => {
 <template>
   <div class="fixed h-full w-full overflow-hidden">
     <header
-      class="flex h-12 w-full items-center space-x-2 overflow-hidden border-b bg-surface-50 p-2 dark:bg-surface-900"
+      class="flex h-12 w-full items-center gap-2 overflow-hidden border-b bg-surface-50 p-2 dark:bg-surface-900"
     >
       <Button
         class="sm:!hidden"
@@ -42,7 +42,15 @@ watch(breakpoints.active(), () => {
       </Button>
       <Brand />
       <div className="grow"></div>
-      <div>
+      <div class="flex items-center gap-2">
+        <Button
+          v-if="!login.loginState"
+          :label="$t('action.Login')"
+          severity="secondary"
+          size="small"
+          @click="() => router.push({ name: 'login' })"
+        />
+        <Button v-if="!login.loginState" :label="$t('action.Register')" size="small" />
         <UserNav />
       </div>
     </header>

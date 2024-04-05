@@ -9,16 +9,16 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
+    "type-check-noEmit": "vue-tsc --noEmit",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{vue,js,ts}": [
-      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
-      "vue-tsc --noEmit"
+      "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore"
     ],
-    "**/*": "prettier --write src/"
+    "**/*": "prettier --write src/ --ignore-unknown"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.5.2",

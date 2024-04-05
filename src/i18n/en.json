@@ -1,29 +1,11 @@
 {
   "website": {
-    "title": "PM"
+    "title": "Vue-Project"
   },
   "page": {
     "Home": "Home",
-    "Org": "Organization",
-    "OrgChart": "Organizational chart",
-    "OrgCompany": "Company",
-    "OrgDept": "Department",
-    "OrgUser": "User",
-    "Auth": "Auth",
-    "AuthMenu": "Menu management",
-    "AuthRole": "Role authorization",
-    "AuthUser": "User authorization"
-  },
-  "login": {
-    "title": "Login",
-    "login": "Login"
-  },
-  "UserNav": {
-    "Language": "Language",
-    "Theme": "Theme",
-    "Light": "Light",
-    "Dark": "Dark",
-    "Logout": "Logout"
+    "Login": "Login",
+    "Register": "Register"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -31,6 +13,13 @@
     "NoResults": "No results."
   },
   "action": {
+    "Language": "Language",
+    "Theme": "Theme",
+    "Light": "Light",
+    "Dark": "Dark",
+    "Logout": "Logout",
+    "Login": "Login",
+    "Register": "Register",
     "Search": "Search",
     "Add": "Add",
     "Edit": "Edit",

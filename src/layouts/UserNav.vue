@@ -15,17 +15,19 @@ const { t, locale } = useI18n()
 const login = useLoginStore()
 const isDark = useDark()
 const lang = useStorage('lang', 'zh-Hant')
-
 const menu = ref()
+
 const items = ref<UserNavItem[]>([
   {
-    label: login.user.username
+    label: login.loginState ? login.user.username : '',
+    visible: () => login.loginState
   },
   {
-    separator: true
+    separator: true,
+    visible: () => login.loginState
   },
   {
-    label: 'UserNav.Language',
+    label: 'action.Language',
     isI18n: true,
     icon: 'fa-solid fa-globe',
     items: [
@@ -40,27 +42,29 @@ const items = ref<UserNavItem[]>([
     ]
   },
   {
-    label: 'UserNav.Theme',
+    label: 'action.Theme',
     isI18n: true,
     icon: 'fa-solid fa-palette',
     items: [
       {
-        label: 'UserNav.Light',
+        label: 'action.Light',
         isI18n: true,
         command: () => (isDark.value = false)
       },
       {
-        label: 'UserNav.Dark',
+        label: 'action.Dark',
         isI18n: true,
         command: () => (isDark.value = true)
       }
     ]
   },
   {
-    separator: true
+    separator: true,
+    visible: () => login.loginState
   },
   {
-    label: 'UserNav.Logout',
+    label: 'action.Logout',
+    visible: () => login.loginState,
     isI18n: true,
     icon: 'fa-solid fa-right-from-bracket',
     command: () => login.logout()
@@ -88,16 +92,22 @@ watch(locale, () => {
 
     <Avatar v-else shape="circle" class="h-8 w-8 cursor-pointer" @click="toggle">
       <template #icon>
-        <font-awesome-icon icon="fa-solid fa-user" />
+        <font-awesome-icon icon="fa-solid fa-user" v-if="login.loginState" />
+        <font-awesome-icon icon="fa-solid fa-gear" v-else />
       </template>
     </Avatar>
 
-    <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup>
+    <TieredMenu
+      ref="menu"
+      id="overlay_tmenu"
+      :model="items"
+      popup
+      class="!left-auto !right-2 !top-10"
+    >
       <template #item="{ item, props, hasSubmenu }">
         <a class="align-items-center flex" v-bind="props.action">
           <font-awesome-icon v-if="item.icon" :icon="item.icon" class="mr-2" />
           <span>
-            <!-- // -->
             {{ item.isI18n ? t(item.label as string) : item.label }}
           </span>
           <i v-if="hasSubmenu" class="pi pi-angle-right ml-auto"></i>

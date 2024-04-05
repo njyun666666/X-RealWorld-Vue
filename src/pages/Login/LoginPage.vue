@@ -55,7 +55,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <Page :title="$t('login.title')">
+  <Page :title="$t('page.Login')">
     <div className="flex w-full flex-col items-center p-2">
       <div className="mb-16 mt-8">
         <Brand />
@@ -87,7 +87,7 @@ const onSubmit = handleSubmit(async (values) => {
             </div>
 
             <div class="text-center">
-              <Button type="submit" :label="$t('login.login')" :loading="isSubmitting" />
+              <Button type="submit" :label="$t('action.Login')" :loading="isSubmitting" />
             </div>
           </div>
         </form>
