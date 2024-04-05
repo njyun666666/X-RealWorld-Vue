@@ -21,7 +21,7 @@
 
 ### 使用技術/套件
 
-- Vue 3
+- Vue 3 (Composition API)
 - Vite
 - Pinia
 - Vue-i18n
@@ -31,6 +31,7 @@
 - Typescript
 - Axios
 - Tailwind CSS
+- PrimeVue V4
 
 ## 後端 API
 
