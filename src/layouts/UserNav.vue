@@ -19,7 +19,7 @@ const lang = useStorage('lang', 'zh-Hant')
 const menu = ref()
 const items = ref<UserNavItem[]>([
   {
-    label: login.payload?.sub
+    label: login.user.username
   },
   {
     separator: true
@@ -79,8 +79,8 @@ watch(locale, () => {
 <template>
   <div class="flex items-center">
     <Avatar
-      v-if="login.payload?.photoURL"
-      :image="login.payload?.photoURL"
+      v-if="login.user && login.user.image"
+      :image="login.user.image"
       shape="circle"
       class="h-8 w-8 cursor-pointer"
       @click="toggle"

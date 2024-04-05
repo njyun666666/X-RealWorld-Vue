@@ -3,7 +3,7 @@ enum HttpStatusCodes {
   UNAUTHORIZED = 401,
   FORBIDDEN = 403,
   NOT_FOUND = 404,
-  UNPROCESSABLE_ENTITY = 422,
+  UNPROCESSABLE_ENTITY = 422
 }
 
-export default HttpStatusCodes;
+export default HttpStatusCodes

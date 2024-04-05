@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import Brand from '@/components/Brand.vue'
-import type { ResponseErrors } from '@/libs/api/pmAPI'
+import type { ResponseErrors } from '@/libs/api/realworldAPI'
 import { loginService } from '@/libs/services/loginService'
 import Page from '@/pages/Page.vue'
 import type { AxiosError } from 'axios'
@@ -33,8 +33,8 @@ const formSchema = z.object({
 const { defineField, handleSubmit, errors, isSubmitting } = useForm({
   validationSchema: toTypedSchema(formSchema),
   initialValues: {
-    email: 'admin@example.com',
-    password: 'demo123456'
+    email: 'njyun@example.com',
+    password: 'njyun@example.com'
   }
 })
 
@@ -43,13 +43,13 @@ const [password] = defineField('password')
 
 const onSubmit = handleSubmit(async (values) => {
   await loginService
-    .login(values)
+    .login({ user: values })
     .then(async ({ data }) => {
-      login.setToken(data)
+      login.setUser(data.user)
       await router.push({ name: 'index' })
     })
     .catch((error: AxiosError<ResponseErrors>) => {
-      console.log(error.response?.data)
+      console.log(error)
     })
 })
 </script>

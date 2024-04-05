@@ -15,11 +15,6 @@ const router = createRouter({
           component: () => import('@/pages/Dashboard/DashboardPage.vue')
         },
         {
-          path: '/about',
-          meta: { roles: ['company'] },
-          component: () => import('@/pages/AboutView.vue')
-        },
-        {
           path: '/message/:message',
           name: 'message',
           component: () => import('@/pages/MessagePage.vue')
@@ -39,16 +34,16 @@ const router = createRouter({
   ]
 })
 
-router.beforeEach((to, from) => {
+router.beforeEach((to) => {
   const login = useLoginStore()
 
   if (to.meta.requiresAuth && !login.loginState) {
     return '/login'
   }
 
-  if (to.meta.roles && !login.checkRole(to.meta.roles)) {
-    return { name: 'message', params: { message: 'Forbidden' } }
-  }
+  // if (to.meta.roles && !login.checkRole(to.meta.roles)) {
+  //   return { name: 'message', params: { message: 'Forbidden' } }
+  // }
 })
 
 export default router
