@@ -14,12 +14,12 @@ const nav = useNavStore()
 const login = useLoginStore()
 const router = useRouter()
 
-watch(
-  () => login.loginState,
-  (loginState) => {
-    // if (!loginState) router.replace({ name: 'login' })
-  }
-)
+// watch(
+//   () => login.loginState,
+//   (loginState) => {
+//     // if (!loginState) router.replace({ name: 'login' })
+//   }
+// )
 
 watch(breakpoints.active(), () => {
   if (breakpoints.sm) {
@@ -50,7 +50,12 @@ watch(breakpoints.active(), () => {
           size="small"
           @click="() => router.push({ name: 'login' })"
         />
-        <Button v-if="!login.loginState" :label="$t('action.Register')" size="small" />
+        <Button
+          v-if="!login.loginState"
+          :label="$t('action.Register')"
+          size="small"
+          @click="() => router.push({ name: 'register' })"
+        />
         <UserNav />
       </div>
     </header>

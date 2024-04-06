@@ -21,10 +21,24 @@ export interface UserViewModel {
   image: null
 }
 
-class LoginService {
+export interface UsersRegistrationModel {
+  user: UserRegistrationModel
+}
+
+export interface UserRegistrationModel {
+  username: string
+  email: string
+  password: string
+}
+
+class UserService {
   login(data: UsersLoginModel) {
     return realworldAPI.post<UsersLoginViewModel>('/api/users/login', data)
   }
+
+  registration(data: UsersRegistrationModel) {
+    return realworldAPI.post<UsersLoginViewModel>('/api/users', data)
+  }
 }
 
-export const loginService = new LoginService()
+export const userService = new UserService()

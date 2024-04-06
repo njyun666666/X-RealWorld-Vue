@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import { StorageSerializers, useStorage } from '@vueuse/core'
-import type { UserViewModel } from '@/libs/services/loginService'
+import type { UserViewModel } from '@/libs/services/userService'
 import { jwtDecode, type JwtPayload } from 'jwt-decode'
 // import type { RoleType } from '@/appConst'
 
