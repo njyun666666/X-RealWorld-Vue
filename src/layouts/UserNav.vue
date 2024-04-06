@@ -6,9 +6,11 @@ import TieredMenu from 'primevue/tieredmenu'
 import { useI18n } from 'vue-i18n'
 import type { MenuItem } from 'primevue/menuitem'
 import { useDark, useStorage } from '@vueuse/core'
+import { cn } from '@/libs/utils'
 
 interface UserNavItem extends MenuItem {
   isI18n?: boolean
+  isSelected?: () => boolean
 }
 
 const { t, locale } = useI18n()
@@ -33,10 +35,12 @@ const items = ref<UserNavItem[]>([
     items: [
       {
         label: 'English',
+        isSelected: () => lang.value === 'en',
         command: () => (locale.value = 'en')
       },
       {
         label: '中文',
+        isSelected: () => lang.value === 'zh-Hant',
         command: () => (locale.value = 'zh-Hant')
       }
     ]
@@ -49,11 +53,13 @@ const items = ref<UserNavItem[]>([
       {
         label: 'action.Light',
         isI18n: true,
+        isSelected: () => !isDark.value,
         command: () => (isDark.value = false)
       },
       {
         label: 'action.Dark',
         isI18n: true,
+        isSelected: () => isDark.value,
         command: () => (isDark.value = true)
       }
     ]
@@ -106,6 +112,11 @@ watch(locale, () => {
     >
       <template #item="{ item, props, hasSubmenu }">
         <a class="align-items-center flex" v-bind="props.action">
+          <font-awesome-icon
+            v-if="item.isSelected !== undefined"
+            icon="fa-solid fa-circle"
+            :class="cn('mr-2 h-2 w-2 opacity-50', { invisible: !item.isSelected() })"
+          />
           <font-awesome-icon v-if="item.icon" :icon="item.icon" class="mr-2" />
           <span>
             {{ item.isI18n ? t(item.label as string) : item.label }}
