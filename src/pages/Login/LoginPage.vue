@@ -9,13 +9,14 @@ import { useForm } from 'vee-validate'
 import { z } from 'zod'
 import { useI18n } from 'vue-i18n'
 import { toTypedSchema } from '@vee-validate/zod'
-import { useRouter } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 
 const login = useLoginStore()
 const { t } = useI18n()
 const router = useRouter()
+const route = useRoute()
 
 const formSchema = z.object({
   email: z
@@ -46,7 +47,13 @@ const onSubmit = handleSubmit(async (values) => {
     .login({ user: values })
     .then(async ({ data }) => {
       login.setUser(data.user)
-      await router.push({ name: 'index' })
+
+      const url = route.query['url']
+      if (url) {
+        await router.push(url as string)
+      } else {
+        await router.push({ name: 'index' })
+      }
     })
     .catch((error: AxiosError<ResponseErrors>) => {
       console.log(error)

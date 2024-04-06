@@ -15,9 +15,18 @@ const router = createRouter({
           component: () => import('@/pages/Dashboard/DashboardPage.vue')
         },
         {
-          path: '/message/:message',
+          path: 'message/:message',
           name: 'message',
           component: () => import('@/pages/MessagePage.vue')
+        },
+        {
+          path: '/demo',
+          children: [
+            {
+              path: 'ParentChildPassValue',
+              component: () => import('@/pages/Demo/ParentChildPassValue/Comp1Page.vue')
+            }
+          ]
         }
       ]
     },
@@ -25,10 +34,6 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: () => import('@/pages/Login/LoginPage.vue')
-    },
-    {
-      path: '/test',
-      component: () => import('@/pages/Comp1Page.vue')
     },
     { path: '/:pathMatch(.*)*', redirect: { name: 'index' } }
   ]
@@ -38,7 +43,7 @@ router.beforeEach((to) => {
   const login = useLoginStore()
 
   if (to.meta.requiresAuth && !login.loginState) {
-    return '/login'
+    return { name: 'login', query: { url: to.fullPath } }
   }
 
   // if (to.meta.roles && !login.checkRole(to.meta.roles)) {

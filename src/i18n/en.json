@@ -4,8 +4,8 @@
   },
   "page": {
     "Home": "Home",
-    "Login": "Login",
-    "Register": "Register"
+    "Login": "Sign in",
+    "Register": "Sign up"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -18,8 +18,8 @@
     "Light": "Light",
     "Dark": "Dark",
     "Logout": "Logout",
-    "Login": "Login",
-    "Register": "Register",
+    "Login": "Sign in",
+    "Register": "Sign up",
     "Search": "Search",
     "Add": "Add",
     "Edit": "Edit",
