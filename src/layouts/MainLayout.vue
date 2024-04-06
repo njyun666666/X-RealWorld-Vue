@@ -14,12 +14,12 @@ const nav = useNavStore()
 const login = useLoginStore()
 const router = useRouter()
 
-watch(
-  () => login.loginState,
-  (loginState) => {
-    if (!loginState) router.replace({ name: 'login' })
-  }
-)
+// watch(
+//   () => login.loginState,
+//   (loginState) => {
+//     // if (!loginState) router.replace({ name: 'login' })
+//   }
+// )
 
 watch(breakpoints.active(), () => {
   if (breakpoints.sm) {
@@ -30,7 +30,7 @@ watch(breakpoints.active(), () => {
 <template>
   <div class="fixed h-full w-full overflow-hidden">
     <header
-      class="flex h-12 w-full items-center space-x-2 overflow-hidden border-b bg-surface-50 p-2 dark:bg-surface-900"
+      class="flex h-12 w-full items-center gap-2 overflow-hidden border-b bg-surface-0 p-2 dark:bg-surface-900"
     >
       <Button
         class="sm:!hidden"
@@ -42,7 +42,20 @@ watch(breakpoints.active(), () => {
       </Button>
       <Brand />
       <div className="grow"></div>
-      <div>
+      <div class="flex items-center gap-2">
+        <Button
+          v-if="!login.loginState"
+          :label="$t('action.Login')"
+          severity="secondary"
+          size="small"
+          @click="() => router.push({ name: 'login' })"
+        />
+        <Button
+          v-if="!login.loginState"
+          :label="$t('action.Register')"
+          size="small"
+          @click="() => router.push({ name: 'register' })"
+        />
         <UserNav />
       </div>
     </header>
@@ -50,7 +63,7 @@ watch(breakpoints.active(), () => {
     <nav
       :class="
         cn(
-          'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-surface-50 duration-200 dark:bg-surface-900',
+          'group/nav absolute left-0 top-0 z-10 flex h-full w-0 flex-col overflow-hidden bg-surface-0 duration-200 dark:bg-surface-900',
           'sm:top-12 sm:h-[calc(100%-theme(height.12))] sm:w-13 sm:border-0',
           {
             'border-r': nav.navMobileOpenState,
@@ -94,7 +107,7 @@ watch(breakpoints.active(), () => {
         )
       "
     >
-      <ScrollPanel class="h-full w-full" :pt="{ barY: '!bg-foreground/20' }">
+      <ScrollPanel class="h-full w-full">
         <div class="p-4">
           <RouterView />
         </div>

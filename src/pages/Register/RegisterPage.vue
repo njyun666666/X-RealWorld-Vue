@@ -22,14 +22,18 @@ const route = useRoute()
 const errorMessage = ref<ResponseErrors>()
 
 const formSchema = z.object({
+  username: z
+    .string({ required_error: t('message.required') })
+    .trim()
+    .min(1, { message: t('message.required') }),
   email: z
-    .string()
+    .string({ required_error: t('message.required') })
     .email({ message: t('message.InvalidEmail') })
     .trim()
     .min(1, { message: t('message.required') })
     .toLowerCase(),
   password: z
-    .string()
+    .string({ required_error: t('message.required') })
     .trim()
     .min(1, { message: t('message.required') })
 })
@@ -37,11 +41,13 @@ const formSchema = z.object({
 const { defineField, handleSubmit, errors, isSubmitting } = useForm({
   validationSchema: toTypedSchema(formSchema),
   initialValues: {
+    username: 'Jyun',
     email: 'jyun@example.com',
     password: 'jyun@example.com'
   }
 })
 
+const [username] = defineField('username')
 const [email] = defineField('email')
 const [password] = defineField('password')
 
@@ -49,10 +55,9 @@ const onSubmit = handleSubmit(async (values) => {
   errorMessage.value = undefined
 
   await userService
-    .login({ user: values })
+    .registration({ user: values })
     .then(async ({ data }) => {
       login.setUser(data.user)
-
       const url = route.query['url']
       if (url) {
         await router.push(url as string)
@@ -67,7 +72,7 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <Page :title="$t('page.Login')">
+  <Page :title="$t('page.Register')">
     <div className="flex w-full flex-col items-center p-2">
       <div className="mb-16 mt-8">
         <Brand />
@@ -78,14 +83,14 @@ const onSubmit = handleSubmit(async (values) => {
             <ErrorMessage keypath="UserModel" :errors="errorMessage"> </ErrorMessage>
 
             <div class="flex flex-col gap-2">
+              <label for="username">{{ $t('UserModel.username') }}</label>
+              <InputText id="username" v-model="username" :invalid="!!errors.username" />
+              <small class="text-error">{{ errors.username }}</small>
+            </div>
+
+            <div class="flex flex-col gap-2">
               <label for="email">{{ $t('UserModel.email') }}</label>
-              <InputText
-                id="email"
-                type="email"
-                autoComplete="username"
-                v-model="email"
-                :invalid="!!errors.email"
-              />
+              <InputText id="email" type="email" v-model="email" :invalid="!!errors.email" />
               <small class="text-error">{{ errors.email }}</small>
             </div>
 
@@ -94,7 +99,6 @@ const onSubmit = handleSubmit(async (values) => {
               <InputText
                 id="password"
                 type="password"
-                autoComplete="current-password"
                 v-model="password"
                 :invalid="!!errors.password"
               />
@@ -102,15 +106,15 @@ const onSubmit = handleSubmit(async (values) => {
             </div>
 
             <div class="text-center">
-              <Button type="submit" :label="$t('action.Login')" :loading="isSubmitting" />
+              <Button type="submit" :label="$t('action.Register')" :loading="isSubmitting" />
             </div>
             <div class="pt-6 text-center">
               <Button
                 type="button"
-                :label="$t('action.Need_an_account')"
+                :label="$t('action.Have_an_account')"
                 text
                 severity="secondary"
-                @click="() => router.push({ name: 'register' })"
+                @click="() => router.push({ name: 'login' })"
               />
             </div>
           </div>

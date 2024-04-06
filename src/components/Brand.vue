@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { RouterLink } from 'vue-router'
+</script>
 <template>
-  <div class="font-mono text-3xl font-bold text-primary">Vue-Project</div>
+  <RouterLink to="/" class="font-mono text-3xl font-bold text-primary">
+    {{ $t('website.Title') }}
+  </RouterLink>
 </template>

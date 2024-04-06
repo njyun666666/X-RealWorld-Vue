@@ -1,29 +1,11 @@
 {
   "website": {
-    "title": "PM"
+    "Title": "Vue-Project"
   },
   "page": {
     "Home": "Home",
-    "Org": "Organization",
-    "OrgChart": "Organizational chart",
-    "OrgCompany": "Company",
-    "OrgDept": "Department",
-    "OrgUser": "User",
-    "Auth": "Auth",
-    "AuthMenu": "Menu management",
-    "AuthRole": "Role authorization",
-    "AuthUser": "User authorization"
-  },
-  "login": {
-    "title": "Login",
-    "login": "Login"
-  },
-  "UserNav": {
-    "Language": "Language",
-    "Theme": "Theme",
-    "Light": "Light",
-    "Dark": "Dark",
-    "Logout": "Logout"
+    "Login": "Sign in",
+    "Register": "Sign up"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -31,6 +13,15 @@
     "NoResults": "No results."
   },
   "action": {
+    "Language": "Language",
+    "Theme": "Theme",
+    "Light": "Light",
+    "Dark": "Dark",
+    "Logout": "Logout",
+    "Login": "Sign in",
+    "Register": "Sign up",
+    "Need_an_account": "Need an account?",
+    "Have_an_account": "Have an account?",
     "Search": "Search",
     "Add": "Add",
     "Edit": "Edit",
@@ -47,21 +38,15 @@
     "Add": "Add {{title}}",
     "Edit": "Edit {{title}}"
   },
-  "field": {
-    "error": "error",
+  "UserModel": {
     "email": "Email",
     "password": "Password",
-    "company": "Company",
-    "companyName": "Company name",
-    "deptName": "Department",
-    "parentDeptName": "Parent department",
-    "user": "User",
-    "name": "Name",
-    "enable": "Enable"
+    "username": "Name",
+    "email_or_password": "Email or Password"
   },
   "message": {
     "required": "required",
-    "Login Failed": "Login Failed",
+    "Login_Failed": "Login Failed",
     "Forbidden": "Access to this resource is forbidden",
     "EditSuccess": "Edited success",
     "AddSuccess": "Added success",
@@ -71,6 +56,8 @@
     "DeleteFail": "Delete failed",
     "InvalidEmail": "Invalid Email",
     "NoFound": "No found",
-    "At least {{number}} entry is required": "At least {{number}} entry is required"
+    "At_least_number_entry_is_required": "At least {{number}} entry is required",
+    "has_already_been_taken": "has already been taken",
+    "is_invalid": "is invalid"
   }
 }

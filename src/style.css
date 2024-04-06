@@ -21,8 +21,8 @@
 
   html.dark {
     color-scheme: dark;
-    --background: 0 0% 4%;
-    --foreground: 0 0% 98%;
+    --background: 0 0% 0%;
+    --foreground: 0 0% 94%;
     --border: 0 0% 30%;
     --primary: 158 64% 52%;
     --surface: 0 0% 64%;
@@ -33,13 +33,9 @@
     @apply border-border;
   }
 
-  /* html {
-    font-size: 16px;
-  } */
-
   body {
     @apply bg-background text-foreground;
-    /* @apply bg-surface-100 text-foreground dark:bg-surface-950; */
+    /* @apply bg-surface-100 text-foreground dark:bg-black; */
   }
 
   h1 {
