@@ -23,8 +23,13 @@ const items: NavModel[] = [
 ]
 </script>
 <template>
-  <RouterLink v-for="item in items" :key="item.name" :to="item.to">
-    <Button rounded text plain :class="cn('h-12 w-12 xl:w-full xl:!justify-start')">
+  <RouterLink v-for="item in items" :key="item.name" :to="item.to" activeClass="group is-active">
+    <Button
+      rounded
+      text
+      plain
+      :class="cn('h-12 w-12 xl:w-full xl:!justify-start ', 'group-[.is-active]:!text-primary')"
+    >
       <font-awesome-icon :icon="item.icon" />
       <span class="ml-2 hidden xl:block">
         {{ $t(item.name) }}
