@@ -5,7 +5,10 @@
   "page": {
     "Home": "首頁",
     "Login": "登入",
-    "Register": "註冊"
+    "Register": "註冊",
+    "Settings": "設定",
+    "Language": "語言",
+    "Theme": "主題"
   },
   "datatable": {
     "RowsPerPage": "每頁筆數",
@@ -13,6 +16,7 @@
     "NoResults": "查無資料"
   },
   "action": {
+    "Settings": "設定",
     "Language": "語言",
     "Theme": "主題",
     "Light": "淺色",

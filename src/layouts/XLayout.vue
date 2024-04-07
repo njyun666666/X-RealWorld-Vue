@@ -4,6 +4,11 @@ import { cn } from '@/libs/utils'
 import Brand from '@/components/Brand.vue'
 import ScrollPanel from 'primevue/scrollpanel'
 import Button from 'primevue/button'
+import { useLoginStore } from '@/stores/login'
+import { RouterLink } from 'vue-router'
+import Nav from './Nav.vue'
+
+const login = useLoginStore()
 </script>
 <template>
   <div
@@ -29,24 +34,31 @@ import Button from 'primevue/button'
           <div class="sticky top-0 z-[1] w-full bg-background pb-1 pl-1 pr-1 pt-1 md:pr-8">
             <Brand />
           </div>
-          <div class="flex grow flex-col gap-2 py-1 pb-5 pl-1 pr-1 md:pr-8"></div>
+          <div class="flex grow flex-col gap-2 py-1 pb-5 pl-1 pr-1 md:pr-8">
+            <Nav />
+          </div>
           <div
             class="sticky bottom-0 z-[1] flex w-full flex-col gap-2 bg-background pb-1 pl-1 pr-1 pt-2 md:pr-8"
           >
-            <Button label="X" :class="cn('h-[50px] w-[50px] xl:w-full')" rounded />
-            <Button label="Y" :class="cn('h-[50px] w-[50px] xl:w-full')" rounded />
+            <RouterLink :to="{ name: 'login' }" v-if="!login.loginState">
+              <Button severity="secondary" rounded :class="cn('h-12 w-12 xl:w-full')">
+                <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
+                <span class="ml-2 hidden xl:block">{{ $t('action.Login') }}</span>
+              </Button>
+            </RouterLink>
+
+            <RouterLink :to="{ name: 'register' }" v-if="!login.loginState">
+              <Button rounded :class="cn('h-12 w-12 xl:w-full')">
+                <font-awesome-icon icon="fa-solid fa-user-plus" />
+                <span class="ml-2 hidden xl:block">{{ $t('action.Register') }}</span>
+              </Button>
+            </RouterLink>
           </div>
         </div>
       </ScrollPanel>
     </header>
-    <main :class="cn('flex grow border-l ')">
-      <div :class="cn('grow border-r')">
-        <h1>{{ breakpoints.active() }}</h1>
-        <RouterView />
-      </div>
-      <div
-        :class="cn('sticky top-0 hidden h-screen w-[280px] shrink-0 bg-white/10 lg:block')"
-      ></div>
+    <main :class="cn('min-h-screen grow border-l')">
+      <RouterView />
     </main>
   </div>
 </template>

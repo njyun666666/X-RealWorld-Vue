@@ -1,4 +1,4 @@
-import { useBreakpoints } from '@vueuse/core'
+import { useBreakpoints, useTitle } from '@vueuse/core'
 
 export const breakpoints = useBreakpoints({
   default: 0,
@@ -7,3 +7,5 @@ export const breakpoints = useBreakpoints({
   lg: 1024,
   xl: 1280
 })
+
+export const webTitle = useTitle(null, { titleTemplate: '%s | Vue-Project' })
