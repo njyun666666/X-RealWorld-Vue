@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       // meta: { requiresAuth: true },
-      component: () => import('@/layouts/MainLayout.vue'),
+      component: () => import('@/layouts/XLayout.vue'),
       children: [
         {
           path: '/',
