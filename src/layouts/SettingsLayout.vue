@@ -12,7 +12,7 @@ import SettingsNav from './SettingsNav.vue'
         <SettingsNav />
       </div>
     </div>
-    <div :class="cn('grow py-1')">
+    <div :class="cn('grow')">
       <RouterView />
     </div>
     <div></div>
