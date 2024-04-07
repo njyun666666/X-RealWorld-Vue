@@ -46,7 +46,7 @@ const HandleClick = (value: Options) => {
         "
         @click="() => HandleClick(item)"
       >
-        <span>{{ $t(item.name) }}</span>
+        <span>{{ item.name }}</span>
         <div class="grow"></div>
         <font-awesome-icon icon="fa-solid fa-check" v-if="selected.value === item.value" />
       </Button>
