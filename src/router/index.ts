@@ -40,11 +40,13 @@ const router = createRouter({
           children: [
             {
               path: 'language',
+              name: 'language',
               meta: { title: 'page.Language' },
               component: () => import('@/pages/Settings/LanguagePage.vue')
             },
             {
               path: 'theme',
+              name: 'theme',
               meta: { title: 'page.Theme' },
               component: () => import('@/pages/Settings/ThemePage.vue')
             }
@@ -95,7 +97,7 @@ router.beforeEach((to) => {
   // }
 
   router.afterEach((to, from, failure) => {
-    if (!failure) {
+    if (!failure && to.meta.title) {
       webTitle.value = t(to.meta.title as string)
     }
   })

@@ -41,14 +41,14 @@ const login = useLoginStore()
           >
             <RouterLink :to="{ name: 'login' }" v-if="!login.loginState">
               <Button severity="secondary" rounded :class="cn('h-12 w-12 xl:w-full')">
-                <font-awesome-icon icon="fa-solid fa-right-to-bracket" />
+                <font-awesome-icon icon="fa-solid fa-right-to-bracket" class="!h-5 !w-5" />
                 <span class="ml-2 hidden xl:block">{{ $t('action.Login') }}</span>
               </Button>
             </RouterLink>
 
             <RouterLink :to="{ name: 'register' }" v-if="!login.loginState">
               <Button rounded :class="cn('h-12 w-12 xl:w-full')">
-                <font-awesome-icon icon="fa-solid fa-user-plus" />
+                <font-awesome-icon icon="fa-solid fa-user-plus" class="!h-5 !w-5" />
                 <span class="ml-2 hidden xl:block">{{ $t('action.Register') }}</span>
               </Button>
             </RouterLink>
