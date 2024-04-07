@@ -13,7 +13,7 @@ const login = useLoginStore()
   <div
     :class="
       cn(
-        'mx-auto flex w-full',
+        'mx-auto flex w-full divide-x',
         'md:max-w-[calc(50px+theme(size.2)+600px)]',
         'lg:max-w-[calc(50px+theme(size.2)+600px+280px)]',
         'xl:max-w-[calc(280px+theme(size.2)+600px+280px)]'
@@ -56,7 +56,7 @@ const login = useLoginStore()
         </div>
       </ScrollPanel>
     </header>
-    <main :class="cn('min-h-screen grow border-l')">
+    <main :class="cn('min-h-screen grow')">
       <RouterView />
     </main>
   </div>

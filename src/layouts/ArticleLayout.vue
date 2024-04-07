@@ -2,8 +2,8 @@
 import { cn } from '@/libs/utils'
 </script>
 <template>
-  <div class="flex min-h-screen">
-    <div class="grow border-r">
+  <div class="flex min-h-screen divide-x">
+    <div class="grow">
       <RouterView />
     </div>
     <div

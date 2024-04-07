@@ -2,14 +2,15 @@
 import { cn } from '@/libs/utils'
 </script>
 <template>
-  <div class="flex min-h-screen">
-    <div class="w-[280px] border-r">
+  <div class="flex min-h-screen divide-x">
+    <div class="w-[280px]">
       <h2 class="px-4">
         {{ $t('page.Settings') }}
       </h2>
     </div>
-    <div :class="cn(' grow border-r py-1')">
+    <div :class="cn('grow py-1')">
       <RouterView />
     </div>
+    <div></div>
   </div>
 </template>
