@@ -1,18 +1,56 @@
+import { i18n } from '@/i18n/config'
+import { webTitle } from '@/libs/common'
 import { useLoginStore } from '@/stores/login'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  },
   routes: [
     {
       path: '/',
       // meta: { requiresAuth: true },
-      component: () => import('@/layouts/MainLayout.vue'),
+      component: () => import('@/layouts/XLayout.vue'),
       children: [
         {
+          // ArticleLayout
           path: '/',
-          name: 'index',
-          component: () => import('@/pages/Dashboard/DashboardPage.vue')
+          component: () => import('@/layouts/ArticleLayout.vue'),
+          children: [
+            {
+              path: '/',
+              name: 'index',
+              meta: { title: 'page.Home' },
+              component: () => import('@/pages/Dashboard/DashboardPage.vue')
+            }
+          ]
+        },
+        {
+          // SettingLayout
+          path: 'settings',
+          name: 'settings',
+          meta: { title: 'page.Settings' },
+          component: () => import('@/layouts/SettingsLayout.vue'),
+          children: [
+            {
+              path: 'language',
+              name: 'language',
+              meta: { title: 'page.Language' },
+              component: () => import('@/pages/Settings/LanguagePage.vue')
+            },
+            {
+              path: 'theme',
+              name: 'theme',
+              meta: { title: 'page.Theme' },
+              component: () => import('@/pages/Settings/ThemePage.vue')
+            }
+          ]
         },
         {
           path: 'message/:message',
@@ -33,11 +71,13 @@ const router = createRouter({
     {
       path: '/login',
       name: 'login',
+      meta: { title: 'page.Login' },
       component: () => import('@/pages/Login/LoginPage.vue')
     },
     {
       path: '/register',
       name: 'register',
+      meta: { title: 'page.Register' },
       component: () => import('@/pages/Register/RegisterPage.vue')
     },
     { path: '/:pathMatch(.*)*', redirect: { name: 'index' } }
@@ -46,6 +86,7 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const login = useLoginStore()
+  const { t } = i18n.global
 
   if (to.meta.requiresAuth && !login.loginState) {
     return { name: 'login', query: { url: to.fullPath } }
@@ -54,6 +95,12 @@ router.beforeEach((to) => {
   // if (to.meta.roles && !login.checkRole(to.meta.roles)) {
   //   return { name: 'message', params: { message: 'Forbidden' } }
   // }
+
+  router.afterEach((to, from, failure) => {
+    if (!failure && to.meta.title) {
+      webTitle.value = t(to.meta.title as string)
+    }
+  })
 })
 
 export default router

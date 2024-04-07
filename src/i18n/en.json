@@ -5,7 +5,10 @@
   "page": {
     "Home": "Home",
     "Login": "Sign in",
-    "Register": "Sign up"
+    "Register": "Sign up",
+    "Settings": "Settings",
+    "Language": "Language",
+    "Theme": "Theme"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -13,6 +16,7 @@
     "NoResults": "No results."
   },
   "action": {
+    "Settings": "Settings",
     "Language": "Language",
     "Theme": "Theme",
     "Light": "Light",

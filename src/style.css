@@ -41,4 +41,8 @@
   h1 {
     @apply pb-4 text-3xl font-bold;
   }
+
+  h2 {
+    @apply py-3 text-2xl font-bold;
+  }
 }

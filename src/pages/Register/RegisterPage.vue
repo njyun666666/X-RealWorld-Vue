@@ -3,7 +3,6 @@ import { ref } from 'vue'
 import Brand from '@/components/Brand.vue'
 import type { ResponseErrors } from '@/libs/api/realworldAPI'
 import { userService } from '@/libs/services/userService'
-import Page from '@/pages/Page.vue'
 import type { AxiosError } from 'axios'
 import { useLoginStore } from '@/stores/login'
 import { useForm } from 'vee-validate'
@@ -72,54 +71,52 @@ const onSubmit = handleSubmit(async (values) => {
 </script>
 
 <template>
-  <Page :title="$t('page.Register')">
-    <div className="flex w-full flex-col items-center p-2">
-      <div className="mb-16 mt-8">
-        <Brand />
-      </div>
-      <div className="w-full md:w-2/5 text-center">
-        <form @submit="onSubmit" novalidate>
-          <div class="flex flex-col gap-5 text-left">
-            <ErrorMessage keypath="UserModel" :errors="errorMessage"> </ErrorMessage>
-
-            <div class="flex flex-col gap-2">
-              <label for="username">{{ $t('UserModel.username') }}</label>
-              <InputText id="username" v-model="username" :invalid="!!errors.username" />
-              <small class="text-error">{{ errors.username }}</small>
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="email">{{ $t('UserModel.email') }}</label>
-              <InputText id="email" type="email" v-model="email" :invalid="!!errors.email" />
-              <small class="text-error">{{ errors.email }}</small>
-            </div>
-
-            <div class="flex flex-col gap-2">
-              <label for="password">{{ $t('UserModel.password') }}</label>
-              <InputText
-                id="password"
-                type="password"
-                v-model="password"
-                :invalid="!!errors.password"
-              />
-              <small class="text-error">{{ errors.password }}</small>
-            </div>
-
-            <div class="text-center">
-              <Button type="submit" :label="$t('action.Register')" :loading="isSubmitting" />
-            </div>
-            <div class="pt-6 text-center">
-              <Button
-                type="button"
-                :label="$t('action.Have_an_account')"
-                text
-                severity="secondary"
-                @click="() => router.push({ name: 'login' })"
-              />
-            </div>
-          </div>
-        </form>
-      </div>
+  <div className="flex w-full flex-col items-center p-2">
+    <div className="mb-16 mt-8">
+      <Brand />
     </div>
-  </Page>
+    <div className="w-full md:w-2/5 text-center">
+      <form @submit="onSubmit" novalidate>
+        <div class="flex flex-col gap-5 text-left">
+          <ErrorMessage keypath="UserModel" :errors="errorMessage"> </ErrorMessage>
+
+          <div class="flex flex-col gap-2">
+            <label for="username">{{ $t('UserModel.username') }}</label>
+            <InputText id="username" v-model="username" :invalid="!!errors.username" />
+            <small class="text-error">{{ errors.username }}</small>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="email">{{ $t('UserModel.email') }}</label>
+            <InputText id="email" type="email" v-model="email" :invalid="!!errors.email" />
+            <small class="text-error">{{ errors.email }}</small>
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <label for="password">{{ $t('UserModel.password') }}</label>
+            <InputText
+              id="password"
+              type="password"
+              v-model="password"
+              :invalid="!!errors.password"
+            />
+            <small class="text-error">{{ errors.password }}</small>
+          </div>
+
+          <div class="text-center">
+            <Button type="submit" :label="$t('action.Register')" :loading="isSubmitting" />
+          </div>
+          <div class="pt-6 text-center">
+            <Button
+              type="button"
+              :label="$t('action.Have_an_account')"
+              text
+              severity="secondary"
+              @click="() => router.push({ name: 'login' })"
+            />
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
 </template>

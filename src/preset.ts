@@ -21,6 +21,22 @@ _.merge(button, {
           hoverColor: '{surface.700}',
           activeColor: '{surface.800}'
         }
+      },
+      text: {
+        plain: {
+          hoverBackground: '{surface.200}',
+          activeBackground: '{surface.300}',
+          color: '{surface.700}'
+        }
+      }
+    },
+    dark: {
+      text: {
+        primary: {
+          hoverBackground: 'color-mix(in srgb, {primary.color}, transparent 85%)',
+          activeBackground: 'color-mix(in srgb, {primary.color}, transparent 70%)',
+          color: '{primary.color}'
+        }
       }
     }
   }
