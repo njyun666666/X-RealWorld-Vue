@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { breakpoints } from '@/libs/common'
 import { cn } from '@/libs/utils'
 import Brand from '@/components/Brand.vue'
 import ScrollPanel from 'primevue/scrollpanel'
@@ -32,7 +31,7 @@ const login = useLoginStore()
       <ScrollPanel class="h-full w-full">
         <div class="flex h-full w-full flex-col">
           <div class="sticky top-0 z-[1] w-full bg-background pb-1 pl-1 pr-1 pt-1 md:pr-8">
-            <Brand />
+            <Brand isNav />
           </div>
           <div class="flex grow flex-col gap-2 py-1 pb-5 pl-1 pr-1 md:pr-8">
             <Nav />

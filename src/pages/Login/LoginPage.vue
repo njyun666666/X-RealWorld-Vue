@@ -68,7 +68,7 @@ const onSubmit = handleSubmit(async (values) => {
 <template>
   <div className="flex w-full flex-col items-center p-2">
     <div className="mb-16 mt-8">
-      <Brand class="h-16 w-16" />
+      <Brand />
     </div>
     <div className="w-full md:w-2/5 text-center">
       <form @submit="onSubmit" novalidate>
