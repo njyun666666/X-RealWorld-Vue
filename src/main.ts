@@ -10,6 +10,7 @@ import { i18n } from './i18n/config'
 import PrimeVue from 'primevue/config'
 // @ts-ignore
 import PrimeOne from 'primevue/themes/primeone'
+import Tooltip from 'primevue/tooltip'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -34,5 +35,6 @@ app.use(PrimeVue, {
     }
   }
 })
+app.directive('tooltip', Tooltip)
 
 app.mount('#app')
