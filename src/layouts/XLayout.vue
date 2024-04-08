@@ -81,16 +81,20 @@ const toggle = (event: MouseEvent) => {
                     v-if="login.user && login.user.image"
                     :image="login.user.image"
                     shape="circle"
-                    class="!h-8 !w-8 cursor-pointer"
+                    class="!h-8 !w-8 shrink-0 cursor-pointer"
                   />
-                  <Avatar v-else shape="circle" class="!h-8 !w-8 cursor-pointer">
+                  <Avatar v-else shape="circle" class="!h-8 !w-8 shrink-0 cursor-pointer">
                     <template #icon>
                       <font-awesome-icon icon="fa-solid fa-user" />
                     </template>
                   </Avatar>
-                  <div class="ml-3 hidden xl:block">
-                    <div class="text-left text-sm font-bold">{{ login.user.username }}</div>
-                    <div class="text-left text-xs text-foreground/80">{{ login.user.email }}</div>
+                  <div class="ml-3 hidden w-28 grow xl:block">
+                    <div class="truncate text-left text-sm font-bold">
+                      {{ login.user.username }}
+                    </div>
+                    <div class="truncate text-left text-xs text-foreground/80">
+                      {{ login.user.email }}
+                    </div>
                   </div>
                 </div>
               </Button>
