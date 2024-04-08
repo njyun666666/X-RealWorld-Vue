@@ -6,6 +6,7 @@ import Button from 'primevue/button'
 import { useLoginStore } from '@/stores/login'
 import { RouterLink } from 'vue-router'
 import Nav from './Nav.vue'
+import { breakpoints } from '@/libs/common'
 
 const login = useLoginStore()
 </script>
@@ -39,14 +40,28 @@ const login = useLoginStore()
           <div
             class="sticky bottom-0 z-[1] flex w-full flex-col gap-2 bg-background pb-1 pl-1 pr-1 pt-2 md:pr-8"
           >
-            <RouterLink :to="{ name: 'login' }" v-if="!login.loginState">
+            <RouterLink
+              :to="{ name: 'login' }"
+              v-if="!login.loginState"
+              v-tooltip="{
+                value: $t('action.Login'),
+                disabled: breakpoints.active().value == 'xl'
+              }"
+            >
               <Button severity="secondary" rounded :class="cn('h-12 w-12 xl:w-full')">
                 <font-awesome-icon icon="fa-solid fa-right-to-bracket" class="!h-5 !w-5" />
                 <span class="ml-2 hidden xl:block">{{ $t('action.Login') }}</span>
               </Button>
             </RouterLink>
 
-            <RouterLink :to="{ name: 'register' }" v-if="!login.loginState">
+            <RouterLink
+              :to="{ name: 'register' }"
+              v-if="!login.loginState"
+              v-tooltip="{
+                value: $t('action.Register'),
+                disabled: breakpoints.active().value == 'xl'
+              }"
+            >
               <Button rounded :class="cn('h-12 w-12 xl:w-full')">
                 <font-awesome-icon icon="fa-solid fa-user-plus" class="!h-5 !w-5" />
                 <span class="ml-2 hidden xl:block">{{ $t('action.Register') }}</span>
