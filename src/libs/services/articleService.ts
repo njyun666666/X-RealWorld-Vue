@@ -40,6 +40,8 @@ export interface Author {
 class ArticleService {
   getArticles(data?: ArticleModel) {
     return realworldAPI.get<MultipleArticleViewModel>('/api/articles', { params: data })
+    // .then((data) => data.data)
+    // .catch(() => undefined)
   }
 }
 export const articleService = new ArticleService()

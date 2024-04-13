@@ -8,6 +8,7 @@ defineProps<{ profile: Profile }>()
   <RouterLink
     :to="{ name: 'profile', params: { username: profile.username } }"
     class="font-bold hover:underline"
+    @click.stop
   >
     {{ profile.username }}
   </RouterLink>
