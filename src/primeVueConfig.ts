@@ -1,10 +1,13 @@
 import _ from 'lodash'
 // @ts-ignore
+import PrimeOne from 'primevue/themes/primeone'
+// @ts-ignore
 import Aura from 'primevue/themes/primeone/aura'
 // @ts-ignore
 import { definePreset } from 'primevue/themes'
 // @ts-ignore
 import button from 'primevue/themes/primeone/presets/aura/button'
+import type { PrimeVueConfiguration } from 'primevue/config'
 
 _.merge(button, {
   colorScheme: {
@@ -23,6 +26,11 @@ _.merge(button, {
         }
       },
       text: {
+        secondary: {
+          hoverBackground: '{surface.200}',
+          activeBackground: '{surface.300}',
+          color: '{surface.700}'
+        },
         plain: {
           hoverBackground: '{surface.200}',
           activeBackground: '{surface.300}',
@@ -42,7 +50,7 @@ _.merge(button, {
   }
 })
 
-export const preset = definePreset(Aura, {
+const preset = definePreset(Aura, {
   semantic: {
     colorScheme: {
       light: {
@@ -97,3 +105,13 @@ export const preset = definePreset(Aura, {
     }
   }
 })
+
+export const primeVueConfig: PrimeVueConfiguration = {
+  theme: {
+    base: PrimeOne,
+    preset: preset,
+    options: {
+      darkModeSelector: 'html.dark'
+    }
+  }
+}

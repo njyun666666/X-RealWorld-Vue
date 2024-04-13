@@ -27,7 +27,17 @@ const router = createRouter({
               path: '/',
               name: 'index',
               meta: { title: 'page.Home' },
-              component: () => import('@/pages/Dashboard/DashboardPage.vue')
+              component: () => import('@/pages/Home/HomePage.vue')
+            },
+            {
+              path: '/:username',
+              name: 'profile',
+              component: () => import('@/pages/Profile/ProfilePage.vue')
+            },
+            {
+              path: '/:username/article/:slug',
+              name: 'article',
+              component: () => import('@/pages/Article/ArticlePage.vue')
             }
           ]
         },

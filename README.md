@@ -1,4 +1,4 @@
-# Vue RealWorld
+# Vue 3 + RealWorld API
 
 ## [Demo](https://vue-project-jyun.vercel.app/)
 
