@@ -100,13 +100,14 @@ const onSubmit = handleSubmit(async (values) => {
           </div>
 
           <div class="text-center">
-            <Button type="submit" :label="$t('action.Login')" :loading="isSubmitting" />
+            <Button rounded type="submit" :label="$t('action.Login')" :loading="isSubmitting" />
           </div>
           <div class="pt-6 text-center">
             <Button
               type="button"
-              :label="$t('action.Need_an_account')"
               text
+              rounded
+              :label="$t('action.Need_an_account')"
               severity="secondary"
               @click="() => router.push({ name: 'register' })"
             />
