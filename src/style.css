@@ -13,7 +13,7 @@
   :root {
     --background: 0 0% 96%;
     --foreground: 0 0% 2%;
-    --border: 0 0% 70%;
+    --border: 0 0% 80%;
     --primary: 160 84% 39%;
     --surface: 0 0% 45%;
     --error: 0 84% 60%;
@@ -23,7 +23,7 @@
     color-scheme: dark;
     --background: 0 0% 0%;
     --foreground: 0 0% 94%;
-    --border: 0 0% 30%;
+    --border: 0 0% 20%;
     --primary: 158 64% 52%;
     --surface: 0 0% 64%;
     --error: 0 91% 71%;
@@ -39,10 +39,14 @@
   }
 
   h1 {
-    @apply pb-4 text-3xl font-bold;
+    @apply mb-4 text-3xl font-bold;
   }
 
   h2 {
-    @apply py-3 text-2xl font-bold;
+    @apply my-3 text-2xl font-bold;
+  }
+
+  h3 {
+    @apply my-3 text-xl font-bold;
   }
 }

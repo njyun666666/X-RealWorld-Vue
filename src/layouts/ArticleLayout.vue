@@ -6,10 +6,9 @@ import { cn } from '@/libs/utils'
     <div class="grow">
       <RouterView />
     </div>
-    <div
-      :class="cn('sticky top-0 hidden h-screen w-[280px] shrink-0 bg-white/10 py-1 pl-8 lg:block')"
-    >
-      123
+    <div class="lg:hidden"></div>
+    <div :class="cn('hidden w-[280px] shrink-0 py-1 pl-8 lg:block')">
+      <div class="h-[1000px] w-full bg-white/10"></div>
     </div>
   </div>
 </template>
