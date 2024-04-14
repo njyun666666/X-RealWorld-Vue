@@ -3,12 +3,12 @@ import { onMounted, ref, watch } from 'vue'
 import TabMenu from 'primevue/tabmenu'
 import type { MenuItem } from 'primevue/menuitem'
 import { useLoginStore } from '@/stores/login'
-import { articleService, type Article, type ArticleModel } from '@/libs/services/articleService'
+import { articleService, type ArticleModel } from '@/libs/services/articleService'
 import ArticleItem from '@/components/Article/ArticleItem.vue'
 import ArticleSkeleton from '@/components/Article/ArticleSkeleton.vue'
 import { useArticleStore } from '@/stores/article'
-import { useWindowScroll } from '@vueuse/core'
-import { useInfiniteQuery } from '@tanstack/vue-query'
+import { useInfiniteScroll, useWindowScroll } from '@vueuse/core'
+import { useInfiniteQuery, type QueryFunctionContext } from '@tanstack/vue-query'
 import Button from 'primevue/button'
 
 const login = useLoginStore()
@@ -21,40 +21,40 @@ const items = ref<MenuItem[]>([
 
 const { y: scrollY } = useWindowScroll()
 const articleStore = useArticleStore()
+const canLoadMore = ref(true)
 
-const getData = async (query: unknown) => {
-  // console.log('query', query)
-  const params = (query as any).pageParam as ArticleModel
-  const data = await articleService
-    .getArticles(params)
-    .then((data) => data.data.articles)
-    .catch(() => [] as Article[])
+const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => {
+  const data = await articleService.getArticles(query.pageParam).then((data) => data.data)
+  const length = (query.pageParam?.offset || 0) + data.articles.length
+  canLoadMore.value = length < data.articlesCount
 
   return {
-    articles: data,
+    articles: data.articles,
     nextCursor: {
-      ...params,
-      offset: (params?.offset || 0) + data.length
+      ...query.pageParam,
+      offset: length
     } as ArticleModel
   }
 }
 
-const {
-  data,
-  error,
-  fetchNextPage,
-  hasNextPage,
-  isFetching,
-  isFetchingNextPage,
-  isPending,
-  isError
-} = useInfiniteQuery({
+const { data, fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
   queryKey: ['articles'],
   queryFn: getData,
   staleTime: 30 * 60 * 1000,
   initialPageParam: { limit: 10 },
   getNextPageParam: (lastPage) => lastPage.nextCursor
 })
+
+const { isLoading } = useInfiniteScroll(
+  window,
+  () => {
+    fetchNextPage()
+  },
+  {
+    distance: 1500,
+    canLoadMore: () => canLoadMore.value
+  }
+)
 
 onMounted(async () => {
   active.value = 1
@@ -95,17 +95,17 @@ watch(
     </TabMenu>
   </div>
   <div class="divide-y">
-    <template v-if="isPending">
+    <template v-for="(page, index) in data?.pages" :key="index">
+      <ArticleItem v-for="item in page.articles" :key="item.slug" :article="item" />
+    </template>
+
+    <template v-if="isPending || isFetchingNextPage || isLoading">
       <ArticleSkeleton v-for="n in 10" :key="n" />
     </template>
-    <template v-else>
-      <template v-for="(page, index) in data?.pages" :key="index">
-        <ArticleItem v-for="item in page.articles" :key="item.slug" :article="item" />
-      </template>
-    </template>
-    <div></div>
-    <Button @click="() => fetchNextPage()">fetchNextPage</Button>
-    <ArticleSkeleton v-if="isFetchingNextPage" />
-    <div class="h-[200px]"></div>
+
+    <div class="flex min-h-60 items-center justify-center">
+      <div v-if="isError">isError</div>
+      <div v-if="!canLoadMore">no more</div>
+    </div>
   </div>
 </template>

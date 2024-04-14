@@ -43,6 +43,11 @@ const router = createRouter({
               path: '/:username/article/:slug',
               name: 'article',
               component: () => import('@/pages/Article/ArticlePage.vue')
+            },
+            {
+              path: '/tag/:tag',
+              name: 'tag',
+              component: () => import('@/pages/Article/ArticlePage.vue')
             }
           ]
         },
