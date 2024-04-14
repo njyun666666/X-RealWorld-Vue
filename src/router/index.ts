@@ -6,11 +6,16 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
-    } else {
+    if (to.name !== 'index') {
       return { top: 0 }
     }
+    // console.log(from)
+    // console.log('savedPosition', savedPosition)
+    // if (savedPosition) {
+    //   return savedPosition
+    // } else {
+    //   return { top: 0 }
+    // }
   },
   routes: [
     {
@@ -37,6 +42,11 @@ const router = createRouter({
             {
               path: '/:username/article/:slug',
               name: 'article',
+              component: () => import('@/pages/Article/ArticlePage.vue')
+            },
+            {
+              path: '/tag/:tag',
+              name: 'tag',
               component: () => import('@/pages/Article/ArticlePage.vue')
             }
           ]

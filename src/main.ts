@@ -17,6 +17,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { fas } from '@fortawesome/free-solid-svg-icons'
 import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
+import { VueQueryPlugin } from '@tanstack/vue-query'
 
 library.add(fas, far, fab)
 
@@ -26,6 +27,7 @@ app.use(createPinia())
 app.use(i18n)
 app.use(router)
 app.use(PrimeVue, primeVueConfig)
+app.use(VueQueryPlugin)
 app.directive('tooltip', Tooltip)
 
 app.mount('#app')
