@@ -26,10 +26,12 @@
 - Pinia
 - Vue-i18n
 - Vue Router
+- VueUse
 - VeeValidate
 - Zod
 - Typescript
 - Axios
+- TanStack Query
 - Tailwind CSS
 - PrimeVue V4
 

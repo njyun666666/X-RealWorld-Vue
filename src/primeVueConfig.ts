@@ -9,7 +9,7 @@ import { definePreset } from 'primevue/themes'
 import button from 'primevue/themes/primeone/presets/aura/button'
 import type { PrimeVueConfiguration } from 'primevue/config'
 
-_.merge(button, {
+const newButton = _.merge({}, button, {
   colorScheme: {
     light: {
       root: {
@@ -88,7 +88,7 @@ const preset = definePreset(Aura, {
     }
   },
   components: {
-    button,
+    button: newButton,
     scrollpanel: {
       colorScheme: {
         light: {

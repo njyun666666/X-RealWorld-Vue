@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { Article } from '@/libs/services/articleService'
 import { cn } from '@/libs/utils'
-import type { HTMLAttributes } from 'vue'
+import { type HTMLAttributes } from 'vue'
 import ArticleCommentBtn from './ArticleCommentBtn.vue'
 import ArticleLikeBtn from './ArticleLikeBtn.vue'
 import ArticleShareBtn from './ArticleShareBtn.vue'

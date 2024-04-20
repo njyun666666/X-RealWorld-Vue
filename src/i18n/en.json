@@ -8,7 +8,9 @@
     "Register": "Sign up",
     "Settings": "Settings",
     "Language": "Language",
-    "Theme": "Theme"
+    "Theme": "Theme",
+    "YourFeed": "Your Feed",
+    "GlobalFeed": "Global Feed"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -36,7 +38,9 @@
     "MoveUp": "Move up",
     "MoveDown": "Move down",
     "OK": "OK",
-    "Cancel": "Cancel"
+    "Cancel": "Cancel",
+    "TryAgain": "Try again",
+    "LoadMore": "Load more"
   },
   "title": {
     "Add": "Add {{title}}",
@@ -62,6 +66,8 @@
     "NoFound": "No found",
     "At_least_number_entry_is_required": "At least {{number}} entry is required",
     "has_already_been_taken": "has already been taken",
-    "is_invalid": "is invalid"
+    "is_invalid": "is invalid",
+    "IsError": "error",
+    "NoMore": "no more"
   }
 }

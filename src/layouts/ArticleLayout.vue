@@ -1,14 +1,16 @@
-<script setup lang="ts">
-import { cn } from '@/libs/utils'
-</script>
+<script setup lang="ts"></script>
 <template>
   <div class="flex min-h-screen divide-x">
     <div class="grow">
-      <RouterView />
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component :is="Component" />
+        </KeepAlive>
+      </RouterView>
     </div>
     <div class="lg:hidden"></div>
-    <div :class="cn('hidden w-[280px] shrink-0 py-1 pl-8 lg:block')">
-      <div class="h-[1000px] w-full bg-white/10"></div>
+    <div class="hidden w-[280px] shrink-0 py-1 pl-8 lg:block">
+      <RouterView name="RightSidebar" />
     </div>
   </div>
 </template>
