@@ -27,12 +27,16 @@ const router = createRouter({
           // ArticleLayout
           path: '/',
           component: () => import('@/layouts/ArticleLayout.vue'),
+          meta: { keepAlive: true },
           children: [
             {
               path: '/',
               name: 'index',
               meta: { title: 'page.Home' },
-              component: () => import('@/pages/Home/HomePage.vue')
+              components: {
+                default: () => import('@/pages/Home/HomePage.vue'),
+                RightSidebar: () => import('@/pages/Home/HomeSidebar.vue')
+              }
             },
             {
               path: '/:username',
@@ -40,13 +44,13 @@ const router = createRouter({
               component: () => import('@/pages/Profile/ProfilePage.vue')
             },
             {
-              path: '/:username/article/:slug',
+              path: '/:username/:slug',
               name: 'article',
               component: () => import('@/pages/Article/ArticlePage.vue')
             },
             {
-              path: '/tag/:tag',
-              name: 'tag',
+              path: '/search',
+              name: 'search',
               component: () => import('@/pages/Article/ArticlePage.vue')
             }
           ]

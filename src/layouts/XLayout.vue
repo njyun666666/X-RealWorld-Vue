@@ -4,17 +4,18 @@ import Brand from '@/components/Brand.vue'
 import ScrollPanel from 'primevue/scrollpanel'
 import Button from 'primevue/button'
 import { useLoginStore } from '@/stores/login'
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import Nav from './Nav.vue'
 import { breakpoints } from '@/libs/common'
 import Avatar from 'primevue/avatar'
 import OverlayPanel from 'primevue/overlaypanel'
 import { ref } from 'vue'
 
+const route = useRoute()
 const login = useLoginStore()
-const op = ref()
+const userPanel = ref()
 const toggle = (event: MouseEvent) => {
-  op.value.toggle(event)
+  userPanel.value.toggle(event)
 }
 </script>
 <template>
@@ -98,7 +99,7 @@ const toggle = (event: MouseEvent) => {
                   </div>
                 </div>
               </Button>
-              <OverlayPanel ref="op">
+              <OverlayPanel ref="userPanel">
                 <div class="flex flex-col">
                   <Button rounded text plain @click="login.logout()">
                     <font-awesome-icon icon="fa-solid fa-right-from-bracket" class="!h-5 !w-5" />
@@ -112,7 +113,13 @@ const toggle = (event: MouseEvent) => {
       </ScrollPanel>
     </header>
     <main :class="cn('min-h-screen grow')">
-      <RouterView />
+      <RouterView v-if="!route.meta.keepAlive" />
+
+      <RouterView v-slot="{ Component }">
+        <KeepAlive>
+          <component v-if="route.meta.keepAlive" :is="Component" />
+        </KeepAlive>
+      </RouterView>
     </main>
   </div>
 </template>
