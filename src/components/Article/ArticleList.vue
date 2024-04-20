@@ -48,7 +48,7 @@ const { isLoading: isLoadingMore } = useInfiniteScroll(
     fetchNextPage()
   },
   {
-    distance: 100,
+    distance: 1200,
     canLoadMore: () =>
       canLoadMore.value && !isPending.value && !isFetchingNextPage.value && enable.value
   }
