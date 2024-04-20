@@ -76,9 +76,6 @@ watch(scrollY, (y) => {
 
 <template>
   <div class="divide-y">
-    <div class="fixed top-0 z-10">
-      {{ isLoading }}
-    </div>
     <template v-for="(page, index) in data?.pages" :key="index">
       <ArticleItem v-for="item in page.articles" :key="item.slug" :article="item" />
     </template>
