@@ -9,7 +9,7 @@ export interface ArticleModel {
 }
 
 export interface SingleArticleViewModel {
-  articles: Article
+  article: Article
 }
 
 export interface MultipleArticleViewModel {
@@ -38,6 +38,10 @@ export interface Author {
 }
 
 class ArticleService {
+  getArticleBySlug(slug: string) {
+    return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`)
+  }
+
   getArticles(data?: ArticleModel) {
     return realworldAPI.get<MultipleArticleViewModel>('/api/articles', { params: data })
   }

@@ -15,18 +15,14 @@ const props = defineProps<{
       </div>
       <div class="grow">
         <div class="flex gap-3">
-          <Skeleton class="!rounded-full" width="30%" height="1.5rem" />
-          <Skeleton class="!rounded-full" width="5rem" height="1.5rem" />
+          <Skeleton width="30%" height="1.5rem" />
+          <Skeleton width="5rem" height="1.5rem" />
         </div>
         <div>
-          <Skeleton class="my-3.5 !rounded-full" width="100%" height="3rem" />
-          <Skeleton
-            v-for="n in 6"
-            :key="n"
-            class="my-2.5 !rounded-full"
-            width="100%"
-            height="1rem"
-          />
+          <Skeleton class="my-3.5" width="100%" height="3rem" />
+          <div class="my-4">
+            <Skeleton v-for="n in 3" :key="n" class="my-2.5" width="100%" height="1rem" />
+          </div>
         </div>
         <div class="my-2 flex justify-between">
           <Skeleton class="!rounded-full" width="4rem" height="2.5rem" />

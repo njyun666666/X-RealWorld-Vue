@@ -32,6 +32,7 @@
 - Typescript
 - Axios
 - TanStack Query
+- Day.js
 - Tailwind CSS
 - PrimeVue V4
 

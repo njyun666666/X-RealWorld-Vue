@@ -6,16 +6,13 @@ import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
-    if (to.name !== 'index') {
+    if (to.name != 'index' && to.name != 'search') {
+      if (savedPosition) {
+        return savedPosition
+      }
+
       return { top: 0 }
     }
-    // console.log(from)
-    // console.log('savedPosition', savedPosition)
-    // if (savedPosition) {
-    //   return savedPosition
-    // } else {
-    //   return { top: 0 }
-    // }
   },
   routes: [
     {
@@ -24,7 +21,7 @@ const router = createRouter({
       component: () => import('@/layouts/XLayout.vue'),
       children: [
         {
-          // ArticleLayout
+          // Home
           path: '/',
           component: () => import('@/layouts/ArticleLayout.vue'),
           meta: { keepAlive: true },
@@ -37,21 +34,45 @@ const router = createRouter({
                 default: () => import('@/pages/Home/HomePage.vue'),
                 RightSidebar: () => import('@/pages/Home/HomeSidebar.vue')
               }
-            },
+            }
+          ]
+        },
+        {
+          // profile
+          path: '/',
+          component: () => import('@/layouts/ArticleLayout.vue'),
+          meta: { keepAlive: true },
+          children: [
             {
               path: '/:username',
               name: 'profile',
               component: () => import('@/pages/Profile/ProfilePage.vue')
-            },
+            }
+          ]
+        },
+        {
+          // Article
+          path: '/',
+          component: () => import('@/layouts/ArticleLayout.vue'),
+          children: [
             {
               path: '/:username/:slug',
               name: 'article',
               component: () => import('@/pages/Article/ArticlePage.vue')
-            },
+            }
+          ]
+        },
+        {
+          // Search
+          path: '/',
+          component: () => import('@/layouts/ArticleLayout.vue'),
+          meta: { keepAlive: true },
+          children: [
             {
               path: '/search',
               name: 'search',
-              component: () => import('@/pages/Article/ArticlePage.vue')
+              meta: { title: 'page.Search' },
+              component: () => import('@/pages/Search/SearchPage.vue')
             }
           ]
         },

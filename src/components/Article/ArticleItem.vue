@@ -40,13 +40,16 @@ const openNewWindow = () => {
       <div class="grow">
         <div class="flex gap-3">
           <ProfileTextBtn :profile="article.author" />
-          <span class="text-foreground/60">
+          <span>
             <RelativeTime :datetime="article.createdAt" />
           </span>
         </div>
         <div>
           <h3 class="line-clamp-2 break-normal">{{ article.title }}</h3>
-          <p class="line-clamp-6 break-normal" v-html="article.body.replace(/\\n/g, '<br/>')"></p>
+          <p
+            class="line-clamp-6 break-normal"
+            v-html="article.description.replace(/\\n/g, '<br/>')"
+          ></p>
         </div>
         <div class="my-2 flex justify-between">
           <ArticleCommentBtn :slug="article.slug" />

@@ -1,14 +1,20 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, type HTMLAttributes } from 'vue'
 import dayjs from 'dayjs'
+import { cn } from '@/libs/utils'
+
 const props = defineProps<{
   datetime: string
+  class?: HTMLAttributes['class']
 }>()
 
 const date = ref(dayjs(props.datetime))
 </script>
 <template>
-  <div class="hover:underline" v-tooltip="date.format('L LT')">
+  <div
+    :class="cn('text-foreground/60 hover:underline', props.class)"
+    v-tooltip="date.format('L LT')"
+  >
     {{ dayjs().to(date) }}
   </div>
 </template>
