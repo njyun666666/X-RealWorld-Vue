@@ -16,7 +16,7 @@ interface UserNavItem extends MenuItem {
 const { t, locale } = useI18n()
 const login = useLoginStore()
 const isDark = useDark()
-const lang = useStorage('lang', 'zh-Hant')
+const lang = useStorage('lang', 'zh-tw')
 const menu = ref()
 
 const items = ref<UserNavItem[]>([
@@ -40,8 +40,8 @@ const items = ref<UserNavItem[]>([
       },
       {
         label: '中文',
-        isSelected: () => lang.value === 'zh-Hant',
-        command: () => (locale.value = 'zh-Hant')
+        isSelected: () => lang.value === 'zh-tw',
+        command: () => (locale.value = 'zh-tw')
       }
     ]
   },

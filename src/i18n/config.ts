@@ -1,19 +1,18 @@
 import { createI18n } from 'vue-i18n'
 import en from './en.json'
-import zh_Hant from './zh-Hant.json'
+import zh_tw from './zh-tw.json'
 
 export const messages = {
   en: en,
-  'zh-Hant': zh_Hant
+  'zh-tw': zh_tw
 }
 
-type MessageSchema = typeof zh_Hant
-type LangType = 'en' | 'zh-Hant'
+type MessageSchema = typeof zh_tw
+export type LangType = 'en' | 'zh-tw'
 
 export const i18n = createI18n<[MessageSchema], LangType>({
   legacy: false,
-  locale:
-    localStorage.lang || (navigator.language.toLowerCase().startsWith('zh') ? 'zh-Hant' : 'en'),
-  fallbackLocale: 'zh-Hant',
+  locale: localStorage.lang || (navigator.language.toLowerCase().startsWith('zh') ? 'zh-tw' : 'en'),
+  fallbackLocale: 'zh-tw',
   messages
 })

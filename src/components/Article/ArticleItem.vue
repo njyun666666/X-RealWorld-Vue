@@ -8,6 +8,7 @@ import ArticleShareBtn from './ArticleShareBtn.vue'
 import ProfileImageBtn from '../Profile/ProfileImageBtn.vue'
 import ProfileTextBtn from '../Profile/ProfileTextBtn.vue'
 import { useRouter } from 'vue-router'
+import RelativeTime from '../RelativeTime.vue'
 
 const props = defineProps<{
   article: Article
@@ -40,7 +41,7 @@ const openNewWindow = () => {
         <div class="flex gap-3">
           <ProfileTextBtn :profile="article.author" />
           <span class="text-foreground/60">
-            {{ article.createdAt }}
+            <RelativeTime :datetime="article.createdAt" />
           </span>
         </div>
         <div>

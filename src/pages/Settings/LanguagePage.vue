@@ -1,28 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useStorage } from '@vueuse/core'
-import { useI18n } from 'vue-i18n'
 import { cn } from '@/libs/utils'
 import Button from 'primevue/button'
+import { useLocaleStore } from '@/stores/locale'
+import type { LangType } from '@/i18n/config'
 
 interface Options {
   name: string
-  value: string
+  value: LangType
 }
 
-const lang = useStorage('lang', 'zh-Hant')
-const { locale } = useI18n()
+const localeStore = useLocaleStore()
 const options: Options[] = [
   { name: 'English', value: 'en' },
-  { name: '中文', value: 'zh-Hant' }
+  { name: '中文', value: 'zh-tw' }
 ]
-const defaultValue = options.find((x) => x.value === locale.value) as Options
+const defaultValue = options.find((x) => x.value === localeStore.lang) as Options
 
 const selected = ref<Options>(defaultValue)
 
 const HandleClick = (value: Options) => {
-  locale.value = value.value
-  lang.value = value.value
+  localeStore.setLang(value.value)
   selected.value = value
 }
 </script>

@@ -40,7 +40,7 @@ const toggle = (event: MouseEvent) => {
       <ScrollPanel class="h-full w-full">
         <div class="flex h-full w-full flex-col">
           <div class="sticky top-0 z-[1] w-full bg-background pb-1 pl-1 pr-1 pt-1 md:pr-8">
-            <Brand isNav />
+            <Brand isNav :class="cn('w-12 xl:w-full')" />
           </div>
           <div class="flex grow flex-col gap-2 py-1 pb-5 pl-1 pr-1 md:pr-8">
             <Nav />
