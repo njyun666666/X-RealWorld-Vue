@@ -31,7 +31,7 @@ watch(
 </script>
 
 <template>
-  <div class="sticky top-0 z-10 w-full bg-background/80 backdrop-blur-[2px]">
+  <div class="sticky top-0 z-10 w-full bg-background/80 backdrop-blur-sm">
     <TabMenu
       v-model:activeIndex="articleStore.activeTab"
       :model="items"
