@@ -19,6 +19,13 @@ import { far } from '@fortawesome/free-regular-svg-icons'
 import { fab } from '@fortawesome/free-brands-svg-icons'
 import { VueQueryPlugin } from '@tanstack/vue-query'
 
+import dayjs from 'dayjs'
+import relativeTime from 'dayjs/plugin/relativeTime'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+
+dayjs.extend(relativeTime)
+dayjs.extend(localizedFormat)
+
 library.add(fas, far, fab)
 
 const app = createApp(App)

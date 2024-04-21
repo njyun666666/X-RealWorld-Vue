@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
 import { useLoginStore } from '@/stores/login'
-import { useI18n } from 'vue-i18n'
 import type { MenuItem } from 'primevue/menuitem'
 import TabMenu from 'primevue/tabmenu'
 import YourFeed from './YourFeed.vue'
@@ -11,11 +10,10 @@ import { cn } from '@/libs/utils'
 
 const login = useLoginStore()
 const articleStore = useArticleStore()
-const { t } = useI18n()
 
 const items = ref<MenuItem[]>([
-  { label: t('page.YourFeed'), visible: () => login.loginState },
-  { label: t('page.GlobalFeed') }
+  { label: 'page.YourFeed', visible: () => login.loginState },
+  { label: 'page.GlobalFeed' }
 ])
 
 const comps = [YourFeed, GlobalFeed]
@@ -53,7 +51,7 @@ watch(
           class="flex justify-center gap-2 !rounded-none align-middle hover:bg-foreground/10"
         >
           <font-awesome-icon :icon="item.icon" class="h-4 w-4" v-if="item.icon" />
-          <span>{{ item.label }}</span>
+          <span>{{ $t(String(item.label)) }}</span>
         </a>
       </template>
     </TabMenu>
