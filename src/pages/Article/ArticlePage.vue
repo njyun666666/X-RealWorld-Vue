@@ -26,7 +26,7 @@ const { isPending, data } = useQuery({
 </script>
 <template>
   <BackHeader></BackHeader>
-  <ArticleSkeleton v-if="!isPending" />
+  <ArticleSkeleton v-if="isPending" />
   <template v-if="!isPending && data">
     <article class="px-4 pt-2">
       <div class="flex items-center gap-3">
