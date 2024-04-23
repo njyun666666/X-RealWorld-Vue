@@ -6,7 +6,7 @@ import { useInfiniteScroll, useWindowScroll } from '@vueuse/core'
 import { computed, onActivated, onDeactivated, ref, watch } from 'vue'
 import Button from 'primevue/button'
 import ArticleItem from './ArticleItem.vue'
-import ArticleSkeleton from './ArticleSkeleton.vue'
+import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
 
 const props = defineProps<{
   queryModel?: ArticleModel
@@ -81,7 +81,7 @@ watch(scrollY, (y) => {
     </template>
 
     <template v-if="isLoading">
-      <ArticleSkeleton v-for="n in 10" :key="n" />
+      <ArticleItemSkeleton v-for="n in 10" :key="n" />
     </template>
 
     <div class="flex min-h-60 flex-col items-center justify-center gap-6">

@@ -11,6 +11,7 @@ import ArticleCommentBtn from '@/components/Article/ArticleCommentBtn.vue'
 import ArticleLikeBtn from '@/components/Article/ArticleLikeBtn.vue'
 import ArticleShareBtn from '@/components/Article/ArticleShareBtn.vue'
 import dayjs from 'dayjs'
+import ArticleSkeleton from '@/components/Article/ArticleSkeleton.vue'
 
 const route = useRoute()
 // const username = route.params['username'] as string
@@ -25,9 +26,7 @@ const { isPending, data } = useQuery({
 </script>
 <template>
   <BackHeader></BackHeader>
-  <template v-if="isPending">
-    {{ isPending }}
-  </template>
+  <ArticleSkeleton v-if="!isPending" />
   <template v-if="!isPending && data">
     <article class="px-4 pt-2">
       <div class="flex items-center gap-3">
