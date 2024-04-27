@@ -75,7 +75,7 @@ const connectLineNext = computed(() => popularComments.value && popularComments.
           <ArticleLikeBtn
             :slug="article.slug"
             :favorited="article.favorited"
-            :favorites-count="article.favoritesCount"
+            :favoritesCount="article.favoritesCount"
           />
           <ArticleShareBtn :slug="article.slug" />
         </div>

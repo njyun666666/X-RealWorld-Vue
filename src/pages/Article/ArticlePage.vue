@@ -13,6 +13,7 @@ import dayjs from 'dayjs'
 import ArticleSkeleton from '@/components/Article/ArticleSkeleton.vue'
 import CommentList from '@/components/Comment/CommentList.vue'
 import appConst from '@/appConst'
+import ArticleTagList from '@/components/Article/ArticleTagList.vue'
 
 const route = useRoute()
 // const username = route.params['username'] as string
@@ -28,7 +29,7 @@ const { isPending, data } = useQuery({
 <template>
   <BackHeader></BackHeader>
   <ArticleSkeleton v-if="isPending" />
-  <article v-if="!isPending && data" class="px-4 pt-2">
+  <article v-if="!isPending && data" class="px-4 pb-4 pt-2">
     <div class="flex items-center gap-3">
       <ProfileImageBtn :profile="data.author" />
       <ProfileTextBtn :profile="data.author" />
@@ -39,8 +40,12 @@ const { isPending, data } = useQuery({
     <p v-html="data.description.replace(/\\n/g, '<br/>')"></p>
     <p v-html="data.body.replace(/\\n/g, '<br/>')"></p>
 
-    <div class="py-4 text-foreground/60">
-      {{ dayjs(data.createdAt).format('L LT') }}
+    <div class="space-y-4 pt-10">
+      <ArticleTagList :tags="data.tagList" />
+
+      <div class="text-foreground/60">
+        {{ dayjs(data.createdAt).format('L LT') }}
+      </div>
     </div>
   </article>
 
@@ -51,7 +56,7 @@ const { isPending, data } = useQuery({
       <ArticleLikeBtn
         :slug="data.slug"
         :favorited="data.favorited"
-        :favorites-count="data.favoritesCount"
+        :favoritesCount="data.favoritesCount"
       />
       <ArticleShareBtn :slug="data.slug" />
     </div>
