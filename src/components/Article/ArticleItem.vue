@@ -1,14 +1,20 @@
 <script setup lang="ts">
+import { computed, type HTMLAttributes } from 'vue'
 import type { Article } from '@/libs/services/articleService'
 import { cn } from '@/libs/utils'
-import { type HTMLAttributes } from 'vue'
-import ArticleCommentBtn from './ArticleCommentBtn.vue'
 import ArticleLikeBtn from './ArticleLikeBtn.vue'
 import ArticleShareBtn from './ArticleShareBtn.vue'
 import ProfileImageBtn from '../Profile/ProfileImageBtn.vue'
 import ProfileTextBtn from '../Profile/ProfileTextBtn.vue'
 import { useRouter } from 'vue-router'
 import RelativeTime from '../RelativeTime.vue'
+import CommentBtn from '../Comment/CommentBtn.vue'
+import { useQuery } from '@tanstack/vue-query'
+import { commentService } from '@/libs/services/commentService'
+import appConst from '@/appConst'
+import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
+import CommentItem from '../Comment/CommentItem.vue'
+import ItemSlot from '../slot/ItemSlot.vue'
 
 const props = defineProps<{
   article: Article
@@ -26,18 +32,31 @@ const openNewWindow = () => {
   el.target = '_blank'
   el.click()
 }
+
+const { isPending, data: comments } = useQuery({
+  queryKey: [commentService.getComments.name, props.article.slug],
+  queryFn: () => commentService.getComments(props.article.slug).then((res) => res.data.comments),
+  staleTime: appConst.StaleTime
+})
+
+const popularComments = computed(() => {
+  return comments.value?.filter((item) => item.author.username === props.article.author.username)
+})
+
+const connectLineNext = computed(() => popularComments.value && popularComments.value.length > 0)
 </script>
 <template>
-  <article :class="cn('w-full cursor-pointer p-4 pb-1', props.class)">
-    <div
-      :class="cn('flex w-full')"
-      @click="() => router.push(routeData)"
-      @mousedown.middle.prevent="openNewWindow"
-    >
-      <div class="pr-2">
+  <div
+    :class="cn('cursor-pointer', props.class)"
+    @click="() => router.push(routeData)"
+    @mousedown.middle.prevent="openNewWindow"
+  >
+    <ArticleItemSkeleton v-if="isPending" />
+    <ItemSlot v-else :connectLineNext="connectLineNext">
+      <template #ProfileImage>
         <ProfileImageBtn :profile="article.author" />
-      </div>
-      <div class="grow">
+      </template>
+      <template #content>
         <div class="flex gap-3">
           <ProfileTextBtn :profile="article.author" />
           <span>
@@ -52,7 +71,7 @@ const openNewWindow = () => {
           ></p>
         </div>
         <div class="my-2 flex justify-between">
-          <ArticleCommentBtn :slug="article.slug" />
+          <CommentBtn :slug="article.slug" />
           <ArticleLikeBtn
             :slug="article.slug"
             :favorited="article.favorited"
@@ -60,7 +79,17 @@ const openNewWindow = () => {
           />
           <ArticleShareBtn :slug="article.slug" />
         </div>
-      </div>
-    </div>
-  </article>
+      </template>
+    </ItemSlot>
+
+    <template v-if="popularComments">
+      <CommentItem
+        v-for="(item, index) in popularComments"
+        :key="item.id"
+        :comment="item"
+        :connectLinePrev="true"
+        :connectLineNext="index < popularComments.length - 1"
+      />
+    </template>
+  </div>
 </template>

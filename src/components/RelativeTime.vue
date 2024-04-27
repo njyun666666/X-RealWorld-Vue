@@ -4,7 +4,7 @@ import dayjs from 'dayjs'
 import { cn } from '@/libs/utils'
 
 const props = defineProps<{
-  datetime: string
+  datetime: dayjs.ConfigType
   class?: HTMLAttributes['class']
 }>()
 

@@ -22,9 +22,9 @@ import Skeleton from 'primevue/skeleton'
   <div class="divide-y">
     <div></div>
     <div class="flex justify-between px-4 py-2">
-      <Skeleton class="!h-10 !w-16 !rounded-full" />
-      <Skeleton class="!h-10 !w-16 !rounded-full" />
-      <Skeleton class="!h-10 !w-16 !rounded-full" />
+      <Skeleton class="!h-9.5 !w-16 !rounded-full" />
+      <Skeleton class="!h-9.5 !w-16 !rounded-full" />
+      <Skeleton class="!h-9.5 !w-16 !rounded-full" />
     </div>
     <div></div>
   </div>

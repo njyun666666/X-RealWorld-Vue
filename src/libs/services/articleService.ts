@@ -23,8 +23,8 @@ export interface Article {
   description: string
   body: string
   tagList: string[]
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
   favorited: boolean
   favoritesCount: number
   author: Author

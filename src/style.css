@@ -34,7 +34,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply overflow-y-scroll bg-background text-foreground;
     /* @apply bg-surface-100 text-foreground dark:bg-black; */
   }
 
