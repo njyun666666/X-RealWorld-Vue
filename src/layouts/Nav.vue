@@ -17,6 +17,11 @@ const items: NavModel[] = [
     to: { name: 'index' }
   },
   {
+    icon: 'fa-solid fa-magnifying-glass',
+    name: 'page.Search',
+    to: { name: 'search' }
+  },
+  {
     icon: 'fa-solid fa-gear',
     name: 'page.Settings',
     to: { name: 'settings' }

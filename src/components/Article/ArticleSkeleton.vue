@@ -1,39 +1,31 @@
 <script setup lang="ts">
-import { cn } from '@/libs/utils'
-import type { HTMLAttributes } from 'vue'
 import Skeleton from 'primevue/skeleton'
-
-const props = defineProps<{
-  class?: HTMLAttributes['class']
-}>()
 </script>
 <template>
-  <div :class="cn('w-full p-4 pb-1', props.class)">
-    <div :class="cn('flex w-full')">
-      <div class="pr-2">
-        <Skeleton shape="circle" size="2.5rem" />
-      </div>
-      <div class="grow">
-        <div class="flex gap-3">
-          <Skeleton class="!rounded-full" width="30%" height="1.5rem" />
-          <Skeleton class="!rounded-full" width="5rem" height="1.5rem" />
-        </div>
-        <div>
-          <Skeleton class="my-3.5 !rounded-full" width="100%" height="3rem" />
-          <Skeleton
-            v-for="n in 6"
-            :key="n"
-            class="my-2.5 !rounded-full"
-            width="100%"
-            height="1rem"
-          />
-        </div>
-        <div class="my-2 flex justify-between">
-          <Skeleton class="!rounded-full" width="4rem" height="2.5rem" />
-          <Skeleton class="!rounded-full" width="4rem" height="2.5rem" />
-          <Skeleton class="!rounded-full" width="4rem" height="2.5rem" />
-        </div>
-      </div>
+  <div class="px-4 pt-2">
+    <div class="flex items-center gap-3">
+      <Skeleton shape="circle" class="!h-10 !w-10" />
+      <Skeleton class="!h-6 !w-1/3" />
     </div>
+
+    <Skeleton class="my-3.5 !h-12" />
+
+    <p>
+      <Skeleton v-for="n in 6" :key="n" class="my-2.5 !h-4" />
+    </p>
+
+    <div class="py-4">
+      <Skeleton class="!h-6 !w-36" />
+    </div>
+  </div>
+
+  <div class="divide-y">
+    <div></div>
+    <div class="flex justify-between px-4 py-2">
+      <Skeleton class="!h-9.5 !w-16 !rounded-full" />
+      <Skeleton class="!h-9.5 !w-16 !rounded-full" />
+      <Skeleton class="!h-9.5 !w-16 !rounded-full" />
+    </div>
+    <div></div>
   </div>
 </template>

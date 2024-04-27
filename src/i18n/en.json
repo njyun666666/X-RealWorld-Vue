@@ -10,7 +10,8 @@
     "Language": "Language",
     "Theme": "Theme",
     "YourFeed": "Your Feed",
-    "GlobalFeed": "Global Feed"
+    "GlobalFeed": "Global Feed",
+    "Search": "Saerch"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -40,7 +41,8 @@
     "OK": "OK",
     "Cancel": "Cancel",
     "TryAgain": "Try again",
-    "LoadMore": "Load more"
+    "LoadMore": "Load more",
+    "Back": "Back"
   },
   "title": {
     "Add": "Add {{title}}",

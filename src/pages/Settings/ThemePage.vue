@@ -23,7 +23,7 @@ const defaultValue = options.find(
 
 const selected = ref(defaultValue)
 
-const HandleClick = (value: Options) => {
+const handleClick = (value: Options) => {
   isDark.value = value.value === 'dark'
   selected.value = value
 }
@@ -44,7 +44,7 @@ const HandleClick = (value: Options) => {
             '!bg-primary/10 !text-primary': selected.value === item.value
           })
         "
-        @click="() => HandleClick(item)"
+        @click="() => handleClick(item)"
       >
         <span>{{ item.name }}</span>
         <div class="grow"></div>

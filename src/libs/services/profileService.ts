@@ -11,9 +11,9 @@ export interface Profile {
   following: boolean
 }
 
-class CommentService {
+class ProfileService {
   getProfile(username: string) {
     return realworldAPI.get<ProfileViewModel>(`/api/profiles/${username}`)
   }
 }
-export const commentService = new CommentService()
+export const profileService = new ProfileService()

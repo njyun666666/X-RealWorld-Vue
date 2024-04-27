@@ -6,5 +6,6 @@ export default {
     Administrator: 'administrator',
     Organization: 'organization',
     Company: 'company'
-  } as { [key: string]: RoleType }
+  } as { [key: string]: RoleType },
+  StaleTime: 24 * 60 * 60 * 1000
 }

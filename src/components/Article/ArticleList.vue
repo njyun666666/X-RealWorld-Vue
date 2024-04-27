@@ -6,7 +6,8 @@ import { useInfiniteScroll, useWindowScroll } from '@vueuse/core'
 import { computed, onActivated, onDeactivated, ref, watch } from 'vue'
 import Button from 'primevue/button'
 import ArticleItem from './ArticleItem.vue'
-import ArticleSkeleton from './ArticleSkeleton.vue'
+import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
+import appConst from '@/appConst'
 
 const props = defineProps<{
   queryModel?: ArticleModel
@@ -37,7 +38,7 @@ const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => 
 const { data, fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
   queryKey: ['ArticlesList', props.queryModel],
   queryFn: getData,
-  staleTime: 30 * 60 * 1000,
+  staleTime: appConst.StaleTime,
   initialPageParam: { limit: 10 },
   getNextPageParam: (lastPage) => lastPage.nextCursor
 })
@@ -81,7 +82,7 @@ watch(scrollY, (y) => {
     </template>
 
     <template v-if="isLoading">
-      <ArticleSkeleton v-for="n in 10" :key="n" />
+      <ArticleItemSkeleton v-for="n in 10" :key="n" />
     </template>
 
     <div class="flex min-h-60 flex-col items-center justify-center gap-6">

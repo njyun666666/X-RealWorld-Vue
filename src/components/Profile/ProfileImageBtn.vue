@@ -8,7 +8,7 @@ defineProps<{ profile: Profile }>()
 <template>
   <RouterLink
     :to="{ name: 'profile', params: { username: profile.username } }"
-    class="hover:opacity-80 active:opacity-70"
+    class="!h-10 hover:opacity-80 active:opacity-70"
     @click.stop
   >
     <Avatar v-if="profile.image" :image="profile.image" shape="circle" class="!h-10 !w-10" />

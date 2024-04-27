@@ -34,7 +34,7 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply overflow-y-scroll bg-background text-foreground;
     /* @apply bg-surface-100 text-foreground dark:bg-black; */
   }
 
@@ -48,5 +48,9 @@
 
   h3 {
     @apply my-3 text-xl font-bold;
+  }
+
+  p {
+    @apply my-4;
   }
 }

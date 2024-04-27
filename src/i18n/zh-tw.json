@@ -10,7 +10,8 @@
     "Language": "語言",
     "Theme": "主題",
     "YourFeed": "你的動態",
-    "GlobalFeed": "全球動態"
+    "GlobalFeed": "全球動態",
+    "Search": "搜尋"
   },
   "datatable": {
     "RowsPerPage": "每頁筆數",
@@ -40,7 +41,8 @@
     "OK": "確定",
     "Cancel": "取消",
     "TryAgain": "重試",
-    "LoadMore": "載入更多"
+    "LoadMore": "載入更多",
+    "Back": "返回"
   },
   "title": {
     "Add": "新增{{title}}",

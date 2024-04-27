@@ -19,7 +19,7 @@ const defaultValue = options.find((x) => x.value === localeStore.lang) as Option
 
 const selected = ref<Options>(defaultValue)
 
-const HandleClick = (value: Options) => {
+const handleClick = (value: Options) => {
   localeStore.setLang(value.value)
   selected.value = value
 }
@@ -40,7 +40,7 @@ const HandleClick = (value: Options) => {
             '!bg-primary/10 !text-primary': selected.value === item.value
           })
         "
-        @click="() => HandleClick(item)"
+        @click="() => handleClick(item)"
       >
         <span>{{ item.name }}</span>
         <div class="grow"></div>

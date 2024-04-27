@@ -33,7 +33,7 @@ export interface Author {
 
 class CommentService {
   addComments(slug: string, data: AddCommentModel) {
-    return realworldAPI.post<MultipleCommentsViewModel>(`/api/articles/${slug}/comments`, data)
+    return realworldAPI.post<SingleCommentViewModel>(`/api/articles/${slug}/comments`, data)
   }
 
   getComments(slug: string) {
