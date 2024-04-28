@@ -9,17 +9,17 @@ import ProfileTextBtn from '../Profile/ProfileTextBtn.vue'
 import { useRouter } from 'vue-router'
 import RelativeTime from '../RelativeTime.vue'
 import CommentBtn from '../Comment/CommentBtn.vue'
-import { useQuery } from '@tanstack/vue-query'
 import { commentService } from '@/libs/services/commentService'
-import appConst from '@/appConst'
 import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
 import CommentItem from '../Comment/CommentItem.vue'
 import ItemSlot from '../slot/ItemSlot.vue'
+import { useLoginStore } from '@/stores/login'
 
 const props = defineProps<{
   article: Article
   class?: HTMLAttributes['class']
 }>()
+const login = useLoginStore()
 const router = useRouter()
 const routeData = router.resolve({
   name: 'article',
@@ -33,14 +33,13 @@ const openNewWindow = () => {
   el.click()
 }
 
-const { isPending, data: comments } = useQuery({
-  queryKey: [commentService.getComments.name, props.article.slug],
-  queryFn: () => commentService.getComments(props.article.slug).then((res) => res.data.comments),
-  staleTime: appConst.StaleTime
-})
+const { isPending, data: comments } = commentService.query(props.article.slug)
 
 const popularComments = computed(() => {
-  return comments.value?.filter((item) => item.author.username === props.article.author.username)
+  return comments.value?.filter((item) => {
+    if (item.author.username === props.article.author.username) return true
+    if (login.loginState && item.author.username === login.user.username) return true
+  })
 })
 
 const connectLineNext = computed(() => popularComments.value && popularComments.value.length > 0)
@@ -54,7 +53,7 @@ const connectLineNext = computed(() => popularComments.value && popularComments.
     <ArticleItemSkeleton v-if="isPending" />
     <ItemSlot v-else :connectLineNext="connectLineNext">
       <template #ProfileImage>
-        <ProfileImageBtn :profile="article.author" />
+        <ProfileImageBtn v-bind="article.author" />
       </template>
       <template #content>
         <div class="flex gap-3">

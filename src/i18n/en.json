@@ -42,7 +42,8 @@
     "Cancel": "Cancel",
     "TryAgain": "Try again",
     "LoadMore": "Load more",
-    "Back": "Back"
+    "Back": "Back",
+    "Comment": "Comment"
   },
   "title": {
     "Add": "Add {{title}}",
@@ -53,6 +54,9 @@
     "password": "Password",
     "username": "Name",
     "email_or_password": "Email or Password"
+  },
+  "AddCommentModel": {
+    "body": "寫個留言"
   },
   "message": {
     "required": "required",

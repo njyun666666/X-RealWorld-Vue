@@ -14,11 +14,15 @@ import ArticleSkeleton from '@/components/Article/ArticleSkeleton.vue'
 import CommentList from '@/components/Comment/CommentList.vue'
 import appConst from '@/appConst'
 import ArticleTagList from '@/components/Article/ArticleTagList.vue'
+import CommentForm from '@/components/Comment/CommentForm.vue'
+import { useLoginStore } from '@/stores/login'
 
 const route = useRoute()
 // const username = route.params['username'] as string
 const slug = route.params['slug'] as string
 webTitle.value = slug
+
+const login = useLoginStore()
 
 const { isPending, data } = useQuery({
   queryKey: [articleService.getArticleBySlug.name, slug],
@@ -31,7 +35,7 @@ const { isPending, data } = useQuery({
   <ArticleSkeleton v-if="isPending" />
   <article v-if="!isPending && data" class="px-4 pb-4 pt-2">
     <div class="flex items-center gap-3">
-      <ProfileImageBtn :profile="data.author" />
+      <ProfileImageBtn v-bind="data.author" />
       <ProfileTextBtn :profile="data.author" />
     </div>
 
@@ -60,6 +64,7 @@ const { isPending, data } = useQuery({
       />
       <ArticleShareBtn :slug="data.slug" />
     </div>
+    <CommentForm v-if="login.loginState && data" :slug="slug" />
     <CommentList :slug="slug" />
   </div>
 </template>

@@ -22,7 +22,7 @@ const props = defineProps<{
     :connectLineNext="connectLineNext"
   >
     <template #ProfileImage>
-      <ProfileImageBtn :profile="comment.author" />
+      <ProfileImageBtn v-bind="comment.author" />
     </template>
     <template #content>
       <div class="flex gap-3">

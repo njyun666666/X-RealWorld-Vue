@@ -1,10 +1,12 @@
+import { useQuery, type UseQueryReturnType } from '@tanstack/vue-query'
 import realworldAPI from '../api/realworldAPI'
+import appConst from '@/appConst'
 
 export interface AddCommentModel {
-  comment: AddCommentModel
+  comment: AddCommentBody
 }
 
-export interface AddCommentModel {
+export interface AddCommentBody {
   body: string
 }
 
@@ -32,6 +34,22 @@ export interface Author {
 }
 
 class CommentService {
+  queryList: {
+    [slug: string]: UseQueryReturnType<Comment[], Error>
+  } = {}
+
+  query(slug: string) {
+    if (!this.queryList[slug]) {
+      this.queryList[slug] = useQuery({
+        queryKey: [this.getComments.name, slug],
+        queryFn: () => this.getComments(slug).then((res) => res.data.comments),
+        staleTime: appConst.StaleTime
+      })
+    }
+
+    return this.queryList[slug]
+  }
+
   addComments(slug: string, data: AddCommentModel) {
     return realworldAPI.post<SingleCommentViewModel>(`/api/articles/${slug}/comments`, data)
   }

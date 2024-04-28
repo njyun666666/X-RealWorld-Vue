@@ -42,7 +42,8 @@
     "Cancel": "取消",
     "TryAgain": "重試",
     "LoadMore": "載入更多",
-    "Back": "返回"
+    "Back": "返回",
+    "Comment": "留言"
   },
   "title": {
     "Add": "新增{{title}}",
@@ -53,6 +54,9 @@
     "password": "密碼",
     "username": "姓名",
     "email_or_password": "Email或密碼"
+  },
+  "AddCommentModel": {
+    "body": "寫個留言"
   },
   "message": {
     "required": "必填",

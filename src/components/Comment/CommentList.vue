@@ -1,19 +1,12 @@
 <script setup lang="ts">
 import { commentService } from '@/libs/services/commentService'
-import { useQuery } from '@tanstack/vue-query'
 import CommentItem from './CommentItem.vue'
-import appConst from '@/appConst'
 import CommentItemSkeleton from './CommentItemSkeleton.vue'
 
 const props = defineProps<{
   slug: string
 }>()
-
-const { isPending, data } = useQuery({
-  queryKey: [commentService.getComments.name, props.slug],
-  queryFn: () => commentService.getComments(props.slug).then((res) => res.data.comments),
-  staleTime: appConst.StaleTime
-})
+const { isPending, data } = commentService.query(props.slug)
 </script>
 <template>
   <CommentItemSkeleton v-if="isPending" />
