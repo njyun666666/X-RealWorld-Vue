@@ -5,14 +5,12 @@ import BackHeader from '@/components/BackHeader.vue'
 import { articleService } from '@/libs/services/articleService'
 import ProfileImageBtn from '@/components/Profile/ProfileImageBtn.vue'
 import ProfileTextBtn from '@/components/Profile/ProfileTextBtn.vue'
-import { useQuery } from '@tanstack/vue-query'
 import CommentBtn from '@/components/Comment/CommentBtn.vue'
 import ArticleLikeBtn from '@/components/Article/ArticleLikeBtn.vue'
 import ArticleShareBtn from '@/components/Article/ArticleShareBtn.vue'
 import dayjs from 'dayjs'
 import ArticleSkeleton from '@/components/Article/ArticleSkeleton.vue'
 import CommentList from '@/components/Comment/CommentList.vue'
-import appConst from '@/appConst'
 import ArticleTagList from '@/components/Article/ArticleTagList.vue'
 import CommentForm from '@/components/Comment/CommentForm.vue'
 import { useLoginStore } from '@/stores/login'
@@ -24,11 +22,7 @@ webTitle.value = slug
 
 const login = useLoginStore()
 
-const { isPending, data } = useQuery({
-  queryKey: [articleService.getArticleBySlug.name, slug],
-  queryFn: () => articleService.getArticleBySlug(slug).then((res) => res.data.article),
-  staleTime: appConst.StaleTime
-})
+const { isPending, data } = articleService.query(slug)
 </script>
 <template>
   <BackHeader></BackHeader>

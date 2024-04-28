@@ -9,8 +9,6 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button'
 import { commentService } from '@/libs/services/commentService'
-import type { AxiosError } from 'axios'
-import type { ResponseErrors } from '@/libs/api/realworldAPI'
 import { useToast } from 'primevue/usetoast'
 
 const props = defineProps<{
@@ -39,18 +37,14 @@ const { defineField, handleSubmit, errors, isSubmitting, resetForm } = useForm({
 const [body] = defineField('body')
 
 const onSubmit = handleSubmit(async (values) => {
-  //   errorMessage.value = undefined
-
   await commentService
     .addComments(props.slug, { comment: values })
-    .then(async ({ data }) => {
+    .then(async () => {
       toast.add({ severity: 'success', summary: t('message.AddSuccess'), life: 3000 })
       resetForm()
       query.refetch()
     })
-    .catch((error: AxiosError<ResponseErrors>) => {
-      // errorMessage.value = error.response!.data
-    })
+    .catch(() => {})
 })
 </script>
 <template>
@@ -59,17 +53,14 @@ const onSubmit = handleSubmit(async (values) => {
       <ProfileImageBtn v-bind="login.user" />
     </template>
     <template #content>
-      <form @submit="onSubmit" novalidate>
-        <div>
-          <Textarea
-            v-model="body"
-            autoResize
-            rows="2"
-            class="w-full"
-            :placeholder="t('AddCommentModel.body')"
-            :invalid="!!errors.body"
-          />
-        </div>
+      <form @submit="onSubmit" novalidate class="flex flex-col gap-2">
+        <Textarea
+          v-model="body"
+          autoResize
+          class="min-h-16 w-full"
+          :placeholder="$t('AddCommentModel.body')"
+          :invalid="!!errors.body"
+        />
         <div class="flex w-full justify-end">
           <Button
             rounded

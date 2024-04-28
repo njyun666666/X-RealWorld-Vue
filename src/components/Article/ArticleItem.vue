@@ -85,6 +85,7 @@ const connectLineNext = computed(() => popularComments.value && popularComments.
       <CommentItem
         v-for="(item, index) in popularComments"
         :key="item.id"
+        :slug="article.slug"
         :comment="item"
         :connectLinePrev="true"
         :connectLineNext="index < popularComments.length - 1"

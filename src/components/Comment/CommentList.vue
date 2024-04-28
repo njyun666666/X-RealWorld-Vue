@@ -11,6 +11,6 @@ const { isPending, data } = commentService.query(props.slug)
 <template>
   <CommentItemSkeleton v-if="isPending" />
   <template v-if="data">
-    <CommentItem v-for="item in data" :key="item.id" :comment="item" />
+    <CommentItem v-for="item in data" :key="item.id" :slug="slug" :comment="item" />
   </template>
 </template>

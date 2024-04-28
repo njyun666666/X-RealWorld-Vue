@@ -20,7 +20,7 @@ const props = defineProps<{
           <div v-if="connectLineNext" class="h-full w-0.5 bg-border"></div>
         </div>
       </div>
-      <div class="grow pt-4">
+      <div class="relative grow pt-4">
         <slot name="content"></slot>
       </div>
     </div>

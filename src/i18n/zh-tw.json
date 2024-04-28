@@ -56,7 +56,7 @@
     "email_or_password": "Email或密碼"
   },
   "AddCommentModel": {
-    "body": "寫個留言"
+    "body": "寫個留言..."
   },
   "message": {
     "required": "必填",
@@ -64,7 +64,7 @@
     "Forbidden": "拒絕存取",
     "EditSuccess": "修改成功",
     "AddSuccess": "新增成功",
-    "DeleteSuccess": "刪除成功",
+    "RemoveSuccess": "刪除成功",
     "EditFail": "修改失敗",
     "AddFail": "新增失敗",
     "DeleteFail": "刪除失敗",
