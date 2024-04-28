@@ -7,6 +7,8 @@ import Aura from 'primevue/themes/primeone/aura'
 import { definePreset } from 'primevue/themes'
 // @ts-ignore
 import button from 'primevue/themes/primeone/presets/aura/button'
+// @ts-ignore
+// import aura from 'primevue/themes/primeone/presets/aura'
 import type { PrimeVueConfiguration } from 'primevue/config'
 
 const newButton = _.merge({}, button, {
@@ -67,6 +69,23 @@ const preset = definePreset(Aura, {
           800: '{neutral.800}',
           900: '{neutral.900}',
           950: '{neutral.950}'
+        },
+        formField: {
+          background: 'transparent',
+          disabledBackground: '{surface.200}',
+          filledBackground: '{surface.50}',
+          filledFocusBackground: '{surface.0}',
+          borderColor: '{surface.300}',
+          hoverBorderColor: '{surface.400}',
+          focusBorderColor: '{primary.color}',
+          invalidBorderColor: '{red.400}',
+          color: '{surface.700}',
+          disabledColor: '{surface.500}',
+          placeholderColor: '{surface.500}',
+          floatLabelColor: '{surface.500}',
+          floatLabelFocusColor: '{surface.500}',
+          floatLabelInvalidColor: '{red.400}',
+          boxShadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)'
         }
       },
       dark: {
@@ -83,6 +102,23 @@ const preset = definePreset(Aura, {
           800: '{neutral.800}',
           900: '{neutral.900}',
           950: '{neutral.950}'
+        },
+        formField: {
+          background: 'transparent',
+          disabledBackground: '{surface.700}',
+          filledBackground: '{surface.800}',
+          filledFocusBackground: '{surface.950}',
+          borderColor: '{surface.700}',
+          hoverBorderColor: '{surface.600}',
+          focusBorderColor: '{primary.color}',
+          invalidBorderColor: '{red.300}',
+          color: '{surface.0}',
+          disabledColor: '{surface.400}',
+          placeholderColor: '{surface.400}',
+          floatLabelColor: '{surface.400}',
+          floatLabelFocusColor: '{surface.400}',
+          floatLabelInvalidColor: '{red.300}',
+          boxShadow: '0 0 #0000, 0 0 #0000, 0 1px 2px 0 rgba(18, 18, 23, 0.05)'
         }
       }
     }

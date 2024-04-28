@@ -9,18 +9,18 @@ const props = defineProps<{
 }>()
 </script>
 <template>
-  <article :class="cn('w-full px-4 pb-1 ', { 'pb-0': connectLineNext }, props.class)">
+  <article :class="cn('w-full px-4', props.class)">
     <div class="flex w-full">
       <div class="flex flex-col pr-2">
         <div class="flex h-4 w-full shrink-0 justify-center pb-1">
           <div v-if="connectLinePrev" class="h-full w-0.5 bg-border"></div>
         </div>
         <slot name="ProfileImage"></slot>
-        <div class="flex h-full w-full grow justify-center pt-1">
+        <div class="flex h-4 w-full grow justify-center pt-1">
           <div v-if="connectLineNext" class="h-full w-0.5 bg-border"></div>
         </div>
       </div>
-      <div class="grow pt-4">
+      <div class="relative grow pt-4">
         <slot name="content"></slot>
       </div>
     </div>

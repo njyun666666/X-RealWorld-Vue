@@ -11,6 +11,7 @@ import PrimeVue from 'primevue/config'
 import { primeVueConfig } from './primeVueConfig'
 // @ts-ignore
 import Tooltip from 'primevue/tooltip'
+import ToastService from 'primevue/toastservice'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -35,6 +36,8 @@ app.use(i18n)
 app.use(router)
 app.use(PrimeVue, primeVueConfig)
 app.use(VueQueryPlugin)
+app.use(ToastService)
+
 app.directive('tooltip', Tooltip)
 
 app.mount('#app')
