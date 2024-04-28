@@ -9,7 +9,7 @@ defineProps<{
 </script>
 <template>
   <Message severity="error" :closable="false" v-if="errors">
-    <p v-for="[key, items] in Object.entries(errors.errors)" :key="key">
+    <div v-for="[key, items] in Object.entries(errors.errors)" :key="key">
       <span class="font-bold">
         {{ $t(keypath + '.' + key.replace(/ /g, '_')) }}
       </span>
@@ -20,6 +20,6 @@ defineProps<{
       <span v-else>
         {{ items.map((item) => $t('message.' + item.replace(/ /g, '_'))).join(', ') }}
       </span>
-    </p>
+    </div>
   </Message>
 </template>
