@@ -25,6 +25,7 @@ const props = defineProps<{
   connectLineNext?: boolean
 }>()
 
+const isSubmitting = ref(false)
 const login = useLoginStore()
 const toast = useToast()
 const query = commentService.query(props.slug)
@@ -46,13 +47,17 @@ const toggle = (event: MouseEvent) => {
 }
 
 const handleDelete = async () => {
+  isSubmitting.value = true
+
   await commentService
     .deleteComment(props.slug, props.comment.id)
     .then(async () => {
+      await query.refetch()
       toast.add({ severity: 'success', summary: t('message.RemoveSuccess'), life: 3000 })
-      query.refetch()
     })
     .catch(() => {})
+
+  isSubmitting.value = false
 }
 </script>
 
@@ -87,10 +92,12 @@ const handleDelete = async () => {
           aria-haspopup="true"
           aria-controls="overlay_tmenu"
           class="!absolute right-2 top-2 -mr-4 !h-9 !w-9"
+          :loading="isSubmitting"
           @click.stop
           @mousedown.middle.stop.prevent
         >
-          <font-awesome-icon icon="fa-solid fa-ellipsis" />
+          <font-awesome-icon v-if="isSubmitting" icon="fa-solid fa-circle-notch" spin />
+          <font-awesome-icon v-else icon="fa-solid fa-ellipsis" />
         </Button>
         <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup>
           <template #item="{ item, props }">

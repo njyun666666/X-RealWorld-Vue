@@ -40,11 +40,13 @@ const onSubmit = handleSubmit(async (values) => {
   await commentService
     .addComments(props.slug, { comment: values })
     .then(async () => {
-      toast.add({ severity: 'success', summary: t('message.AddSuccess'), life: 3000 })
+      await query.refetch()
       resetForm()
-      query.refetch()
+      toast.add({ severity: 'success', summary: t('message.AddSuccess'), life: 3000 })
     })
-    .catch(() => {})
+    .catch(() => {
+      toast.add({ severity: 'error', summary: t('message.AddFail'), life: 3000 })
+    })
 })
 </script>
 <template>

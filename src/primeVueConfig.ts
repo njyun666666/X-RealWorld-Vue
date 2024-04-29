@@ -8,6 +8,8 @@ import { definePreset } from 'primevue/themes'
 // @ts-ignore
 import button from 'primevue/themes/primeone/presets/aura/button'
 // @ts-ignore
+import toast from 'primevue/themes/primeone/presets/aura/toast'
+// @ts-ignore
 // import aura from 'primevue/themes/primeone/presets/aura'
 import type { PrimeVueConfiguration } from 'primevue/config'
 
@@ -47,6 +49,38 @@ const newButton = _.merge({}, button, {
           activeBackground: 'color-mix(in srgb, {primary.color}, transparent 70%)',
           color: '{primary.color}'
         }
+      }
+    }
+  }
+})
+
+const newToast = _.merge({}, toast, {
+  colorScheme: {
+    dark: {
+      blur: '1.5px',
+      info: {
+        background: 'color-mix(in srgb, {blue.950}, transparent 5%)',
+        color: '{blue.400}'
+      },
+      success: {
+        background: 'color-mix(in srgb, {green.950}, transparent 5%)',
+        color: '{green.400}'
+      },
+      warn: {
+        background: 'color-mix(in srgb, {yellow.950}, transparent 5%)',
+        color: '{yellow.400}'
+      },
+      error: {
+        background: 'color-mix(in srgb, {red.950}, transparent 5%)',
+        color: '{red.400}'
+      },
+      secondary: {
+        background: '{surface.800}',
+        color: '{surface.300}'
+      },
+      contrast: {
+        background: '{surface.0}',
+        color: '{surface.950}'
       }
     }
   }
@@ -138,7 +172,8 @@ const preset = definePreset(Aura, {
           }
         }
       }
-    }
+    },
+    toast: newToast
   }
 })
 
