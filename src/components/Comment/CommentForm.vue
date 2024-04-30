@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useLoginStore } from '@/stores/login'
-import ItemSlot from '../slot/ItemSlot.vue'
+import ItemSlot from '../Slot/ItemSlot.vue'
 import ProfileImageBtn from '../Profile/ProfileImageBtn.vue'
 import Textarea from 'primevue/textarea'
 import * as z from 'zod'

@@ -12,7 +12,7 @@ import CommentBtn from '../Comment/CommentBtn.vue'
 import { commentService } from '@/libs/services/commentService'
 import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
 import CommentItem from '../Comment/CommentItem.vue'
-import ItemSlot from '../slot/ItemSlot.vue'
+import ItemSlot from '../Slot/ItemSlot.vue'
 import { useLoginStore } from '@/stores/login'
 
 const props = defineProps<{
