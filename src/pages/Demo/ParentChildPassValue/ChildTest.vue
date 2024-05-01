@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref, inject, defineEmits } from 'vue'
+import { ref, inject, defineEmits, type Ref } from 'vue'
 
 const countFromChild = ref(99)
-const countFromParent = inject('countFromParent') as number
+const countFromParent = inject('countFromParent') as Ref<number>
 
 const emit = defineEmits<{
   submit: [val: number]

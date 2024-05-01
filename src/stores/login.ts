@@ -3,9 +3,12 @@ import { defineStore } from 'pinia'
 import { StorageSerializers, useStorage } from '@vueuse/core'
 import type { UserViewModel } from '@/libs/services/userService'
 import { jwtDecode, type JwtPayload } from 'jwt-decode'
+import { useRoute, useRouter } from 'vue-router'
 // import type { RoleType } from '@/appConst'
 
 export const useLoginStore = defineStore('login', () => {
+  const router = useRouter()
+  const route = useRoute()
   const user = useStorage<UserViewModel>('user', null, localStorage, {
     serializer: StorageSerializers.object
   })
@@ -32,6 +35,15 @@ export const useLoginStore = defineStore('login', () => {
     return undefined
   })
 
+  const checkLogin = () => {
+    if (loginState.value) {
+      return true
+    }
+
+    router.push({ name: 'login', query: { url: route.fullPath } })
+    return false
+  }
+
   // const checkRole = (roles?: RoleType[]) => {
   //   if (!roles) return true
 
@@ -51,6 +63,7 @@ export const useLoginStore = defineStore('login', () => {
     loginState,
     setUser,
     logout,
-    tokenPayload
+    tokenPayload,
+    checkLogin
   }
 })

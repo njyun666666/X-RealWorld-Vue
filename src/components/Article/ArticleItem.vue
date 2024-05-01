@@ -70,7 +70,7 @@ const connectLineNext = computed(() => popularComments.value && popularComments.
           ></p>
         </div>
         <div class="my-2 flex justify-between">
-          <CommentBtn :slug="article.slug" />
+          <CommentBtn :article="article" />
           <ArticleLikeBtn
             :slug="article.slug"
             :favorited="article.favorited"

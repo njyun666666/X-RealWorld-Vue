@@ -10,9 +10,17 @@ import { useI18n } from 'vue-i18n'
 import Button from 'primevue/button'
 import { commentService } from '@/libs/services/commentService'
 import { useToast } from 'primevue/usetoast'
+import { type HTMLAttributes } from 'vue'
+import { cn } from '@/libs/utils'
 
 const props = defineProps<{
   slug: string
+  connectLinePrev?: boolean
+  class?: HTMLAttributes['class']
+}>()
+
+const emit = defineEmits<{
+  close: []
 }>()
 
 const toast = useToast()
@@ -42,6 +50,7 @@ const onSubmit = handleSubmit(async (values) => {
     .then(async () => {
       await query.refetch()
       resetForm()
+      emit('close')
       toast.add({ severity: 'success', summary: t('message.AddSuccess'), life: 3000 })
     })
     .catch(() => {
@@ -50,7 +59,7 @@ const onSubmit = handleSubmit(async (values) => {
 })
 </script>
 <template>
-  <ItemSlot class="pb-4">
+  <ItemSlot :class="cn('p-0', props.class)" :connectLinePrev="connectLinePrev">
     <template #ProfileImage>
       <ProfileImageBtn v-bind="login.user" />
     </template>

@@ -104,6 +104,7 @@ const preset = definePreset(Aura, {
           900: '{neutral.900}',
           950: '{neutral.950}'
         },
+        maskBackground: 'rgba(0,0,0,0.8)',
         formField: {
           background: 'transparent',
           disabledBackground: '{surface.200}',
@@ -137,6 +138,7 @@ const preset = definePreset(Aura, {
           900: '{neutral.900}',
           950: '{neutral.950}'
         },
+        maskBackground: 'rgba(0,0,0,0.9)',
         formField: {
           background: 'transparent',
           disabledBackground: '{surface.700}',
@@ -159,6 +161,34 @@ const preset = definePreset(Aura, {
   },
   components: {
     button: newButton,
+    dialog: {
+      colorScheme: {
+        light: {
+          root: {
+            background: '{surface.100}',
+            borderColor: '{surface.200}',
+            color: 'hsl(var(--foreground));'
+          },
+          headerIcon: {
+            color: '{surface.500}',
+            hoverColor: '{surface.600}',
+            hoverBackground: '{surface.200}'
+          }
+        },
+        dark: {
+          root: {
+            background: '#000000',
+            borderColor: '{surface.700}',
+            color: 'hsl(var(--foreground));'
+          },
+          headerIcon: {
+            color: '{surface.400}',
+            hoverColor: '{surface.300}',
+            hoverBackground: '{surface.800}'
+          }
+        }
+      }
+    },
     scrollpanel: {
       colorScheme: {
         light: {
