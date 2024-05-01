@@ -50,7 +50,7 @@ const { isPending, data } = articleService.query(slug)
   <div class="divide-y">
     <div v-if="data"></div>
     <div v-if="data" class="flex justify-between px-4 py-2">
-      <CommentBtn :slug="data.slug" />
+      <CommentBtn :article="data" />
       <ArticleLikeBtn
         :slug="data.slug"
         :favorited="data.favorited"
@@ -58,7 +58,7 @@ const { isPending, data } = articleService.query(slug)
       />
       <ArticleShareBtn :slug="data.slug" />
     </div>
-    <CommentForm v-if="login.loginState && data" :slug="slug" />
+    <CommentForm v-if="login.loginState && data" :slug="slug" class="px-4 pb-4" />
     <CommentList :slug="slug" />
   </div>
 </template>

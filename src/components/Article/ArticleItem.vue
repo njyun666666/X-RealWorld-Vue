@@ -12,7 +12,7 @@ import CommentBtn from '../Comment/CommentBtn.vue'
 import { commentService } from '@/libs/services/commentService'
 import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
 import CommentItem from '../Comment/CommentItem.vue'
-import ItemSlot from '../slot/ItemSlot.vue'
+import ItemSlot from '../Slots/ItemSlot.vue'
 import { useLoginStore } from '@/stores/login'
 
 const props = defineProps<{
@@ -70,7 +70,7 @@ const connectLineNext = computed(() => popularComments.value && popularComments.
           ></p>
         </div>
         <div class="my-2 flex justify-between">
-          <CommentBtn :slug="article.slug" />
+          <CommentBtn :article="article" />
           <ArticleLikeBtn
             :slug="article.slug"
             :favorited="article.favorited"
