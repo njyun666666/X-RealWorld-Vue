@@ -1,8 +1,8 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { webTitle } from '@/libs/common'
 import BackHeader from '@/components/BackHeader.vue'
-import { articleService } from '@/libs/services/articleService'
 import ProfileImageBtn from '@/components/Profile/ProfileImageBtn.vue'
 import ProfileTextBtn from '@/components/Profile/ProfileTextBtn.vue'
 import CommentBtn from '@/components/Comment/CommentBtn.vue'
@@ -14,6 +14,10 @@ import CommentList from '@/components/Comment/CommentList.vue'
 import ArticleTagList from '@/components/Article/ArticleTagList.vue'
 import CommentForm from '@/components/Comment/CommentForm.vue'
 import { useLoginStore } from '@/stores/login'
+import { useQuery } from '@tanstack/vue-query'
+import { useArticleStore } from '@/stores/article'
+import appConst from '@/appConst'
+import type { Article } from '@/libs/services/articleService'
 
 const route = useRoute()
 // const username = route.params['username'] as string
@@ -21,44 +25,53 @@ const slug = route.params['slug'] as string
 webTitle.value = slug
 
 const login = useLoginStore()
+const articleStore = useArticleStore()
+const article = ref<Article>(articleStore.article[slug])
 
-const { isPending, data } = articleService.query(slug)
+const { isPending } = useQuery({
+  queryKey: ['Article', slug],
+  queryFn: () => articleStore.getArticleBySlug(slug).then((res) => res),
+  staleTime: appConst.StaleTime
+})
+
+watch(
+  () => articleStore.article[slug],
+  (val) => {
+    article.value = val
+  }
+)
 </script>
 <template>
   <BackHeader></BackHeader>
   <ArticleSkeleton v-if="isPending" />
-  <article v-if="!isPending && data" class="px-4 pb-4 pt-2">
+  <article v-if="!isPending && article" class="px-4 pb-4 pt-2">
     <div class="flex items-center gap-3">
-      <ProfileImageBtn v-bind="data.author" />
-      <ProfileTextBtn :profile="data.author" />
+      <ProfileImageBtn v-bind="article.author" />
+      <ProfileTextBtn :profile="article.author" />
     </div>
 
-    <h2>{{ data?.title }}</h2>
+    <h2>{{ article?.title }}</h2>
 
-    <p v-html="data.description.replace(/\\n/g, '<br/>')"></p>
-    <p v-html="data.body.replace(/\\n/g, '<br/>')"></p>
+    <p v-html="article.description.replace(/\\n/g, '<br/>')"></p>
+    <p v-html="article.body.replace(/\\n/g, '<br/>')"></p>
 
     <div class="space-y-4 pt-10">
-      <ArticleTagList :tags="data.tagList" />
+      <ArticleTagList :tags="article.tagList" />
 
       <div class="text-foreground/60">
-        {{ dayjs(data.createdAt).format('L LT') }}
+        {{ dayjs(article.createdAt).format('L LT') }}
       </div>
     </div>
   </article>
 
   <div class="divide-y">
-    <div v-if="data"></div>
-    <div v-if="data" class="flex justify-between px-4 py-2">
-      <CommentBtn :article="data" />
-      <ArticleLikeBtn
-        :slug="data.slug"
-        :favorited="data.favorited"
-        :favoritesCount="data.favoritesCount"
-      />
-      <ArticleShareBtn :slug="data.slug" />
+    <div v-if="article"></div>
+    <div v-if="article" class="flex justify-between px-4 py-2">
+      <CommentBtn :article="article" />
+      <ArticleLikeBtn :slug="article.slug" />
+      <ArticleShareBtn :slug="article.slug" />
     </div>
-    <CommentForm v-if="login.loginState && data" :slug="slug" class="px-4 pb-4" />
+    <CommentForm v-if="login.loginState && article" :slug="slug" class="px-4 pb-4" />
     <CommentList :slug="slug" />
   </div>
 </template>

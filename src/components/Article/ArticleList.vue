@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { articleService, type ArticleModel } from '@/libs/services/articleService'
+import { type ArticleModel } from '@/libs/services/articleService'
 import { useArticleStore, type ArticleTabType } from '@/stores/article'
 import { useInfiniteQuery, type QueryFunctionContext } from '@tanstack/vue-query'
 import { useInfiniteScroll, useWindowScroll } from '@vueuse/core'
@@ -20,9 +20,10 @@ const { y: scrollY } = useWindowScroll()
 const canLoadMore = ref(true)
 
 const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => {
-  const data = await articleService
+  const data = await articleStore
     .getArticles({ ...props.queryModel, ...query.pageParam })
-    .then((data) => data.data)
+    .then((data) => data)
+
   const length = (query.pageParam?.offset || 0) + data.articles.length
   canLoadMore.value = length < data.articlesCount
 
@@ -78,7 +79,11 @@ watch(scrollY, (y) => {
 <template>
   <div class="divide-y">
     <template v-for="(page, index) in data?.pages" :key="index">
-      <ArticleItem v-for="item in page.articles" :key="item.slug" :article="item" />
+      <ArticleItem
+        v-for="item in page.articles"
+        :key="item.slug"
+        :article="articleStore.article[item.slug]"
+      />
     </template>
 
     <template v-if="isLoading">
