@@ -6,16 +6,10 @@ import ProfileImageBtn from '../Profile/ProfileImageBtn.vue'
 import ProfileTextBtn from '../Profile/ProfileTextBtn.vue'
 import RelativeTime from '../RelativeTime.vue'
 import ItemSlot from '../Slots/ItemSlot.vue'
-import TieredMenu from 'primevue/tieredmenu'
-import Button, { type ButtonProps } from 'primevue/button'
-import type { MenuItem } from 'primevue/menuitem'
 import { useLoginStore } from '@/stores/login'
 import { useToast } from 'primevue/usetoast'
 import { useI18n } from 'vue-i18n'
-
-interface CommentMenu extends MenuItem {
-  buttonProps?: ButtonProps
-}
+import DropdownMenu, { type DropdownItem } from '../UI/DropdownMenu.vue'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
@@ -30,8 +24,7 @@ const login = useLoginStore()
 const toast = useToast()
 const query = commentService.query(props.slug)
 const { t } = useI18n()
-const menu = ref()
-const items = ref<CommentMenu[]>([
+const items = ref<DropdownItem[]>([
   {
     label: 'action.Remove',
     icon: 'fa-solid fa-trash',
@@ -41,10 +34,6 @@ const items = ref<CommentMenu[]>([
     }
   }
 ])
-
-const toggle = (event: MouseEvent) => {
-  menu.value.toggle(event)
-}
 
 const handleDelete = async () => {
   isSubmitting.value = true
@@ -83,32 +72,19 @@ const handleDelete = async () => {
 
       <!-- menu -->
       <template v-if="login.loginState && login.user.username === comment.author.username">
-        <Button
-          type="button"
-          rounded
-          @click="toggle"
-          severity="secondary"
-          text
-          aria-haspopup="true"
-          aria-controls="overlay_tmenu"
-          class="!absolute right-2 top-2 -mr-4 !h-9 !w-9"
-          :loading="isSubmitting"
-          @click.stop
-          @mousedown.middle.stop.prevent
+        <DropdownMenu
+          :items="items"
+          :buttonProps="{
+            severity: 'secondary',
+            text: true,
+            rounded: true,
+            loading: isSubmitting,
+            class: '!absolute right-2 top-2 -mr-4 !h-9 !w-9'
+          }"
         >
           <font-awesome-icon v-if="isSubmitting" icon="fa-solid fa-circle-notch" spin />
           <font-awesome-icon v-else icon="fa-solid fa-ellipsis" />
-        </Button>
-        <TieredMenu ref="menu" id="overlay_tmenu" :model="items" popup>
-          <template #item="{ item, props }">
-            <a class="align-items-center flex !p-0" v-bind="props.action">
-              <Button text class="grow !justify-start" v-bind="item.buttonProps">
-                <font-awesome-icon :icon="item.icon" />
-                <span class="ml-2">{{ $t(item.label as string) }}</span>
-              </Button>
-            </a>
-          </template>
-        </TieredMenu>
+        </DropdownMenu>
       </template>
     </template>
   </ItemSlot>

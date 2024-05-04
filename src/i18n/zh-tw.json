@@ -43,7 +43,8 @@
     "TryAgain": "重試",
     "LoadMore": "載入更多",
     "Back": "返回",
-    "Comment": "留言"
+    "Comment": "留言",
+    "CopyURL": "複製連結"
   },
   "title": {
     "Add": "新增{{title}}",

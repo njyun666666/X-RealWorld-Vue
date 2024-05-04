@@ -69,7 +69,7 @@ watch(
     <div v-if="article" class="flex justify-between px-4 py-2">
       <CommentBtn :article="article" />
       <ArticleLikeBtn :slug="article.slug" />
-      <ArticleShareBtn :slug="article.slug" />
+      <ArticleShareBtn :slug="article.slug" :username="article.author.username" />
     </div>
     <CommentForm v-if="login.loginState && article" :slug="slug" class="px-4 pb-4" />
     <CommentList :slug="slug" />

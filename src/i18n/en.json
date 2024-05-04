@@ -43,7 +43,8 @@
     "TryAgain": "Try again",
     "LoadMore": "Load more",
     "Back": "Back",
-    "Comment": "Comment"
+    "Comment": "Comment",
+    "CopyURL": "Copy url"
   },
   "title": {
     "Add": "Add {{title}}",
