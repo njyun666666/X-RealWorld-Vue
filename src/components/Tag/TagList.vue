@@ -16,7 +16,7 @@ const { isPending, data } = useQuery({
   <div class="flex flex-col overflow-hidden rounded-xl border">
     <template v-if="isPending">
       <div v-for="(item, index) in 9" :key="item" class="px-4 py-2">
-        <Skeleton class="!h-6 !rounded-none" :width="`${((index % 3) + 1) * 30}%`" />
+        <Skeleton class="!h-6" :width="`${((index % 3) + 1) * 30}%`" />
       </div>
     </template>
     <template v-else>
