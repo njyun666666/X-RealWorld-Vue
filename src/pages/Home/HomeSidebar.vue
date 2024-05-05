@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import TagList from '@/components/Tag/TagList.vue'
+</script>
 <template>
-  <div class="h-[1000px] w-full bg-red-500/50"></div>
+  <div class="w-full py-2">
+    <TagList />
+  </div>
 </template>
