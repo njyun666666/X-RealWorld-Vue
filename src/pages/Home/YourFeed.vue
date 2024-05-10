@@ -8,6 +8,6 @@ const login = useLoginStore()
   <ArticleList
     v-if="login.loginState"
     :queryModel="{ author: login.user.username }"
-    savedScrollYKey="yourFeed"
+    articleTabType="yourFeed"
   />
 </template>

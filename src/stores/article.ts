@@ -1,7 +1,8 @@
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useLoginStore } from './login'
 import { articleService, type Article, type ArticleModel } from '@/libs/services/articleService'
+import { remove } from 'lodash'
 
 export type ArticleTabType = 'yourFeed' | 'globalFeed' | 'search'
 
@@ -14,21 +15,40 @@ export const useArticleStore = defineStore('article', () => {
     search: 0
   })
   const article = ref<{ [slug: string]: Article }>({})
+  const articleList = ref<Article[]>([])
+  const yourFeedList = computed(() => {
+    if (login.loginState) {
+      return articleList.value.filter((x) => x.author.username == login.user.username)
+    }
+
+    return [] as Article[]
+  })
 
   const setSavedScrollY = (key: ArticleTabType, num: number) => {
     scrollY.value[key] = num
   }
 
-  const mergeArticle = (data: Article) => {
+  const mergeArticle = (data: Article, oldSlug?: string) => {
     article.value[data.slug] = data
+    const newArticle = article.value[data.slug]
+
+    let old = articleList.value.find((x) => x.slug == (oldSlug || data.slug))
+
+    if (old) {
+      old = newArticle
+    } else {
+      articleList.value.push(newArticle)
+    }
   }
 
   const getArticleBySlug = async (slug: string) => {
-    if (article.value[slug]) {
-      return article.value[slug]
+    const exists = article.value[slug]
+
+    if (exists) {
+      return exists
     }
 
-    return await articleService.getArticleBySlug(slug).then(({ data }) => {
+    return await articleService.getArticleBySlug(slug).then(async ({ data }) => {
       mergeArticle(data.article)
       return article.value[slug]
     })
@@ -43,13 +63,23 @@ export const useArticleStore = defineStore('article', () => {
     })
   }
 
+  const deleteArticle = async (slug: string) => {
+    return await articleService.deleteArticle(slug).then(async (res) => {
+      remove(articleList.value, { slug })
+      return res
+    })
+  }
+
   return {
     activeTab,
     scrollY,
     article,
+    articleList,
+    yourFeedList,
     setSavedScrollY,
     getArticles,
     getArticleBySlug,
-    mergeArticle
+    mergeArticle,
+    deleteArticle
   }
 })

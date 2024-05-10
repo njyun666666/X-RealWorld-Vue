@@ -14,9 +14,7 @@ import CommentList from '@/components/Comment/CommentList.vue'
 import ArticleTagList from '@/components/Article/ArticleTagList.vue'
 import CommentForm from '@/components/Comment/CommentForm.vue'
 import { useLoginStore } from '@/stores/login'
-import { useQuery } from '@tanstack/vue-query'
 import { useArticleStore } from '@/stores/article'
-import appConst from '@/appConst'
 import type { Article } from '@/libs/services/articleService'
 
 const route = useRoute()
@@ -26,13 +24,18 @@ webTitle.value = slug
 
 const login = useLoginStore()
 const articleStore = useArticleStore()
-const article = ref<Article>(articleStore.article[slug])
+const article = ref<Article>()
+const isPending = ref(true)
 
-const { isPending } = useQuery({
-  queryKey: ['Article', slug],
-  queryFn: () => articleStore.getArticleBySlug(slug).then((res) => res),
-  staleTime: appConst.StaleTime
-})
+articleStore
+  .getArticleBySlug(slug)
+  .then((data) => {
+    article.value = data
+    isPending.value = false
+  })
+  .catch(() => {
+    // isPending.value = false
+  })
 
 watch(
   () => articleStore.article[slug],
@@ -52,8 +55,8 @@ watch(
 
     <h2>{{ article?.title }}</h2>
 
-    <p v-html="article.description.replace(/\\n/g, '<br/>')"></p>
-    <p v-html="article.body.replace(/\\n/g, '<br/>')"></p>
+    <p v-html="article.description.replace(/[\\n]|[\n]/g, '<br/>')"></p>
+    <p v-html="article.body.replace(/[\\n]|[\n]/g, '<br/>')"></p>
 
     <div class="space-y-4 pt-10">
       <ArticleTagList :tags="article.tagList" />

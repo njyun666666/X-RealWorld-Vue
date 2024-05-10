@@ -37,6 +37,17 @@ export interface Author {
   following: boolean
 }
 
+export interface ArticleCreateModel {
+  article: ArticleCreate
+}
+
+export interface ArticleCreate {
+  title: string
+  description: string
+  body: string
+  tagList?: string[]
+}
+
 class ArticleService {
   getArticleBySlug(slug: string) {
     return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`)
@@ -44,6 +55,18 @@ class ArticleService {
 
   getArticles(data?: ArticleModel) {
     return realworldAPI.get<MultipleArticleViewModel>('/api/articles', { params: data })
+  }
+
+  createArticle(data: ArticleCreateModel) {
+    return realworldAPI.post<SingleArticleViewModel>(`/api/articles`, data)
+  }
+
+  updateArticle(slug: string, data: ArticleCreateModel) {
+    return realworldAPI.put<SingleArticleViewModel>(`/api/articles/${slug}`, data)
+  }
+
+  deleteArticle(slug: string) {
+    return realworldAPI.delete<SingleArticleViewModel>(`/api/articles/${slug}`)
   }
 
   toggleFavorite(slug: string, favorited: boolean) {

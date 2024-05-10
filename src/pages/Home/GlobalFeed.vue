@@ -2,5 +2,5 @@
 import ArticleList from '@/components/Article/ArticleList.vue'
 </script>
 <template>
-  <ArticleList savedScrollYKey="globalFeed" />
+  <ArticleList articleTabType="globalFeed" />
 </template>

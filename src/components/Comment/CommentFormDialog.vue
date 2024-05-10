@@ -39,7 +39,7 @@ const closeDialog = () => {
           <h3 class="line-clamp-2 break-normal">{{ article.title }}</h3>
           <p
             class="line-clamp-6 break-normal"
-            v-html="article.description.replace(/\\n/g, '<br/>')"
+            v-html="article.description.replace(/[\\n]|[\n]/g, '<br/>')"
           ></p>
         </div>
       </template>

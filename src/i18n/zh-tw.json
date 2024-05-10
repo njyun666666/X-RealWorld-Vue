@@ -44,7 +44,8 @@
     "LoadMore": "載入更多",
     "Back": "返回",
     "Comment": "留言",
-    "CopyURL": "複製連結"
+    "CopyURL": "複製連結",
+    "Post": "發佈"
   },
   "title": {
     "Add": "新增{{title}}",
@@ -58,6 +59,13 @@
   },
   "AddCommentModel": {
     "body": "寫個留言..."
+  },
+  "ArticleCreateModel": {
+    "writeArticle": "寫篇文章...",
+    "title": "標題",
+    "description": "描述",
+    "body": "內容",
+    "tag": "標籤"
   },
   "message": {
     "required": "必填",
