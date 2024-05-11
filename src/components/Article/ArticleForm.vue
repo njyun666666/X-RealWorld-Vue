@@ -2,6 +2,7 @@
 import { useLoginStore } from '@/stores/login'
 import ItemSlot from '../Slots/ItemSlot.vue'
 import ProfileImageBtn from '../Profile/ProfileImageBtn.vue'
+import InputText from 'primevue/inputtext'
 import Textarea from 'primevue/textarea'
 import * as z from 'zod'
 import { useForm } from 'vee-validate'
@@ -87,17 +88,17 @@ const onSubmit = handleSubmit(async (values) => {
       </div>
       <form @submit="onSubmit" novalidate class="flex flex-col gap-2">
         <div v-show="expand" class="flex flex-col gap-2">
-          <Textarea
+          <InputText
+            type="text"
             v-model="title"
-            autoResize
-            class="min-h-16 w-full"
+            class="w-full !text-xl !font-bold"
             :placeholder="$t('ArticleCreateModel.title')"
             :invalid="!!errors.title"
           />
-          <Textarea
+          <InputText
+            type="text"
             v-model="description"
-            autoResize
-            class="min-h-16 w-full"
+            class="w-full"
             :placeholder="$t('ArticleCreateModel.description')"
             :invalid="!!errors.description"
           />

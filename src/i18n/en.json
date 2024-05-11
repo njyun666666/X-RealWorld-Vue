@@ -49,11 +49,13 @@
   },
   "title": {
     "Add": "Add {{title}}",
-    "Edit": "Edit {{title}}"
+    "Edit": "Edit {{title}}",
+    "PopularTags": "Popular Tags"
   },
   "UserModel": {
     "email": "Email",
     "password": "Password",
+    "confirm": "Confirm Password",
     "username": "Name",
     "email_or_password": "Email or Password"
   },
@@ -83,6 +85,7 @@
     "has_already_been_taken": "has already been taken",
     "is_invalid": "is invalid",
     "IsError": "error",
-    "NoMore": "no more"
+    "NoMore": "no more",
+    "Password_dont_match": "Password don't match"
   }
 }

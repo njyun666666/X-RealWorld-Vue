@@ -58,7 +58,7 @@ watch(
     </TabMenu>
   </div>
 
-  <ArticleForm class="border-b px-4 pb-4" />
+  <ArticleForm v-if="login.loginState" class="border-b px-4 pb-4" />
 
   <KeepAlive>
     <component :is="comps[articleStore.activeTab]"></component>

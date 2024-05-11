@@ -2,7 +2,7 @@
 
 ## [Demo](https://vue-project-jyun.vercel.app/)
 
-## 練習項目
+## 實作項目
 
 - RWD Layout
 - 淺色/深色主題

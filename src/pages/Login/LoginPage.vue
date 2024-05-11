@@ -9,15 +9,17 @@ import { useForm } from 'vee-validate'
 import { z } from 'zod'
 import { useI18n } from 'vue-i18n'
 import { toTypedSchema } from '@vee-validate/zod'
-import { useRoute, useRouter } from 'vue-router'
+import { RouterLink, useRoute, useRouter } from 'vue-router'
 import InputText from 'primevue/inputtext'
 import Button from 'primevue/button'
 import ErrorMessage from '@/components/ErrorMessage.vue'
+import appConfig from '@/appConfig'
 
 const login = useLoginStore()
 const { t } = useI18n()
 const router = useRouter()
 const route = useRoute()
+const routeQueryUrl = route.query['url']
 const errorMessage = ref<ResponseErrors>()
 
 const formSchema = z.object({
@@ -36,8 +38,8 @@ const formSchema = z.object({
 const { defineField, handleSubmit, errors, isSubmitting } = useForm({
   validationSchema: toTypedSchema(formSchema),
   initialValues: {
-    email: 'jyun@example.com',
-    password: 'jyun@example.com'
+    email: appConfig.VITE_EMAIL,
+    password: appConfig.VITE_EMAIL
   }
 })
 
@@ -52,9 +54,8 @@ const onSubmit = handleSubmit(async (values) => {
     .then(async ({ data }) => {
       login.setUser(data.user)
 
-      const url = route.query['url']
-      if (url) {
-        await router.push(url as string)
+      if (routeQueryUrl) {
+        await router.push(routeQueryUrl as string)
       } else {
         await router.push({ name: 'index' })
       }
@@ -103,14 +104,15 @@ const onSubmit = handleSubmit(async (values) => {
             <Button rounded type="submit" :label="$t('action.Login')" :loading="isSubmitting" />
           </div>
           <div class="pt-6 text-center">
-            <Button
-              type="button"
-              text
-              rounded
-              :label="$t('action.Need_an_account')"
-              severity="secondary"
-              @click="() => router.push({ name: 'register' })"
-            />
+            <RouterLink :to="{ name: 'register', query: { url: routeQueryUrl } }">
+              <Button
+                type="button"
+                text
+                rounded
+                :label="$t('action.Need_an_account')"
+                severity="secondary"
+              />
+            </RouterLink>
           </div>
         </div>
       </form>
