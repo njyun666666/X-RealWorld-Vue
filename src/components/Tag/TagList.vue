@@ -14,6 +14,7 @@ const { isPending, data } = useQuery({
 </script>
 <template>
   <div class="flex flex-col overflow-hidden rounded-xl border">
+    <h3 class="px-4">{{ $t('title.PopularTags') }}</h3>
     <template v-if="isPending">
       <div v-for="(item, index) in 9" :key="item" class="px-4 py-2">
         <Skeleton class="!h-6" :width="`${((index % 3) + 1) * 30}%`" />

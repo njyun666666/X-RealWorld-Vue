@@ -49,11 +49,13 @@
   },
   "title": {
     "Add": "新增{{title}}",
-    "Edit": "修改{{title}}"
+    "Edit": "修改{{title}}",
+    "PopularTags": "熱門標籤"
   },
   "UserModel": {
     "email": "Email",
     "password": "密碼",
+    "confirm": "確認密碼",
     "username": "姓名",
     "email_or_password": "Email或密碼"
   },
@@ -83,6 +85,7 @@
     "has_already_been_taken": "已經存在",
     "is_invalid": "無效",
     "IsError": "錯誤",
-    "NoMore": "沒了"
+    "NoMore": "沒了",
+    "Password_dont_match": "與密碼不符"
   }
 }
