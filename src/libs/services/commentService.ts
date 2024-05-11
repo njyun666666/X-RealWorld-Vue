@@ -55,7 +55,15 @@ class CommentService {
   }
 
   getComments(slug: string) {
-    return realworldAPI.get<MultipleCommentsViewModel>(`/api/articles/${slug}/comments`)
+    return realworldAPI
+      .get<MultipleCommentsViewModel>(`/api/articles/${slug}/comments`)
+      .then((res) => {
+        res.data.comments.forEach((item) => {
+          item.body = item.body.replace(/\\n/g, '\n')
+        })
+
+        return res
+      })
   }
 
   deleteComment(slug: string, id: number) {

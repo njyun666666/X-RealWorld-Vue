@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed, ref, type HTMLAttributes } from 'vue'
-import { articleService, type Article } from '@/libs/services/articleService'
+import { type Article } from '@/libs/services/articleService'
 import { cn } from '@/libs/utils'
 import ArticleLikeBtn from './ArticleLikeBtn.vue'
 import ArticleShareBtn from './ArticleShareBtn.vue'
@@ -99,10 +99,9 @@ const handleDelete = async () => {
         </div>
         <div>
           <h3 class="line-clamp-2 break-normal">{{ article.title }}</h3>
-          <p
-            class="line-clamp-6 break-normal"
-            v-html="article.description.replace(/[\\n]|[\n]/g, '<br/>')"
-          ></p>
+          <p class="line-clamp-6 break-normal">
+            {{ article.description }}
+          </p>
         </div>
         <div class="my-2 flex justify-between">
           <CommentBtn :article="article" />

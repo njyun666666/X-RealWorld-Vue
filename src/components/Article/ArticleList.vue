@@ -20,7 +20,7 @@ const canLoadMore = ref(true)
 const articleList = computed(() => {
   switch (props.articleTabType) {
     case 'globalFeed':
-      return articleStore.articleList
+      return articleStore.globalFeedList
 
     case 'yourFeed':
       return articleStore.yourFeedList

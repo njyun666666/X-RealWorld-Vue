@@ -67,7 +67,7 @@ const handleDelete = async () => {
         </span>
       </div>
       <div>
-        <p class="break-normal" v-html="comment.body.replace(/[\\n]|[\n]/g, '<br/>')"></p>
+        <p class="break-normal" v-html="comment.body.replace(/\n/g, '<br/>')"></p>
       </div>
 
       <!-- menu -->

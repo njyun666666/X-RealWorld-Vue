@@ -2,7 +2,7 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useLoginStore } from './login'
 import { articleService, type Article, type ArticleModel } from '@/libs/services/articleService'
-import { remove } from 'lodash'
+import { remove, sortBy } from 'lodash'
 
 export type ArticleTabType = 'yourFeed' | 'globalFeed' | 'search'
 
@@ -16,9 +16,17 @@ export const useArticleStore = defineStore('article', () => {
   })
   const article = ref<{ [slug: string]: Article }>({})
   const articleList = ref<Article[]>([])
+
+  const globalFeedList = computed(() => {
+    return sortBy(articleList.value, ['createdAt']).reverse()
+  })
+
   const yourFeedList = computed(() => {
     if (login.loginState) {
-      return articleList.value.filter((x) => x.author.username == login.user.username)
+      return sortBy(
+        articleList.value.filter((x) => x.author.username == login.user.username),
+        ['createdAt']
+      ).reverse()
     }
 
     return [] as Article[]
@@ -75,6 +83,7 @@ export const useArticleStore = defineStore('article', () => {
     scrollY,
     article,
     articleList,
+    globalFeedList,
     yourFeedList,
     setSavedScrollY,
     getArticles,

@@ -50,11 +50,22 @@ export interface ArticleCreate {
 
 class ArticleService {
   getArticleBySlug(slug: string) {
-    return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`)
+    return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`).then((res) => {
+      res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+      return res
+    })
   }
 
   getArticles(data?: ArticleModel) {
-    return realworldAPI.get<MultipleArticleViewModel>('/api/articles', { params: data })
+    return realworldAPI
+      .get<MultipleArticleViewModel>('/api/articles', { params: data })
+      .then((res) => {
+        res.data.articles.forEach((item) => {
+          item.body = item.body.replace(/\\n/g, '\n')
+        })
+
+        return res
+      })
   }
 
   createArticle(data: ArticleCreateModel) {
