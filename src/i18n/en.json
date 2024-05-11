@@ -44,7 +44,8 @@
     "LoadMore": "Load more",
     "Back": "Back",
     "Comment": "Comment",
-    "CopyURL": "Copy url"
+    "CopyURL": "Copy url",
+    "Post": "Post"
   },
   "title": {
     "Add": "Add {{title}}",
@@ -58,6 +59,13 @@
   },
   "AddCommentModel": {
     "body": "Write a comment..."
+  },
+  "ArticleCreateModel": {
+    "writeArticle": "Write a article...",
+    "title": "Title",
+    "description": "Description",
+    "body": "Content",
+    "tag": "Tags"
   },
   "message": {
     "required": "required",

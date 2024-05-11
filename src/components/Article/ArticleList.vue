@@ -7,17 +7,30 @@ import { computed, onActivated, onDeactivated, ref, watch } from 'vue'
 import Button from 'primevue/button'
 import ArticleItem from './ArticleItem.vue'
 import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
-import appConst from '@/appConst'
 
 const props = defineProps<{
   queryModel?: ArticleModel
-  savedScrollYKey: ArticleTabType
+  articleTabType: ArticleTabType
 }>()
 
 const enable = ref(false)
 const articleStore = useArticleStore()
 const { y: scrollY } = useWindowScroll()
 const canLoadMore = ref(true)
+const articleList = computed(() => {
+  switch (props.articleTabType) {
+    case 'globalFeed':
+      return articleStore.globalFeedList
+
+    case 'yourFeed':
+      return articleStore.yourFeedList
+
+    case 'search':
+      return articleStore.yourFeedList
+  }
+
+  return []
+})
 
 const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => {
   const data = await articleStore
@@ -36,10 +49,10 @@ const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => 
   }
 }
 
-const { data, fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
+const { fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
   queryKey: ['ArticlesList', props.queryModel],
   queryFn: getData,
-  staleTime: appConst.StaleTime,
+  staleTime: Infinity,
   initialPageParam: { limit: 10 },
   getNextPageParam: (lastPage) => lastPage.nextCursor
 })
@@ -62,7 +75,7 @@ const isLoading = computed(() => {
 
 onActivated(() => {
   enable.value = true
-  scrollY.value = articleStore.scrollY[props.savedScrollYKey]
+  scrollY.value = articleStore.scrollY[props.articleTabType]
 })
 
 onDeactivated(() => {
@@ -71,20 +84,14 @@ onDeactivated(() => {
 
 watch(scrollY, (y) => {
   if (enable.value) {
-    articleStore.setSavedScrollY(props.savedScrollYKey, y)
+    articleStore.setSavedScrollY(props.articleTabType, y)
   }
 })
 </script>
 
 <template>
   <div class="divide-y">
-    <template v-for="(page, index) in data?.pages" :key="index">
-      <ArticleItem
-        v-for="item in page.articles"
-        :key="item.slug"
-        :article="articleStore.article[item.slug]"
-      />
-    </template>
+    <ArticleItem v-for="item in articleList" :key="item.slug" :article="item" />
 
     <template v-if="isLoading">
       <ArticleItemSkeleton v-for="n in 10" :key="n" />

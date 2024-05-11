@@ -7,6 +7,7 @@ import YourFeed from './YourFeed.vue'
 import GlobalFeed from './GlobalFeed.vue'
 import { useArticleStore } from '@/stores/article'
 import { cn } from '@/libs/utils'
+import ArticleForm from '@/components/Article/ArticleForm.vue'
 
 const login = useLoginStore()
 const articleStore = useArticleStore()
@@ -56,6 +57,8 @@ watch(
       </template>
     </TabMenu>
   </div>
+
+  <ArticleForm class="border-b px-4 pb-4" />
 
   <KeepAlive>
     <component :is="comps[articleStore.activeTab]"></component>
