@@ -50,6 +50,8 @@
   "title": {
     "Add": "Add {title}",
     "Edit": "Edit {title}",
+    "Confirm": "Confirm {title}",
+    "ConfirmText": "Do you want to {action} {title}?",
     "Article": "Article",
     "PopularTags": "Popular Tags"
   },

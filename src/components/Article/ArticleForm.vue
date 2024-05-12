@@ -138,6 +138,7 @@ const onSubmit = handleSubmit(async (values) => {
             :loading="isSubmitting"
             :disabled="!expand"
             size="small"
+            :pt="{ label: { class: '!font-bold' } }"
           />
         </div>
       </form>

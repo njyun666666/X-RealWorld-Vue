@@ -43,7 +43,7 @@ const handleClick = () => {
     @mousedown.middle.stop.prevent
   >
     <font-awesome-icon icon="fa-solid fa-pencil" class="!h-5 !w-5" />
-    <span class="ml-2 hidden xl:block">
+    <span class="ml-2 hidden font-bold xl:block">
       {{ $t('action.Post') }}
     </span>
   </Button>

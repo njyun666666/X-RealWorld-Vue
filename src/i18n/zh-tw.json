@@ -50,6 +50,8 @@
   "title": {
     "Add": "新增{title}",
     "Edit": "修改{title}",
+    "Confirm": "確認{title}",
+    "ConfirmText": "確認要{action}{title}?",
     "Article": "文章",
     "PopularTags": "熱門標籤"
   },

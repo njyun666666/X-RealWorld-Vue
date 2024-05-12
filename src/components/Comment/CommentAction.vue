@@ -3,34 +3,23 @@ import { ref, type HTMLAttributes } from 'vue'
 import DropdownMenu, { type DropdownItem } from '../UI/DropdownMenu.vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'primevue/usetoast'
-import { useArticleStore } from '@/stores/article'
-import type { Article } from '@/libs/services/articleService'
-import { useDialog } from 'primevue/usedialog'
-import ArticleFormDialog from './ArticleFormDialog.vue'
 import { cn } from '@/libs/utils'
 import { useConfirm } from 'primevue/useconfirm'
+import { commentService, type Comment } from '@/libs/services/commentService'
 
 const props = defineProps<{
-  article: Article
+  slug: string
+  comment: Comment
   class?: HTMLAttributes['class']
 }>()
 
 const { t } = useI18n()
 const isSubmitting = ref(false)
 const toast = useToast()
-const articleStore = useArticleStore()
-const dialog = useDialog()
+const query = commentService.query(props.slug)
 const confirm = useConfirm()
 
 const items = ref<DropdownItem[]>([
-  {
-    label: 'action.Edit',
-    icon: 'fa-solid fa-pencil',
-    buttonProps: { severity: 'secondary' },
-    command: () => {
-      handleEdit()
-    }
-  },
   {
     label: 'action.Remove',
     icon: 'fa-solid fa-trash',
@@ -41,31 +30,9 @@ const items = ref<DropdownItem[]>([
   }
 ])
 
-const handleEdit = () => {
-  dialog.open(ArticleFormDialog, {
-    data: {
-      isAdd: false,
-      article: props.article
-    },
-    props: {
-      header: t('title.Edit', { title: t('title.Article') }),
-      style: {
-        width: '100vw',
-        maxWidth: '600px'
-      },
-      modal: true,
-      draggable: false,
-      position: 'top'
-    }
-  })
-}
-
 const handleDeleteClick = () => {
   confirm.require({
-    message: t('title.ConfirmText', {
-      action: t('action.Remove').toLowerCase(),
-      title: props.article.title
-    }),
+    message: t('title.ConfirmText', { action: t('action.Remove').toLowerCase() }),
     header: t('title.Confirm', { title: t('action.Remove').toLowerCase() }),
     icon: 'warn',
     rejectProps: {
@@ -87,14 +54,13 @@ const handleDeleteClick = () => {
 const doDelete = async () => {
   isSubmitting.value = true
 
-  await articleStore
-    .deleteArticle(props.article.slug)
-    .then(() => {
+  await commentService
+    .deleteComment(props.slug, props.comment.id)
+    .then(async () => {
+      await query.refetch()
       toast.add({ severity: 'success', summary: t('message.RemoveSuccess'), life: 3000 })
     })
-    .catch(() => {
-      toast.add({ severity: 'error', summary: t('message.DeleteFail'), life: 3000 })
-    })
+    .catch(() => {})
 
   isSubmitting.value = false
 }
