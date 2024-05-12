@@ -4,17 +4,25 @@ import { useDialog } from 'primevue/usedialog'
 import ArticleFormDialog from './ArticleFormDialog.vue'
 import { useLoginStore } from '@/stores/login'
 import { breakpoints } from '@/libs/common'
+import { useI18n } from 'vue-i18n'
+
+const props = defineProps<{
+  isAdd?: boolean
+}>()
 
 const dialog = useDialog()
 const login = useLoginStore()
+const { t } = useI18n()
 
 const handleClick = () => {
   if (!login.checkLogin()) return
 
   dialog.open(ArticleFormDialog, {
-    data: {},
+    data: {
+      isAdd: props.isAdd
+    },
     props: {
-      header: ' ',
+      header: t(props.isAdd ? 'title.Add' : 'title.Edit', { title: t('title.Article') }),
       style: {
         width: '100vw',
         maxWidth: '600px'

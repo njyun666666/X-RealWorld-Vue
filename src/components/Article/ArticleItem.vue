@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, ref, type HTMLAttributes } from 'vue'
+import { computed, type HTMLAttributes } from 'vue'
 import { type Article } from '@/libs/services/articleService'
 import { cn } from '@/libs/utils'
 import ArticleLikeBtn from './ArticleLikeBtn.vue'
@@ -14,10 +14,7 @@ import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
 import CommentItem from '../Comment/CommentItem.vue'
 import ItemSlot from '../Slots/ItemSlot.vue'
 import { useLoginStore } from '@/stores/login'
-import DropdownMenu, { type DropdownItem } from '../UI/DropdownMenu.vue'
-import { useToast } from 'primevue/usetoast'
-import { useI18n } from 'vue-i18n'
-import { useArticleStore } from '@/stores/article'
+import ArticleAction from './ArticleAction.vue'
 
 const props = defineProps<{
   article: Article
@@ -25,10 +22,6 @@ const props = defineProps<{
 }>()
 const login = useLoginStore()
 const router = useRouter()
-const { t } = useI18n()
-const isSubmitting = ref(false)
-const toast = useToast()
-const articleStore = useArticleStore()
 
 const routeData = router.resolve({
   name: 'article',
@@ -52,32 +45,6 @@ const popularComments = computed(() => {
 })
 
 const connectLineNext = computed(() => popularComments.value && popularComments.value.length > 0)
-
-const items = ref<DropdownItem[]>([
-  {
-    label: 'action.Remove',
-    icon: 'fa-solid fa-trash',
-    buttonProps: { severity: 'danger' },
-    command: () => {
-      handleDelete()
-    }
-  }
-])
-
-const handleDelete = async () => {
-  isSubmitting.value = true
-
-  await articleStore
-    .deleteArticle(props.article.slug)
-    .then(() => {
-      toast.add({ severity: 'success', summary: t('message.RemoveSuccess'), life: 3000 })
-    })
-    .catch(() => {
-      toast.add({ severity: 'error', summary: t('message.DeleteFail'), life: 3000 })
-    })
-
-  isSubmitting.value = false
-}
 </script>
 <template>
   <div
@@ -108,21 +75,8 @@ const handleDelete = async () => {
           <ArticleLikeBtn :slug="article.slug" />
           <ArticleShareBtn :slug="article.slug" :username="article.author.username" />
         </div>
-        <!-- menu -->
         <template v-if="login.loginState && login.user.username === article.author.username">
-          <DropdownMenu
-            :items="items"
-            :buttonProps="{
-              severity: 'secondary',
-              text: true,
-              rounded: true,
-              loading: isSubmitting,
-              class: '!absolute right-2 top-2 -mr-4 !h-9 !w-9'
-            }"
-          >
-            <font-awesome-icon v-if="isSubmitting" icon="fa-solid fa-circle-notch" spin />
-            <font-awesome-icon v-else icon="fa-solid fa-ellipsis" />
-          </DropdownMenu>
+          <ArticleAction :article="article" class="!absolute right-2 top-2 -mr-4" />
         </template>
       </template>
     </ItemSlot>

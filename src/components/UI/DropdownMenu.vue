@@ -27,7 +27,7 @@ const toggle = (event: MouseEvent) => {
     <template #item="{ item, props }">
       <a class="align-items-center flex !p-0" v-bind="props.action">
         <Button text class="grow !justify-start" v-bind="item.buttonProps">
-          <font-awesome-icon :icon="item.icon" />
+          <font-awesome-icon :icon="item.icon" class="h-4 w-4" />
           <span class="ml-2">{{ $t(item.label as string) }}</span>
         </Button>
       </a>
