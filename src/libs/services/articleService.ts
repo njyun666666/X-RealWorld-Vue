@@ -1,4 +1,5 @@
-import realworldAPI from '../api/realworldAPI'
+import type { AxiosResponse } from 'axios'
+import realworldAPI, { type ResponseErrors } from '../api/realworldAPI'
 
 export interface ArticleModel {
   tag?: string
@@ -74,6 +75,17 @@ class ArticleService {
 
   updateArticle(slug: string, data: ArticleCreateModel) {
     return realworldAPI.put<SingleArticleViewModel>(`/api/articles/${slug}`, data)
+  }
+
+  mergeArticle(
+    data: ArticleCreateModel,
+    slug?: string
+  ): Promise<AxiosResponse<SingleArticleViewModel>> {
+    if (slug) {
+      return this.updateArticle(slug, data)
+    }
+
+    return this.createArticle(data)
   }
 
   deleteArticle(slug: string) {

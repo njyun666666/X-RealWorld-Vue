@@ -13,12 +13,17 @@ import { useToast } from 'primevue/usetoast'
 import { ref, type HTMLAttributes } from 'vue'
 import { cn } from '@/libs/utils'
 import InputChips from 'primevue/chips'
-import { articleService } from '@/libs/services/articleService'
+import { articleService, type Article } from '@/libs/services/articleService'
 import { useArticleStore } from '@/stores/article'
+import type { AxiosError } from 'axios'
+import type { ResponseErrors } from '@/libs/api/realworldAPI'
+import { useRoute, useRouter } from 'vue-router'
 
 const props = withDefaults(
   defineProps<{
     expand?: boolean
+    isAdd?: boolean
+    article?: Article
     class?: HTMLAttributes['class']
   }>(),
   {
@@ -31,6 +36,8 @@ const emit = defineEmits<{
 }>()
 
 const expand = ref(props.expand)
+const router = useRouter()
+const route = useRoute()
 const articleStore = useArticleStore()
 const toast = useToast()
 const login = useLoginStore()
@@ -54,7 +61,7 @@ const formSchema = z.object({
 
 const { defineField, handleSubmit, errors, isSubmitting, resetForm } = useForm({
   validationSchema: toTypedSchema(formSchema),
-  initialValues: {}
+  initialValues: props.article
 })
 
 const [title] = defineField('title')
@@ -63,16 +70,23 @@ const [body] = defineField('body')
 const [tagList] = defineField('tagList')
 
 const onSubmit = handleSubmit(async (values) => {
-  console.log(values)
   await articleService
-    .createArticle({ article: values })
+    .mergeArticle({ article: values }, props.article?.slug)
     .then(async ({ data }) => {
-      articleStore.mergeArticle(data.article)
-      resetForm()
+      articleStore.mergeArticle(data.article, props.article?.slug)
       emit('close')
+      resetForm()
       toast.add({ severity: 'success', summary: t('message.AddSuccess'), life: 3000 })
+
+      if (route.name == 'article') {
+        router.replace({
+          name: 'article',
+          params: { username: route.params['username'], slug: data.article.slug }
+        })
+      }
     })
-    .catch(() => {
+    .catch((error: AxiosError<ResponseErrors>) => {
+      console.log(error.response?.data)
       toast.add({ severity: 'error', summary: t('message.AddFail'), life: 3000 })
     })
 })

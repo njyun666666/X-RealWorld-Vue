@@ -48,8 +48,9 @@
     "Post": "Post"
   },
   "title": {
-    "Add": "Add {{title}}",
-    "Edit": "Edit {{title}}",
+    "Add": "Add {title}",
+    "Edit": "Edit {title}",
+    "Article": "Article",
     "PopularTags": "Popular Tags"
   },
   "UserModel": {
@@ -81,7 +82,7 @@
     "DeleteFail": "Delete failed",
     "InvalidEmail": "Invalid Email",
     "NoFound": "No found",
-    "At_least_number_entry_is_required": "At least {{number}} entry is required",
+    "At_least_number_entry_is_required": "At least {number} entry is required",
     "has_already_been_taken": "has already been taken",
     "is_invalid": "is invalid",
     "IsError": "error",

@@ -39,12 +39,12 @@ export const useArticleStore = defineStore('article', () => {
   const mergeArticle = (data: Article, oldSlug?: string) => {
     article.value[data.slug] = data
     const newArticle = article.value[data.slug]
+    const oldExists = articleList.value.find((x) => x.slug == (oldSlug || data.slug))
 
-    let old = articleList.value.find((x) => x.slug == (oldSlug || data.slug))
-
-    if (old) {
-      old = newArticle
-    } else {
+    if (oldSlug && oldExists && oldSlug != data.slug) {
+      remove(articleList.value, { slug: oldSlug })
+      articleList.value.push(newArticle)
+    } else if (!oldExists) {
       articleList.value.push(newArticle)
     }
   }

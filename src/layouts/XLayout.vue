@@ -45,7 +45,7 @@ const toggle = (event: MouseEvent) => {
           </div>
           <div class="flex grow flex-col gap-2 py-1 pb-5 pl-1 pr-1 md:pr-8">
             <Nav />
-            <ArticlePostBtn />
+            <ArticlePostBtn isAdd />
           </div>
           <div
             class="sticky bottom-0 z-[1] flex w-full flex-col gap-2 bg-background pb-1 pl-1 pr-1 pt-2 md:pr-8"

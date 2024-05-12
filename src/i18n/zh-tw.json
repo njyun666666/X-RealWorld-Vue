@@ -48,8 +48,9 @@
     "Post": "發佈"
   },
   "title": {
-    "Add": "新增{{title}}",
-    "Edit": "修改{{title}}",
+    "Add": "新增{title}",
+    "Edit": "修改{title}",
+    "Article": "文章",
     "PopularTags": "熱門標籤"
   },
   "UserModel": {
@@ -81,7 +82,7 @@
     "DeleteFail": "刪除失敗",
     "InvalidEmail": "無效Email",
     "NoFound": "沒有找到",
-    "At_least_number_entry_is_required": "至少輸入 {{number}} 筆",
+    "At_least_number_entry_is_required": "至少輸入 {number} 筆",
     "has_already_been_taken": "已經存在",
     "is_invalid": "無效",
     "IsError": "錯誤",

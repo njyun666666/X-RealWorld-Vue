@@ -91,7 +91,11 @@ watch(scrollY, (y) => {
 
 <template>
   <div class="divide-y">
-    <ArticleItem v-for="item in articleList" :key="item.slug" :article="item" />
+    <ArticleItem
+      v-for="item in articleList"
+      :key="item.slug"
+      :article="articleStore.article[item.slug]"
+    />
 
     <template v-if="isLoading">
       <ArticleItemSkeleton v-for="n in 10" :key="n" />
