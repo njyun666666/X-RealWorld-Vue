@@ -79,6 +79,7 @@ const onSubmit = handleSubmit(async (values) => {
             :label="$t('action.Comment')"
             :loading="isSubmitting"
             size="small"
+            :pt="{ label: { class: '!font-bold' } }"
           />
         </div>
       </form>

@@ -1,15 +1,13 @@
 <script setup lang="ts">
-import { ref, type HTMLAttributes } from 'vue'
-import { commentService, type Comment } from '@/libs/services/commentService'
+import { type HTMLAttributes } from 'vue'
+import { type Comment } from '@/libs/services/commentService'
 import { cn } from '@/libs/utils'
 import ProfileImageBtn from '../Profile/ProfileImageBtn.vue'
 import ProfileTextBtn from '../Profile/ProfileTextBtn.vue'
 import RelativeTime from '../RelativeTime.vue'
 import ItemSlot from '../Slots/ItemSlot.vue'
 import { useLoginStore } from '@/stores/login'
-import { useToast } from 'primevue/usetoast'
-import { useI18n } from 'vue-i18n'
-import DropdownMenu, { type DropdownItem } from '../UI/DropdownMenu.vue'
+import CommentAction from './CommentAction.vue'
 
 const props = defineProps<{
   class?: HTMLAttributes['class']
@@ -19,35 +17,7 @@ const props = defineProps<{
   connectLineNext?: boolean
 }>()
 
-const isSubmitting = ref(false)
 const login = useLoginStore()
-const toast = useToast()
-const query = commentService.query(props.slug)
-const { t } = useI18n()
-const items = ref<DropdownItem[]>([
-  {
-    label: 'action.Remove',
-    icon: 'fa-solid fa-trash',
-    buttonProps: { severity: 'danger' },
-    command: () => {
-      handleDelete()
-    }
-  }
-])
-
-const handleDelete = async () => {
-  isSubmitting.value = true
-
-  await commentService
-    .deleteComment(props.slug, props.comment.id)
-    .then(async () => {
-      await query.refetch()
-      toast.add({ severity: 'success', summary: t('message.RemoveSuccess'), life: 3000 })
-    })
-    .catch(() => {})
-
-  isSubmitting.value = false
-}
 </script>
 
 <template>
@@ -70,21 +40,12 @@ const handleDelete = async () => {
         <p class="break-normal" v-html="comment.body.replace(/\n/g, '<br/>')"></p>
       </div>
 
-      <!-- menu -->
       <template v-if="login.loginState && login.user.username === comment.author.username">
-        <DropdownMenu
-          :items="items"
-          :buttonProps="{
-            severity: 'secondary',
-            text: true,
-            rounded: true,
-            loading: isSubmitting,
-            class: '!absolute right-2 top-2 -mr-4 !h-9 !w-9'
-          }"
-        >
-          <font-awesome-icon v-if="isSubmitting" icon="fa-solid fa-circle-notch" spin />
-          <font-awesome-icon v-else icon="fa-solid fa-ellipsis" />
-        </DropdownMenu>
+        <CommentAction
+          class="!absolute right-2 top-2 -mr-4 !h-9 !w-9"
+          :slug="slug"
+          :comment="comment"
+        />
       </template>
     </template>
   </ItemSlot>

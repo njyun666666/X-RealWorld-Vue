@@ -10,17 +10,17 @@ import Toast from 'primevue/toast'
         class="!h-6 !w-6"
       />
       <font-awesome-icon
-        v-if="slotProps.message.severity == 'success'"
+        v-else-if="slotProps.message.severity == 'success'"
         icon="fa-solid fa-circle-check"
         class="!h-6 !w-6"
       />
       <font-awesome-icon
-        v-if="slotProps.message.severity == 'error'"
+        v-else-if="slotProps.message.severity == 'error'"
         icon="fa-solid fa-circle-xmark"
         class="!h-6 !w-6"
       />
       <font-awesome-icon
-        v-if="slotProps.message.severity == 'warn'"
+        v-else-if="slotProps.message.severity == 'warn'"
         icon="fa-solid fa-circle-exclamation"
         class="!h-6 !w-6"
       />

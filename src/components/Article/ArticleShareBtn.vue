@@ -12,7 +12,7 @@ const url = `${location.protocol}/${location.host}/${props.username}/${props.slu
 const items = ref<DropdownItem[]>([
   {
     label: 'action.CopyURL',
-    icon: 'fa-solid fa-copy',
+    icon: 'fa-regular fa-copy',
     buttonProps: { severity: 'secondary' },
     command: () => {
       copy(url)

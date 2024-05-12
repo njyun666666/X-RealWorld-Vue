@@ -13,6 +13,7 @@ import { primeVueConfig } from './primeVueConfig'
 import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
+import ConfirmationService from 'primevue/confirmationservice'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -39,6 +40,7 @@ app.use(PrimeVue, primeVueConfig)
 app.use(VueQueryPlugin)
 app.use(ToastService)
 app.use(DialogService)
+app.use(ConfirmationService)
 
 app.directive('tooltip', Tooltip)
 

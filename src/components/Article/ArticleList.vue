@@ -110,7 +110,7 @@ watch(scrollY, (y) => {
       <template v-if="!isLoading">
         <Button rounded @click="() => fetchNextPage()">
           <font-awesome-icon icon="fa-solid fa-rotate-right" />
-          <span class="ml-2">{{ $t('action.LoadMore') }}</span>
+          <span class="ml-2 font-bold">{{ $t('action.LoadMore') }}</span>
         </Button>
       </template>
     </div>
