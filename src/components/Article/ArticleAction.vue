@@ -9,12 +9,15 @@ import { useDialog } from 'primevue/usedialog'
 import ArticleFormDialog from './ArticleFormDialog.vue'
 import { cn } from '@/libs/utils'
 import { useConfirm } from 'primevue/useconfirm'
+import { useRoute, useRouter } from 'vue-router'
 
 const props = defineProps<{
   article: Article
   class?: HTMLAttributes['class']
 }>()
 
+const router = useRouter()
+const route = useRoute()
 const { t } = useI18n()
 const isSubmitting = ref(false)
 const toast = useToast()
@@ -91,6 +94,9 @@ const doDelete = async () => {
     .deleteArticle(props.article.slug)
     .then(() => {
       toast.add({ severity: 'success', summary: t('message.RemoveSuccess'), life: 3000 })
+      if (route.name == 'article') {
+        router.replace({ name: 'index' })
+      }
     })
     .catch(() => {
       toast.add({ severity: 'error', summary: t('message.DeleteFail'), life: 3000 })
