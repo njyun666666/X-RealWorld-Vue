@@ -53,6 +53,7 @@
     "Confirm": "Confirm {title}",
     "ConfirmText": "Do you want to {action} {title}?",
     "Article": "Article",
+    "Comment": "Comment",
     "PopularTags": "Popular Tags"
   },
   "UserModel": {

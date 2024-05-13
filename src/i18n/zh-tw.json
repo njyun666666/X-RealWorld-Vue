@@ -53,6 +53,7 @@
     "Confirm": "確認{title}",
     "ConfirmText": "確認要{action}{title}?",
     "Article": "文章",
+    "Comment": "留言",
     "PopularTags": "熱門標籤"
   },
   "UserModel": {

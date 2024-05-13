@@ -32,7 +32,10 @@ const items = ref<DropdownItem[]>([
 
 const handleDeleteClick = () => {
   confirm.require({
-    message: t('title.ConfirmText', { action: t('action.Remove').toLowerCase() }),
+    message: t('title.ConfirmText', {
+      action: t('action.Remove').toLowerCase(),
+      title: t('title.Comment').toLowerCase()
+    }),
     header: t('title.Confirm', { title: t('action.Remove').toLowerCase() }),
     icon: 'warn',
     rejectProps: {

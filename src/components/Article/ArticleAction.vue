@@ -67,7 +67,7 @@ const handleDeleteClick = () => {
   confirm.require({
     message: t('title.ConfirmText', {
       action: t('action.Remove').toLowerCase(),
-      title: props.article.title
+      title: `${t('title.Article').toLowerCase()}: ${props.article.title}`
     }),
     header: t('title.Confirm', { title: t('action.Remove').toLowerCase() }),
     icon: 'warn',
