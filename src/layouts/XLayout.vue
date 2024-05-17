@@ -24,9 +24,9 @@ const toggle = (event: MouseEvent) => {
     :class="
       cn(
         'mx-auto flex w-full divide-x',
-        'md:max-w-[calc(50px+theme(size.2)+600px)]',
-        'lg:max-w-[calc(50px+theme(size.2)+600px+280px)]',
-        'xl:max-w-[calc(280px+theme(size.2)+600px+280px)]'
+        'md:max-w-[calc(80px+theme(size.2)+600px)]',
+        'lg:max-w-[calc(80px+theme(size.2)+600px+280px)]',
+        'xl:max-w-[calc(280px+600px+280px)]'
       )
     "
   >
