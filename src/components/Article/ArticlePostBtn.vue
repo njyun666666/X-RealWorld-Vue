@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import Button from 'primevue/button'
-import { useDialog } from 'primevue/usedialog'
+// import { useDialog } from 'primevue/usedialog'
 import ArticleFormDialog from './ArticleFormDialog.vue'
 import { useLoginStore } from '@/stores/login'
-import { breakpoints } from '@/libs/common'
+import { breakpoints, useDialog } from '@/libs/common'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
@@ -23,18 +23,13 @@ const handleClick = () => {
     },
     props: {
       header: t(props.isAdd ? 'title.Add' : 'title.Edit', { title: t('title.Article') }),
-      style: {
-        width: '100vw',
-        maxWidth: '600px'
-      },
-      modal: true,
-      draggable: false,
       position: 'top'
     }
   })
 }
 </script>
 <template>
+  <div class="hidden"></div>
   <Button
     rounded
     class="h-12 w-12 xl:w-full"
