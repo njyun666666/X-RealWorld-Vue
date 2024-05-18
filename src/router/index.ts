@@ -41,7 +41,7 @@ const router = createRouter({
           // profile
           path: '/',
           component: () => import('@/layouts/ArticleLayout.vue'),
-          meta: { keepAlive: true },
+          meta: { keepAlive: false },
           children: [
             {
               path: '/:username',

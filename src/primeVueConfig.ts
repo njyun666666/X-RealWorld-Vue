@@ -10,6 +10,8 @@ import button from 'primevue/themes/primeone/presets/aura/button'
 // @ts-ignore
 import toast from 'primevue/themes/primeone/presets/aura/toast'
 // @ts-ignore
+import image from 'primevue/themes/primeone/presets/aura/image'
+// @ts-ignore
 // import aura from 'primevue/themes/primeone/presets/aura'
 import type { PrimeVueConfiguration } from 'primevue/config'
 
@@ -237,7 +239,39 @@ const preset = definePreset(Aura, {
         }
       }
     },
-    toast: newToast
+    toast: newToast,
+    image: {
+      colorScheme: {
+        light: {
+          previewIndicator: {
+            background: 'rgba(0,0,0,0.3)',
+            color: '{surface.200}'
+          },
+          mask: {
+            background: 'rgba(0,0,0,0.9)'
+          },
+          action: {
+            hoverBackground: 'rgba(255,255,255,0.1)',
+            color: '{surface.50}',
+            hoverColor: '{surface.0}'
+          }
+        },
+        dark: {
+          previewIndicator: {
+            background: 'rgba(0,0,0,0.5)',
+            color: '{surface.200}'
+          },
+          mask: {
+            background: 'rgba(0,0,0,0.9)'
+          },
+          action: {
+            hoverBackground: 'rgba(255,255,255,0.1)',
+            color: '{surface.50}',
+            hoverColor: '{surface.0}'
+          }
+        }
+      }
+    }
   }
 })
 

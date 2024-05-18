@@ -45,7 +45,9 @@
     "Back": "返回",
     "Comment": "留言",
     "CopyURL": "複製連結",
-    "Post": "發佈"
+    "Post": "發佈",
+    "Follow": "追隨",
+    "Unfollow": "取消追隨"
   },
   "title": {
     "Add": "新增{title}",

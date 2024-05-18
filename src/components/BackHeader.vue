@@ -20,7 +20,7 @@ const handleClick = () => {
   <div
     :class="
       cn(
-        'sticky top-0 z-10 flex w-full items-center gap-2 bg-background/80 px-2 py-1 backdrop-blur-sm',
+        'sticky top-0 z-10 flex w-full max-w-full items-center gap-2 bg-background/80 px-2 py-1 backdrop-blur-sm',
         props.class
       )
     "
@@ -35,6 +35,8 @@ const handleClick = () => {
     >
       <font-awesome-icon icon="fa-solid fa-arrow-left" class="!h-5 !w-5" />
     </Button>
-    <slot></slot>
+    <div class="grow">
+      <slot></slot>
+    </div>
   </div>
 </template>

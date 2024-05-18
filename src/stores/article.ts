@@ -3,11 +3,13 @@ import { defineStore } from 'pinia'
 import { useLoginStore } from './login'
 import { articleService, type Article, type ArticleModel } from '@/libs/services/articleService'
 import { remove, sortBy } from 'lodash'
+import { useProfileStore } from './profile'
 
 export type ArticleTabType = 'yourFeed' | 'globalFeed' | 'search'
 
 export const useArticleStore = defineStore('article', () => {
   const login = useLoginStore()
+  const profileStore = useProfileStore()
   const activeTab = ref(login.loginState ? 0 : 1)
   const scrollY = ref<{ [key in ArticleTabType]: number }>({
     yourFeed: 0,
@@ -58,6 +60,7 @@ export const useArticleStore = defineStore('article', () => {
 
     return await articleService.getArticleBySlug(slug).then(async ({ data }) => {
       mergeArticle(data.article)
+      profileStore.mergeProfile(data.article.author)
       return article.value[slug]
     })
   }
@@ -66,6 +69,7 @@ export const useArticleStore = defineStore('article', () => {
     return await articleService.getArticles(data).then(({ data }) => {
       data.articles.map((item) => {
         mergeArticle(item)
+        profileStore.mergeProfile(item.author)
       })
       return data
     })
