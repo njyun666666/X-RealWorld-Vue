@@ -3,10 +3,10 @@ import { commentService } from '@/libs/services/commentService'
 import Button from 'primevue/button'
 import Skeleton from 'primevue/skeleton'
 import { computed } from 'vue'
-import { useDialog } from 'primevue/usedialog'
 import CommentFormDialog from './CommentFormDialog.vue'
 import type { Article } from '@/libs/services/articleService'
 import { useLoginStore } from '@/stores/login'
+import { useDialog } from '@/libs/common'
 
 const props = defineProps<{
   article: Article
@@ -26,12 +26,6 @@ const handleClick = () => {
     },
     props: {
       header: ' ',
-      style: {
-        width: '100vw',
-        maxWidth: '600px'
-      },
-      modal: true,
-      draggable: false,
       position: 'top'
     }
   })

@@ -1,5 +1,6 @@
 import type { AxiosResponse } from 'axios'
 import realworldAPI, { type ResponseErrors } from '../api/realworldAPI'
+import type { Profile } from './profileService'
 
 export interface ArticleModel {
   tag?: string
@@ -28,14 +29,7 @@ export interface Article {
   updatedAt: Date
   favorited: boolean
   favoritesCount: number
-  author: Author
-}
-
-export interface Author {
-  username: string
-  bio: string
-  image: string
-  following: boolean
+  author: Profile
 }
 
 export interface ArticleCreateModel {

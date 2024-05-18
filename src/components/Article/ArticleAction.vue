@@ -5,11 +5,11 @@ import { useI18n } from 'vue-i18n'
 import { useToast } from 'primevue/usetoast'
 import { useArticleStore } from '@/stores/article'
 import type { Article } from '@/libs/services/articleService'
-import { useDialog } from 'primevue/usedialog'
 import ArticleFormDialog from './ArticleFormDialog.vue'
 import { cn } from '@/libs/utils'
 import { useConfirm } from 'primevue/useconfirm'
 import { useRoute, useRouter } from 'vue-router'
+import { useDialog } from '@/libs/common'
 
 const props = defineProps<{
   article: Article
@@ -52,12 +52,6 @@ const handleEdit = () => {
     },
     props: {
       header: t('title.Edit', { title: t('title.Article') }),
-      style: {
-        width: '100vw',
-        maxWidth: '600px'
-      },
-      modal: true,
-      draggable: false,
       position: 'top'
     }
   })
@@ -67,7 +61,7 @@ const handleDeleteClick = () => {
   confirm.require({
     message: t('title.ConfirmText', {
       action: t('action.Remove').toLowerCase(),
-      title: props.article.title
+      title: `${t('title.Article').toLowerCase()}: ${props.article.title}`
     }),
     header: t('title.Confirm', { title: t('action.Remove').toLowerCase() }),
     icon: 'warn',

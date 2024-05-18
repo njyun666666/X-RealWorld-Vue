@@ -45,7 +45,9 @@
     "Back": "Back",
     "Comment": "Comment",
     "CopyURL": "Copy url",
-    "Post": "Post"
+    "Post": "Post",
+    "Follow": "follow",
+    "Unfollow": "unfollow"
   },
   "title": {
     "Add": "Add {title}",
@@ -53,6 +55,7 @@
     "Confirm": "Confirm {title}",
     "ConfirmText": "Do you want to {action} {title}?",
     "Article": "Article",
+    "Comment": "Comment",
     "PopularTags": "Popular Tags"
   },
   "UserModel": {

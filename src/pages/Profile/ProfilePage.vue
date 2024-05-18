@@ -1,13 +1,15 @@
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
-import { webTitle } from '@/libs/common'
+import ProfileBody from './ProfileBody.vue'
 
 const route = useRoute()
-const username = route.params['username'] as string
-webTitle.value = username
+const username = ref<string>(route.params['username'] as string)
+
+watch(route, () => {
+  username.value = route.params['username'] as string
+})
 </script>
 <template>
-  <div>
-    <h2>{{ username }}</h2>
-  </div>
+  <ProfileBody :key="username" />
 </template>

@@ -45,7 +45,9 @@
     "Back": "返回",
     "Comment": "留言",
     "CopyURL": "複製連結",
-    "Post": "發佈"
+    "Post": "發佈",
+    "Follow": "追隨",
+    "Unfollow": "取消追隨"
   },
   "title": {
     "Add": "新增{title}",
@@ -53,6 +55,7 @@
     "Confirm": "確認{title}",
     "ConfirmText": "確認要{action}{title}?",
     "Article": "文章",
+    "Comment": "留言",
     "PopularTags": "熱門標籤"
   },
   "UserModel": {
