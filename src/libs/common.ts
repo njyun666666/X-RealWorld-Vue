@@ -12,7 +12,7 @@ export const breakpoints = useBreakpoints({
   xl: 1280
 })
 
-export const webTitle = useTitle(null, { titleTemplate: '%s | Vue-Project' })
+export const webTitle = useTitle(null, { titleTemplate: '%s / Vue-Project' })
 
 export const useDialog = () => {
   const dialog = primevueUseDialog()
