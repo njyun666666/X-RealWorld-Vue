@@ -57,13 +57,15 @@ watch(
       {{ profile?.username }}
     </h1>
   </BackHeader>
-  <div v-if="!isPending && profile" class="flex flex-col">
-    <Image
-      :src="`https://picsum.photos/seed/${profile.username}/600/250`"
-      class="aspect-[600/250] w-full"
-      width="100%"
-      preview
-    />
+  <template v-if="!isPending && profile">
+    <div class="flex w-full flex-col">
+      <Image
+        :src="`https://picsum.photos/seed/${profile.username}/600/250`"
+        class="aspect-[600/250] w-full"
+        width="100%"
+        preview
+      />
+    </div>
     <div class="flex">
       <ProfileImage
         :username="profile.username"
@@ -74,8 +76,10 @@ watch(
         <ProfileFollowBtn :profile="profile" />
       </div>
     </div>
-    <div>
-      <h2>{{ username }}</h2>
+    <div class="w-full overflow-hidden px-4">
+      <h2>{{ profile.username }}</h2>
+      <p v-html="profile.bio.replace(/\n/g, '<br />')"></p>
     </div>
-  </div>
+    <div></div>
+  </template>
 </template>

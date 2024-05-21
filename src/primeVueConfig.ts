@@ -244,8 +244,8 @@ const preset = definePreset(Aura, {
       colorScheme: {
         light: {
           previewIndicator: {
-            background: 'rgba(0,0,0,0.3)',
-            color: '{surface.200}'
+            background: 'rgba(255,255,255,0.1)',
+            color: 'rgba(0,0,0,0)'
           },
           mask: {
             background: 'rgba(0,0,0,0.9)'
@@ -258,8 +258,8 @@ const preset = definePreset(Aura, {
         },
         dark: {
           previewIndicator: {
-            background: 'rgba(0,0,0,0.5)',
-            color: '{surface.200}'
+            background: 'rgba(255,255,255,0.1)',
+            color: 'rgba(0,0,0,0)'
           },
           mask: {
             background: 'rgba(0,0,0,0.9)'

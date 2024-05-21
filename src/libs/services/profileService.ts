@@ -13,7 +13,10 @@ export interface Profile {
 
 class ProfileService {
   getProfile(username: string) {
-    return realworldAPI.get<ProfileViewModel>(`/api/profiles/${username}`)
+    return realworldAPI.get<ProfileViewModel>(`/api/profiles/${username}`).then((res) => {
+      res.data.profile.bio = res.data.profile.bio.replace(/\\n/g, '\n')
+      return res
+    })
   }
 
   toggleFollow(username: string, following: boolean) {
