@@ -1,6 +1,7 @@
 import { useQuery, type UseQueryReturnType } from '@tanstack/vue-query'
 import realworldAPI from '../api/realworldAPI'
 import appConst from '@/appConst'
+import type { Profile } from './profileService'
 
 export interface AddCommentModel {
   comment: AddCommentBody
@@ -23,14 +24,7 @@ export interface Comment {
   createdAt: Date
   updatedAt: Date
   body: string
-  author: Author
-}
-
-export interface Author {
-  username: string
-  bio: string
-  image: string
-  following: boolean
+  author: Profile
 }
 
 class CommentService {
@@ -60,6 +54,7 @@ class CommentService {
       .then((res) => {
         res.data.comments.forEach((item) => {
           item.body = item.body.replace(/\\n/g, '\n')
+          item.author.bio = (item.author.bio ?? '').replace(/\\n/g, '\n')
         })
 
         return res
