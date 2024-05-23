@@ -47,7 +47,7 @@ class ArticleService {
   getArticleBySlug(slug: string) {
     return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`).then((res) => {
       res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
-      res.data.article.author.bio = res.data.article.author.bio.replace(/\\n/g, '\n')
+      res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
       return res
     })
   }
@@ -58,7 +58,7 @@ class ArticleService {
       .then((res) => {
         res.data.articles.forEach((item) => {
           item.body = item.body.replace(/\\n/g, '\n')
-          item.author.bio = item.author.bio.replace(/\\n/g, '\n')
+          item.author.bio = (item.author.bio ?? '').replace(/\\n/g, '\n')
         })
 
         return res
