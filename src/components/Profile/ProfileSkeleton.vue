@@ -14,11 +14,11 @@ const props = defineProps<{
     </div>
   </div>
   <div class="flex">
-    <Skeleton
-      shape="circle"
-      class="relative z-[1] -mt-18 ml-4 !h-32 !w-32 overflow-hidden rounded-full border-4 border-background"
-    />
-
+    <div
+      class="relative z-[1] -mt-18 ml-4 !h-32 !w-32 overflow-hidden rounded-full border-4 border-background bg-background"
+    >
+      <Skeleton shape="circle" class="!h-full !w-full" />
+    </div>
     <div class="flex grow justify-end gap-2 p-2">
       <!-- button   -->
     </div>

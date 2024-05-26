@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 import { webTitle } from '@/libs/common'
 import BackHeader from '@/components/BackHeader.vue'
 import { type Profile } from '@/libs/services/profileService'
-import Image from 'primevue/image'
+import Image from '@/components/UI/Image.vue'
 import ProfileImage from '@/components/Profile/ProfileImage.vue'
 import ProfileFollowBtn from '@/components/Profile/ProfileFollowBtn.vue'
 import { useProfileStore } from '@/stores/profile'
@@ -63,20 +63,24 @@ watch(
   </BackHeader>
   <ProfileSkeleton v-if="isPending" />
   <template v-if="!isPending && profile">
-    <div class="flex w-full flex-col">
-      <Image
-        :src="`https://picsum.photos/seed/${profile.username}/600/250`"
-        class="aspect-[600/250] w-full"
-        width="100%"
-        preview
-      />
+    <div class="flex aspect-[600/250] w-full flex-col justify-center overflow-hidden">
+      <div class="aspect-[600/250] w-full">
+        <Image
+          :src="`https://picsum.photos/1280/720?random=${username}`"
+          class="w-full"
+          preview
+          width="100%"
+          height="100%"
+          :skeletonProps="{ borderRadius: '0' }"
+        />
+      </div>
     </div>
     <div class="flex">
-      <ProfileImage
-        :username="profile.username"
-        :image="profile.image"
-        class="relative z-[1] -mt-18 ml-4 !h-32 !w-32 overflow-hidden rounded-full border-4 border-background"
-      />
+      <div
+        class="relative z-[1] -mt-18 ml-4 !h-32 !w-32 overflow-hidden rounded-full border-4 border-background bg-background"
+      >
+        <ProfileImage :username="profile.username" :image="profile.image" />
+      </div>
       <div class="flex grow justify-end gap-2 p-2">
         <ProfileFollowBtn :profile="profile" />
       </div>
