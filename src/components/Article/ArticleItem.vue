@@ -75,9 +75,7 @@ const connectLineNext = computed(() => popularComments.value && popularComments.
           <ArticleLikeBtn :slug="article.slug" />
           <ArticleShareBtn :slug="article.slug" :username="article.author.username" />
         </div>
-        <template v-if="login.loginState && login.user.username === article.author.username">
-          <ArticleAction :article="article" class="!absolute right-2 top-2 -mr-4" />
-        </template>
+        <ArticleAction :article="article" class="!absolute right-2 top-2 -mr-4" />
       </template>
     </ItemSlot>
 

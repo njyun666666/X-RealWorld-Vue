@@ -10,12 +10,14 @@ import { cn } from '@/libs/utils'
 import { useConfirm } from 'primevue/useconfirm'
 import { useRoute, useRouter } from 'vue-router'
 import { useDialog } from '@/libs/common'
+import { useLoginStore } from '@/stores/login'
 
 const props = defineProps<{
   article: Article
   class?: HTMLAttributes['class']
 }>()
 
+const login = useLoginStore()
 const router = useRouter()
 const route = useRoute()
 const { t } = useI18n()
@@ -101,6 +103,7 @@ const doDelete = async () => {
 </script>
 <template>
   <DropdownMenu
+    v-if="login.loginState && login.user.username === article.author.username"
     :items="items"
     :buttonProps="{
       severity: 'secondary',

@@ -9,5 +9,8 @@ declare module 'vue-router' {
     title?: string
     roles?: RoleType[]
     keepAlive?: boolean
+    noScrolling?: boolean
+    needWait?: boolean
+    resolveScroll?: () => void
   }
 }

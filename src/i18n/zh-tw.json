@@ -11,7 +11,9 @@
     "Theme": "主題",
     "YourFeed": "你的動態",
     "GlobalFeed": "全球動態",
-    "Search": "搜尋"
+    "Search": "搜尋",
+    "Posts": "貼文",
+    "Likes": "喜歡的內容"
   },
   "datatable": {
     "RowsPerPage": "每頁筆數",

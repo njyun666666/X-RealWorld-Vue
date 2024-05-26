@@ -28,11 +28,17 @@ class ProfileService {
   }
 
   follow(username: string) {
-    return realworldAPI.post<ProfileViewModel>(`/api/profiles/${username}/follow`)
+    return realworldAPI.post<ProfileViewModel>(`/api/profiles/${username}/follow`).then((res) => {
+      res.data.profile.bio = (res.data.profile.bio ?? '').replace(/\\n/g, '\n')
+      return res
+    })
   }
 
   unfollow(username: string) {
-    return realworldAPI.delete<ProfileViewModel>(`/api/profiles/${username}/follow`)
+    return realworldAPI.delete<ProfileViewModel>(`/api/profiles/${username}/follow`).then((res) => {
+      res.data.profile.bio = (res.data.profile.bio ?? '').replace(/\\n/g, '\n')
+      return res
+    })
   }
 }
 export const profileService = new ProfileService()

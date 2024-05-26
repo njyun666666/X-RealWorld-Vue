@@ -1,4 +1,4 @@
-import _ from 'lodash'
+import { merge } from 'lodash'
 // @ts-ignore
 import PrimeOne from 'primevue/themes/primeone'
 // @ts-ignore
@@ -10,12 +10,10 @@ import button from 'primevue/themes/primeone/presets/aura/button'
 // @ts-ignore
 import toast from 'primevue/themes/primeone/presets/aura/toast'
 // @ts-ignore
-import image from 'primevue/themes/primeone/presets/aura/image'
-// @ts-ignore
 // import aura from 'primevue/themes/primeone/presets/aura'
 import type { PrimeVueConfiguration } from 'primevue/config'
 
-const newButton = _.merge({}, button, {
+const newButton = merge({}, button, {
   colorScheme: {
     light: {
       root: {
@@ -56,7 +54,7 @@ const newButton = _.merge({}, button, {
   }
 })
 
-const newToast = _.merge({}, toast, {
+const newToast = merge({}, toast, {
   colorScheme: {
     dark: {
       blur: '1.5px',
@@ -281,6 +279,11 @@ export const primeVueConfig: PrimeVueConfiguration = {
     preset: preset,
     options: {
       darkModeSelector: 'html.dark'
+    }
+  },
+  pt: {
+    tabmenu: {
+      inkbar: { class: '!duration-0' }
     }
   }
 }

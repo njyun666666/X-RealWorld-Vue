@@ -11,7 +11,9 @@
     "Theme": "Theme",
     "YourFeed": "Your Feed",
     "GlobalFeed": "Global Feed",
-    "Search": "Saerch"
+    "Search": "Saerch",
+    "Posts": "Posts",
+    "Likes": "Likes"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
