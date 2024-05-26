@@ -34,7 +34,7 @@ watch(
     <TabMenu
       v-model:activeIndex="articleStore.activeTab"
       :model="items"
-      class="bg-transparent duration-0"
+      class="bg-transparent"
       :pt="{
         menu: { class: '!bg-transparent' },
         menuitem: {
@@ -42,8 +42,7 @@ watch(
             'w-full': !login.loginState,
             'w-1/2': login.loginState
           })
-        },
-        inkbar: { class: '!duration-0' }
+        }
       }"
     >
       <template #item="{ item, props }">

@@ -40,13 +40,11 @@ const login = useLoginStore()
         <p class="break-normal" v-html="comment.body.replace(/\n/g, '<br/>')"></p>
       </div>
 
-      <template v-if="login.loginState && login.user.username === comment.author.username">
-        <CommentAction
-          class="!absolute right-2 top-2 -mr-4 !h-9 !w-9"
-          :slug="slug"
-          :comment="comment"
-        />
-      </template>
+      <CommentAction
+        class="!absolute right-2 top-2 -mr-4 !h-9 !w-9"
+        :slug="slug"
+        :comment="comment"
+      />
     </template>
   </ItemSlot>
 </template>

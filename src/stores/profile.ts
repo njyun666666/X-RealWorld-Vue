@@ -4,6 +4,7 @@ import { profileService, type Profile } from '@/libs/services/profileService'
 
 export const useProfileStore = defineStore('profile', () => {
   const profile = ref<{ [username: string]: Profile }>({})
+  const activeTab = ref<{ [key: string]: number }>({})
 
   const mergeProfile = (data: Profile, oldUsername?: string) => {
     profile.value[data.username] = data
@@ -26,9 +27,21 @@ export const useProfileStore = defineStore('profile', () => {
     })
   }
 
+  const getActiveTab = (key: string) => {
+    if (activeTab.value[key]) {
+      return activeTab.value[key]
+    }
+
+    activeTab.value[key] = 0
+
+    return activeTab.value[key]
+  }
+
   return {
     profile,
+    activeTab,
     mergeProfile,
-    getProfile
+    getProfile,
+    getActiveTab
   }
 })

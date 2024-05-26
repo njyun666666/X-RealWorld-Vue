@@ -2,10 +2,10 @@ import { computed, ref } from 'vue'
 import { defineStore } from 'pinia'
 import { useLoginStore } from './login'
 import { articleService, type Article, type ArticleModel } from '@/libs/services/articleService'
-import { remove, sortBy } from 'lodash'
+import { merge, remove, sortBy } from 'lodash'
 import { useProfileStore } from './profile'
 
-export type ArticleTabType = 'yourFeed' | 'globalFeed' | 'search'
+export type ArticleTabType = 'yourFeed' | 'globalFeed' | 'search' | 'profilePosts' | 'profileLikes'
 
 export const useArticleStore = defineStore('article', () => {
   const login = useLoginStore()
@@ -14,10 +14,14 @@ export const useArticleStore = defineStore('article', () => {
   const scrollY = ref<{ [key in ArticleTabType]: number }>({
     yourFeed: 0,
     globalFeed: 0,
-    search: 0
+    search: 0,
+    profilePosts: 0,
+    profileLikes: 0
   })
+
   const article = ref<{ [slug: string]: Article }>({})
   const articleList = ref<Article[]>([])
+  const favorited = ref<{ [username: string]: string[] }>({})
 
   const globalFeedList = computed(() => {
     return sortBy(articleList.value, ['createdAt']).reverse()
@@ -65,12 +69,22 @@ export const useArticleStore = defineStore('article', () => {
     })
   }
 
-  const getArticles = async (data?: ArticleModel) => {
-    return await articleService.getArticles(data).then(({ data }) => {
+  const getArticles = async (param?: ArticleModel) => {
+    return await articleService.getArticles(param).then(({ data }) => {
       data.articles.map((item) => {
         mergeArticle(item)
         profileStore.mergeProfile(item.author)
       })
+
+      if (param?.favorited) {
+        const key = param?.favorited
+        favorited.value[key] = favorited.value[key] ?? []
+
+        merge(
+          favorited.value[key],
+          data.articles.map((item) => item.slug)
+        )
+      }
       return data
     })
   }
@@ -87,6 +101,7 @@ export const useArticleStore = defineStore('article', () => {
     scrollY,
     article,
     articleList,
+    favorited,
     globalFeedList,
     yourFeedList,
     setSavedScrollY,

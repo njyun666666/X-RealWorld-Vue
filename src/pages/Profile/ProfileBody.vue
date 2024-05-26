@@ -2,31 +2,35 @@
 import { useRoute } from 'vue-router'
 import { webTitle } from '@/libs/common'
 import BackHeader from '@/components/BackHeader.vue'
-import { profileService, type Profile } from '@/libs/services/profileService'
+import { type Profile } from '@/libs/services/profileService'
 import Image from 'primevue/image'
 import ProfileImage from '@/components/Profile/ProfileImage.vue'
 import ProfileFollowBtn from '@/components/Profile/ProfileFollowBtn.vue'
 import { useProfileStore } from '@/stores/profile'
 import { ref, watch } from 'vue'
-import { useLoginStore } from '@/stores/login'
 import { useToast } from 'primevue/usetoast'
+import TabMenu from 'primevue/tabmenu'
+import type { MenuItem } from 'primevue/menuitem'
+import { cn } from '@/libs/utils'
+import ProfilePostsTab from './ProfilePostsTab.vue'
+import ProfileLikesTab from './ProfileLikesTab.vue'
+import ProfileSkeleton from '@/components/Profile/ProfileSkeleton.vue'
 
 const route = useRoute()
-const username = ref<string>()
-const login = useLoginStore()
+const username = ref<string>(route.params['username'] as string)
 const profileStore = useProfileStore()
 const profile = ref<Profile>()
 const isPending = ref(true)
 const toast = useToast()
+const items = ref<MenuItem[]>([{ label: 'page.Posts' }, { label: 'page.Likes' }])
+const comps = [ProfilePostsTab, ProfileLikesTab]
 
 watch(
   route,
   () => {
     username.value = route.params['username'] as string
-
-    if (!username.value) return
-
     isPending.value = true
+    profileStore.getActiveTab(username.value)
 
     profileStore
       .getProfile(username.value)
@@ -57,6 +61,7 @@ watch(
       {{ profile?.username }}
     </h1>
   </BackHeader>
+  <ProfileSkeleton v-if="isPending" />
   <template v-if="!isPending && profile">
     <div class="flex w-full flex-col">
       <Image
@@ -80,6 +85,28 @@ watch(
       <h2>{{ profile.username }}</h2>
       <p v-html="profile.bio.replace(/\n/g, '<br />')"></p>
     </div>
-    <div></div>
   </template>
+  <TabMenu
+    v-model:activeIndex="profileStore.activeTab[username]"
+    :model="items"
+    :pt="{
+      menu: { class: '!bg-transparent' },
+      menuitem: {
+        class: cn('grow shrink w-1/2')
+      }
+    }"
+  >
+    <template #item="{ item, props }">
+      <a
+        v-bind="props.action"
+        class="flex justify-center gap-2 !rounded-none align-middle hover:bg-foreground/10"
+      >
+        <font-awesome-icon :icon="item.icon" class="h-4 w-4" v-if="item.icon" />
+        <span>{{ $t(String(item.label)) }}</span>
+      </a>
+    </template>
+  </TabMenu>
+  <KeepAlive>
+    <component :is="comps[profileStore.activeTab[username]]"></component>
+  </KeepAlive>
 </template>

@@ -1,18 +1,32 @@
 import { i18n } from '@/i18n/config'
 import { webTitle } from '@/libs/common'
 import { useLoginStore } from '@/stores/login'
+import { nextTick } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   scrollBehavior(to, from, savedPosition) {
-    if (to.name != 'index' && to.name != 'search') {
-      if (savedPosition) {
-        return savedPosition
-      }
-
-      return { top: 0 }
+    if (to.matched.some((record) => record.meta.noScrolling)) {
+      return
     }
+
+    return new Promise((resolve) => {
+      nextTick(() => {
+        console.log('route nextTick', savedPosition)
+        // const needWait = to.matched.some((record) => record.meta.needWait)
+        resolve(savedPosition || { top: 0 })
+
+        // if (needWait) {
+        //   console.log('needWait', savedPosition)
+        //   to.meta.resolveScroll = () => {
+        //     resolve(savedPosition || { top: 0 })
+        //   }
+        // } else {
+        //   resolve(savedPosition || { top: 0 })
+        // }
+      })
+    })
   },
   routes: [
     {
@@ -24,7 +38,7 @@ const router = createRouter({
           // Home
           path: '/',
           component: () => import('@/layouts/ArticleLayout.vue'),
-          meta: { keepAlive: true },
+          meta: { keepAlive: true, noScrolling: true },
           children: [
             {
               path: '/',
@@ -41,7 +55,7 @@ const router = createRouter({
           // profile
           path: '/',
           component: () => import('@/layouts/ArticleLayout.vue'),
-          meta: { keepAlive: false },
+          meta: { keepAlive: true, needWait: true },
           children: [
             {
               path: '/:username',

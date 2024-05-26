@@ -60,17 +60,24 @@ class ArticleService {
           item.body = item.body.replace(/\\n/g, '\n')
           item.author.bio = (item.author.bio ?? '').replace(/\\n/g, '\n')
         })
-
         return res
       })
   }
 
   createArticle(data: ArticleCreateModel) {
-    return realworldAPI.post<SingleArticleViewModel>(`/api/articles`, data)
+    return realworldAPI.post<SingleArticleViewModel>(`/api/articles`, data).then((res) => {
+      res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+      res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
+      return res
+    })
   }
 
   updateArticle(slug: string, data: ArticleCreateModel) {
-    return realworldAPI.put<SingleArticleViewModel>(`/api/articles/${slug}`, data)
+    return realworldAPI.put<SingleArticleViewModel>(`/api/articles/${slug}`, data).then((res) => {
+      res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+      res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
+      return res
+    })
   }
 
   mergeArticle(
@@ -97,11 +104,23 @@ class ArticleService {
   }
 
   addFavorite(slug: string) {
-    return realworldAPI.post<SingleArticleViewModel>(`/api/articles/${slug}/favorite`)
+    return realworldAPI
+      .post<SingleArticleViewModel>(`/api/articles/${slug}/favorite`)
+      .then((res) => {
+        res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+        res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
+        return res
+      })
   }
 
   deleteFavorite(slug: string) {
-    return realworldAPI.delete<SingleArticleViewModel>(`/api/articles/${slug}/favorite`)
+    return realworldAPI
+      .delete<SingleArticleViewModel>(`/api/articles/${slug}/favorite`)
+      .then((res) => {
+        res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+        res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
+        return res
+      })
   }
 }
 export const articleService = new ArticleService()

@@ -6,6 +6,7 @@ import { useToast } from 'primevue/usetoast'
 import { cn } from '@/libs/utils'
 import { useConfirm } from 'primevue/useconfirm'
 import { commentService, type Comment } from '@/libs/services/commentService'
+import { useLoginStore } from '@/stores/login'
 
 const props = defineProps<{
   slug: string
@@ -13,6 +14,7 @@ const props = defineProps<{
   class?: HTMLAttributes['class']
 }>()
 
+const login = useLoginStore()
 const { t } = useI18n()
 const isSubmitting = ref(false)
 const toast = useToast()
@@ -70,6 +72,7 @@ const doDelete = async () => {
 </script>
 <template>
   <DropdownMenu
+    v-if="login.loginState && login.user.username === comment.author.username"
     :items="items"
     :buttonProps="{
       severity: 'secondary',

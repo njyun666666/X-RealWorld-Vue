@@ -9,5 +9,6 @@ const login = useLoginStore()
     v-if="login.loginState"
     :queryModel="{ author: login.user.username }"
     articleTabType="yourFeed"
+    enableSavedScrollY
   />
 </template>

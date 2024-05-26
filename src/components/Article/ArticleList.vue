@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { type ArticleModel } from '@/libs/services/articleService'
+import { type Article, type ArticleModel } from '@/libs/services/articleService'
 import { useArticleStore, type ArticleTabType } from '@/stores/article'
 import { useInfiniteQuery, type QueryFunctionContext } from '@tanstack/vue-query'
 import { useInfiniteScroll, useWindowScroll } from '@vueuse/core'
@@ -7,17 +7,19 @@ import { computed, onActivated, onDeactivated, ref, watch } from 'vue'
 import Button from 'primevue/button'
 import ArticleItem from './ArticleItem.vue'
 import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
+import { sortBy } from 'lodash'
 
 const props = defineProps<{
   queryModel?: ArticleModel
   articleTabType: ArticleTabType
+  enableSavedScrollY?: boolean
 }>()
 
 const enable = ref(false)
 const articleStore = useArticleStore()
 const { y: scrollY } = useWindowScroll()
 const canLoadMore = ref(true)
-const articleList = computed(() => {
+const articleList = computed<Article[]>(() => {
   switch (props.articleTabType) {
     case 'globalFeed':
       return articleStore.globalFeedList
@@ -27,9 +29,29 @@ const articleList = computed(() => {
 
     case 'search':
       return articleStore.yourFeedList
-  }
 
-  return []
+    case 'profilePosts':
+      return sortBy(
+        articleStore.articleList.filter((x) => x.author.username == props.queryModel?.author),
+        ['createdAt']
+      ).reverse()
+
+    case 'profileLikes': {
+      if (!props.queryModel?.favorited) return []
+
+      const arr = articleStore.favorited[props.queryModel.favorited] ?? []
+
+      return sortBy(
+        articleStore.articleList.filter((item) => arr.includes(item.slug)),
+        ['createdAt']
+      ).reverse()
+
+      // return data.value?.pages.flatMap((page) => page.articles) ?? []
+    }
+
+    default:
+      return []
+  }
 })
 
 const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => {
@@ -75,7 +97,12 @@ const isLoading = computed(() => {
 
 onActivated(() => {
   enable.value = true
-  scrollY.value = articleStore.scrollY[props.articleTabType]
+  console.log('onActivated')
+
+  if (props.enableSavedScrollY) {
+    console.log('enableSavedScrollY')
+    scrollY.value = articleStore.scrollY[props.articleTabType]
+  }
 })
 
 onDeactivated(() => {
@@ -83,7 +110,7 @@ onDeactivated(() => {
 })
 
 watch(scrollY, (y) => {
-  if (enable.value) {
+  if (enable.value && props.enableSavedScrollY) {
     articleStore.setSavedScrollY(props.articleTabType, y)
   }
 })
