@@ -18,6 +18,7 @@ import { useArticleStore } from '@/stores/article'
 import type { Article } from '@/libs/services/articleService'
 import ArticleAction from '@/components/Article/ArticleAction.vue'
 import { useToast } from 'primevue/usetoast'
+import { watchWithFilter } from '@vueuse/core'
 
 const route = useRoute()
 // const username = route.params['username'] as string
@@ -28,8 +29,8 @@ const article = ref<Article>()
 const isPending = ref(true)
 const toast = useToast()
 
-watch(
-  route,
+watchWithFilter(
+  () => [route.name, route.params['slug']],
   () => {
     slug.value = route.params['slug'] as string
 
@@ -49,7 +50,15 @@ watch(
       })
   },
   {
-    immediate: true
+    immediate: true,
+
+    eventFilter: (invoke, { args }) => {
+      var [routeName, routeSlug] = args[0]
+
+      if (routeName == 'article' && routeSlug) {
+        invoke()
+      }
+    }
   }
 )
 

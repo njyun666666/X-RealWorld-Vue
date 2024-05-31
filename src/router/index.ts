@@ -13,7 +13,7 @@ const router = createRouter({
 
     return new Promise((resolve) => {
       nextTick(() => {
-        console.log('route nextTick', savedPosition)
+        // console.log('route nextTick', savedPosition)
         // const needWait = to.matched.some((record) => record.meta.needWait)
         resolve(savedPosition || { top: 0 })
 
@@ -157,7 +157,9 @@ router.beforeEach((to) => {
 
   router.afterEach((to, from, failure) => {
     if (!failure && to.meta.title) {
-      webTitle.value = t(to.meta.title as string)
+      nextTick(() => {
+        webTitle.value = t(to.meta.title as string)
+      })
     }
   })
 })
