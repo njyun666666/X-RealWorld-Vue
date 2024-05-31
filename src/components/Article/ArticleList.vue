@@ -97,10 +97,10 @@ const isLoading = computed(() => {
 
 onActivated(() => {
   enable.value = true
-  console.log('onActivated')
+  // console.log('onActivated')
 
   if (props.enableSavedScrollY) {
-    console.log('enableSavedScrollY')
+    // console.log('enableSavedScrollY')
     scrollY.value = articleStore.scrollY[props.articleTabType]
   }
 })

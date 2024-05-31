@@ -15,6 +15,7 @@ import { cn } from '@/libs/utils'
 import ProfilePostsTab from './ProfilePostsTab.vue'
 import ProfileLikesTab from './ProfileLikesTab.vue'
 import ProfileSkeleton from '@/components/Profile/ProfileSkeleton.vue'
+import { watchWithFilter } from '@vueuse/core'
 
 const route = useRoute()
 const username = ref<string>(route.params['username'] as string)
@@ -25,17 +26,17 @@ const toast = useToast()
 const items = ref<MenuItem[]>([{ label: 'page.Posts' }, { label: 'page.Likes' }])
 const comps = [ProfilePostsTab, ProfileLikesTab]
 
-watch(
-  route,
+watchWithFilter(
+  () => [route.name, route.params['username']],
   () => {
-    username.value = route.params['username'] as string
     isPending.value = true
     profileStore.getActiveTab(username.value)
+    username.value = route.params['username'] as string
 
     profileStore
       .getProfile(username.value)
       .then((data) => {
-        webTitle.value = data.username
+        webTitle.value = `${data.username} aaaa`
         profile.value = data
         isPending.value = false
       })
@@ -44,7 +45,14 @@ watch(
       })
   },
   {
-    immediate: true
+    immediate: true,
+    eventFilter: (invoke, { args }) => {
+      var [routeName, routeUsername] = args[0]
+
+      if (routeName == 'profile' && routeUsername) {
+        invoke()
+      }
+    }
   }
 )
 
