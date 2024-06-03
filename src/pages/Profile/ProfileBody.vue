@@ -36,7 +36,7 @@ watchWithFilter(
     profileStore
       .getProfile(username.value)
       .then((data) => {
-        webTitle.value = `${data.username} aaaa`
+        webTitle.value = data.username
         profile.value = data
         isPending.value = false
       })

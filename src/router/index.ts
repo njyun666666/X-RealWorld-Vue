@@ -60,7 +60,10 @@ const router = createRouter({
             {
               path: '/:username',
               name: 'profile',
-              component: () => import('@/pages/Profile/ProfilePage.vue')
+              components: {
+                default: () => import('@/pages/Profile/ProfilePage.vue'),
+                RightSidebar: () => import('@/pages/Profile/ProfileSidebar.vue')
+              }
             }
           ]
         },
@@ -72,7 +75,10 @@ const router = createRouter({
             {
               path: '/:username/:slug',
               name: 'article',
-              component: () => import('@/pages/Article/ArticlePage.vue')
+              components: {
+                default: () => import('@/pages/Article/ArticlePage.vue'),
+                RightSidebar: () => import('@/pages/Article/ArticleSidebar.vue')
+              }
             }
           ]
         },
@@ -86,7 +92,9 @@ const router = createRouter({
               path: '/search',
               name: 'search',
               meta: { title: 'page.Search' },
-              component: () => import('@/pages/Search/SearchPage.vue')
+              components: {
+                default: () => import('@/pages/Search/SearchPage.vue')
+              }
             }
           ]
         },
