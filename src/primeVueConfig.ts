@@ -1,17 +1,23 @@
 import { merge } from 'lodash'
 // @ts-ignore
-import PrimeOne from 'primevue/themes/primeone'
-// @ts-ignore
-import Aura from 'primevue/themes/primeone/aura'
-// @ts-ignore
 import { definePreset } from 'primevue/themes'
+import Aura from 'primevue/themes/aura'
 // @ts-ignore
-import button from 'primevue/themes/primeone/presets/aura/button'
+import button from 'primevue/themes/aura/button'
 // @ts-ignore
-import toast from 'primevue/themes/primeone/presets/aura/toast'
+import toast from 'primevue/themes/aura/toast'
 // @ts-ignore
-// import aura from 'primevue/themes/primeone/presets/aura'
+import autocomplete from 'primevue/themes/aura/autocomplete'
+// @ts-ignore
+import chip from 'primevue/themes/aura/chip'
+// @ts-ignore
 import type { PrimeVueConfiguration } from 'primevue/config'
+
+const newAutocomplete = merge({}, autocomplete, {
+  chip: {
+    borderRadius: '9999px;'
+  }
+})
 
 const newButton = merge({}, button, {
   colorScheme: {
@@ -49,6 +55,35 @@ const newButton = merge({}, button, {
           activeBackground: 'color-mix(in srgb, {primary.color}, transparent 70%)',
           color: '{primary.color}'
         }
+      }
+    }
+  }
+})
+
+const newChip = merge({}, chip, {
+  colorScheme: {
+    light: {
+      root: {
+        background: '{surface.200}',
+        color: '{surface.800}'
+      },
+      icon: {
+        color: '{surface.800}'
+      },
+      removeIcon: {
+        color: '{surface.800}'
+      }
+    },
+    dark: {
+      root: {
+        background: '{surface.800}',
+        color: '{surface.0}'
+      },
+      icon: {
+        color: '{surface.0}'
+      },
+      removeIcon: {
+        color: '{surfaec.0}'
       }
     }
   }
@@ -160,41 +195,9 @@ const preset = definePreset(Aura, {
     }
   },
   components: {
+    autocomplete: newAutocomplete,
     button: newButton,
-    chips: {
-      root: {
-        background: '{form.field.background}',
-        disabledBackground: '{form.field.disabled.background}',
-        filledBackground: '{form.field.filled.background}',
-        filledFocusBackground: '{form.field.filled.focus.background}',
-        borderColor: '{form.field.border.color}',
-        hoverBorderColor: '{form.field.hover.border.color}',
-        focusBorderColor: '{form.field.focus.border.color}',
-        invalidBorderColor: '{form.field.invalid.border.color}',
-        color: '{form.field.color}',
-        disabledColor: '{form.field.disabled.color}',
-        placeholderColor: '{form.field.placeholder.color}',
-        boxShadow: '{form.field.box.shadow}'
-      },
-      colorScheme: {
-        light: {
-          chip: {
-            background: '{surface.200}',
-            focusBackground: '{surface.300}',
-            color: '{surface.800}',
-            focusColor: '{surface.900}'
-          }
-        },
-        dark: {
-          chip: {
-            background: '{surface.700}',
-            focusBackground: '{surface.600}',
-            color: '{surface.0}',
-            focusColor: '{surface.0}'
-          }
-        }
-      }
-    },
+    chip: newChip,
     dialog: {
       colorScheme: {
         light: {
@@ -241,31 +244,19 @@ const preset = definePreset(Aura, {
     image: {
       colorScheme: {
         light: {
-          previewIndicator: {
-            background: 'rgba(255,255,255,0.1)',
-            color: 'rgba(0,0,0,0)'
-          },
-          mask: {
-            background: 'rgba(0,0,0,0.9)'
-          },
-          action: {
-            hoverBackground: 'rgba(255,255,255,0.1)',
-            color: '{surface.50}',
-            hoverColor: '{surface.0}'
+          preview: {
+            mask: {
+              background: 'rgba(255,255,255,0.1)',
+              color: 'rgba(0,0,0,0)'
+            }
           }
         },
         dark: {
-          previewIndicator: {
-            background: 'rgba(255,255,255,0.1)',
-            color: 'rgba(0,0,0,0)'
-          },
-          mask: {
-            background: 'rgba(0,0,0,0.9)'
-          },
-          action: {
-            hoverBackground: 'rgba(255,255,255,0.1)',
-            color: '{surface.50}',
-            hoverColor: '{surface.0}'
+          preview: {
+            mask: {
+              background: 'rgba(255,255,255,0.1)',
+              color: 'rgba(0,0,0,0)'
+            }
           }
         }
       }
@@ -275,14 +266,13 @@ const preset = definePreset(Aura, {
 
 export const primeVueConfig: PrimeVueConfiguration = {
   theme: {
-    base: PrimeOne,
     preset: preset,
     options: {
       darkModeSelector: 'html.dark'
     }
   },
   pt: {
-    tabmenu: {
+    tablist: {
       inkbar: { class: '!duration-0' }
     }
   }
