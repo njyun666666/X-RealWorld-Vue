@@ -1,29 +1,33 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useLoginStore } from '@/stores/login'
 import type { MenuItem } from 'primevue/menuitem'
-import TabMenu from 'primevue/tabmenu'
 import YourFeed from './YourFeed.vue'
 import GlobalFeed from './GlobalFeed.vue'
-import { useArticleStore } from '@/stores/article'
-import { cn } from '@/libs/utils'
+import { useArticleStore, type ArticleTabType } from '@/stores/article'
 import ArticleForm from '@/components/Article/ArticleForm.vue'
+import Tabs from 'primevue/tabs'
+import TabList from 'primevue/tablist'
+import Tab from 'primevue/tab'
 
 const login = useLoginStore()
 const articleStore = useArticleStore()
 
-const items = ref<MenuItem[]>([
-  { label: 'page.YourFeed', visible: () => login.loginState },
-  { label: 'page.GlobalFeed' }
+const items = computed<MenuItem[]>(() => [
+  { key: 'yourFeed', label: 'page.YourFeed', visible: login.loginState },
+  { key: 'globalFeed', label: 'page.GlobalFeed' }
 ])
 
-const comps = [YourFeed, GlobalFeed]
+const comps: Partial<Record<ArticleTabType, any>> = {
+  yourFeed: YourFeed,
+  globalFeed: GlobalFeed
+}
 
 watch(
   () => login.loginState,
   () => {
-    if (!login.loginState && articleStore.activeTab == 0) {
-      articleStore.activeTab = 1
+    if (!login.loginState && articleStore.activeTab == 'yourFeed') {
+      articleStore.activeTab = 'globalFeed'
     }
   }
 )
@@ -31,30 +35,19 @@ watch(
 
 <template>
   <div class="sticky top-0 z-10 w-full bg-background/80 backdrop-blur-sm">
-    <TabMenu
-      v-model:activeIndex="articleStore.activeTab"
-      :model="items"
-      class="bg-transparent"
-      :pt="{
-        menu: { class: '!bg-transparent' },
-        menuitem: {
-          class: cn('grow shrink', {
-            'w-full': !login.loginState,
-            'w-1/2': login.loginState
-          })
-        }
-      }"
-    >
-      <template #item="{ item, props }">
-        <a
-          v-bind="props.action"
-          class="flex justify-center gap-2 !rounded-none align-middle hover:bg-foreground/10"
-        >
-          <font-awesome-icon :icon="item.icon" class="h-4 w-4" v-if="item.icon" />
-          <span>{{ $t(String(item.label)) }}</span>
-        </a>
-      </template>
-    </TabMenu>
+    <Tabs v-model:value="articleStore.activeTab">
+      <TabList :pt="{ tabs: { class: '!bg-transparent' } }">
+        <template v-for="tab in items" :key="tab.key">
+          <Tab
+            v-if="tab.visible ?? true"
+            :value="tab.key"
+            :pt="{ root: { class: 'w-full hover:!bg-foreground/10' } }"
+          >
+            <span>{{ $t(String(tab.label)) }}</span>
+          </Tab>
+        </template>
+      </TabList>
+    </Tabs>
   </div>
 
   <ArticleForm v-if="login.loginState" class="border-b px-4 pb-4" isAdd />

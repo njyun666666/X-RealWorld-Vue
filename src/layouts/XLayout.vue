@@ -8,7 +8,7 @@ import { RouterLink, useRoute } from 'vue-router'
 import Nav from './Nav.vue'
 import { breakpoints } from '@/libs/common'
 import Avatar from 'primevue/avatar'
-import OverlayPanel from 'primevue/overlaypanel'
+import Popover from 'primevue/popover'
 import { ref } from 'vue'
 import ArticlePostBtn from '@/components/Article/ArticlePostBtn.vue'
 
@@ -101,14 +101,14 @@ const toggle = (event: MouseEvent) => {
                   </div>
                 </div>
               </Button>
-              <OverlayPanel ref="userPanel">
+              <Popover ref="userPanel">
                 <div class="flex flex-col">
                   <Button rounded text plain @click="login.logout()">
                     <font-awesome-icon icon="fa-solid fa-right-from-bracket" class="!h-5 !w-5" />
                     <span class="ml-2">{{ $t('action.Logout') }}</span>
                   </Button>
                 </div>
-              </OverlayPanel>
+              </Popover>
             </template>
           </div>
         </div>

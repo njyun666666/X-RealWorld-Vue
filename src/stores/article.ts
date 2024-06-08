@@ -10,7 +10,7 @@ export type ArticleTabType = 'yourFeed' | 'globalFeed' | 'search' | 'profilePost
 export const useArticleStore = defineStore('article', () => {
   const login = useLoginStore()
   const profileStore = useProfileStore()
-  const activeTab = ref(login.loginState ? 0 : 1)
+  const activeTab = ref<ArticleTabType>(login.loginState ? 'yourFeed' : 'globalFeed')
   const scrollY = ref<{ [key in ArticleTabType]: number }>({
     yourFeed: 0,
     globalFeed: 0,

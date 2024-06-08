@@ -12,12 +12,12 @@ import Button from 'primevue/button'
 import { useToast } from 'primevue/usetoast'
 import { ref, type HTMLAttributes } from 'vue'
 import { cn } from '@/libs/utils'
-import InputChips from 'primevue/chips'
 import { articleService, type Article } from '@/libs/services/articleService'
 import { useArticleStore } from '@/stores/article'
 import type { AxiosError } from 'axios'
 import type { ResponseErrors } from '@/libs/api/realworldAPI'
 import { useRoute, useRouter } from 'vue-router'
+import AutoComplete from 'primevue/autocomplete'
 
 const props = withDefaults(
   defineProps<{
@@ -123,11 +123,14 @@ const onSubmit = handleSubmit(async (values) => {
             :placeholder="$t('ArticleCreateModel.body')"
             :invalid="!!errors.body"
           />
-          <InputChips
+          <AutoComplete
             v-model="tagList"
+            multiple
+            :typeahead="false"
             class="w-full"
-            :placeholder="$t('ArticleCreateModel.tag')"
-            :pt="{ token: { class: '!rounded-full' } }"
+            :placeholder="!tagList || tagList.length === 0 ? $t('ArticleCreateModel.tag') : ''"
+            @keyup.enter.prevent
+            @keydown.enter.prevent
           />
         </div>
         <div class="flex w-full justify-end">

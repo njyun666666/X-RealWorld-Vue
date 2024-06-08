@@ -9,13 +9,15 @@ import ProfileFollowBtn from '@/components/Profile/ProfileFollowBtn.vue'
 import { useProfileStore } from '@/stores/profile'
 import { ref, watch } from 'vue'
 import { useToast } from 'primevue/usetoast'
-import TabMenu from 'primevue/tabmenu'
 import type { MenuItem } from 'primevue/menuitem'
-import { cn } from '@/libs/utils'
 import ProfilePostsTab from './ProfilePostsTab.vue'
 import ProfileLikesTab from './ProfileLikesTab.vue'
 import ProfileSkeleton from '@/components/Profile/ProfileSkeleton.vue'
 import { watchWithFilter } from '@vueuse/core'
+import Tabs from 'primevue/tabs'
+import TabList from 'primevue/tablist'
+import Tab from 'primevue/tab'
+import type { ArticleTabType } from '@/stores/article'
 
 const route = useRoute()
 const username = ref<string>(route.params['username'] as string)
@@ -23,8 +25,15 @@ const profileStore = useProfileStore()
 const profile = ref<Profile>()
 const isPending = ref(true)
 const toast = useToast()
-const items = ref<MenuItem[]>([{ label: 'page.Posts' }, { label: 'page.Likes' }])
-const comps = [ProfilePostsTab, ProfileLikesTab]
+const items = ref<MenuItem[]>([
+  { key: 'profilePosts', label: 'page.Posts' },
+  { key: 'profileLikes', label: 'page.Likes' }
+])
+
+const comps: Partial<Record<ArticleTabType, any>> = {
+  profilePosts: ProfilePostsTab,
+  profileLikes: ProfileLikesTab
+}
 
 watchWithFilter(
   () => [route.name, route.params['username']],
@@ -98,26 +107,21 @@ watch(
       <p v-html="profile.bio.replace(/\n/g, '<br />')"></p>
     </div>
   </template>
-  <TabMenu
-    v-model:activeIndex="profileStore.activeTab[username]"
-    :model="items"
-    :pt="{
-      menu: { class: '!bg-transparent' },
-      menuitem: {
-        class: cn('grow shrink w-1/2')
-      }
-    }"
-  >
-    <template #item="{ item, props }">
-      <a
-        v-bind="props.action"
-        class="flex justify-center gap-2 !rounded-none align-middle hover:bg-foreground/10"
-      >
-        <font-awesome-icon :icon="item.icon" class="h-4 w-4" v-if="item.icon" />
-        <span>{{ $t(String(item.label)) }}</span>
-      </a>
-    </template>
-  </TabMenu>
+
+  <Tabs v-model:value="profileStore.activeTab[username]">
+    <TabList :pt="{ tabs: { class: '!bg-transparent' } }">
+      <template v-for="tab in items" :key="tab.key">
+        <Tab
+          v-if="tab.visible ?? true"
+          :value="tab.key"
+          :pt="{ root: { class: 'w-full hover:!bg-foreground/10' } }"
+        >
+          <span>{{ $t(String(tab.label)) }}</span>
+        </Tab>
+      </template>
+    </TabList>
+  </Tabs>
+
   <KeepAlive>
     <component :is="comps[profileStore.activeTab[username]]"></component>
   </KeepAlive>

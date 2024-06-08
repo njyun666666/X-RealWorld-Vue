@@ -1,10 +1,11 @@
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import { profileService, type Profile } from '@/libs/services/profileService'
+import type { ArticleTabType } from './article'
 
 export const useProfileStore = defineStore('profile', () => {
   const profile = ref<{ [username: string]: Profile }>({})
-  const activeTab = ref<{ [key: string]: number }>({})
+  const activeTab = ref<{ [key: string]: ArticleTabType }>({})
 
   const mergeProfile = (data: Profile, oldUsername?: string) => {
     profile.value[data.username] = data
@@ -32,7 +33,7 @@ export const useProfileStore = defineStore('profile', () => {
       return activeTab.value[key]
     }
 
-    activeTab.value[key] = 0
+    activeTab.value[key] = 'profilePosts'
 
     return activeTab.value[key]
   }

@@ -14,6 +14,7 @@ import Tooltip from 'primevue/tooltip'
 import ToastService from 'primevue/toastservice'
 import DialogService from 'primevue/dialogservice'
 import ConfirmationService from 'primevue/confirmationservice'
+import Ripple from 'primevue/ripple'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { library } from '@fortawesome/fontawesome-svg-core'
@@ -41,7 +42,7 @@ app.use(VueQueryPlugin)
 app.use(ToastService)
 app.use(DialogService)
 app.use(ConfirmationService)
-
+app.directive('ripple', Ripple)
 app.directive('tooltip', Tooltip)
 
 app.mount('#app')
