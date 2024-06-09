@@ -4,13 +4,13 @@ import type { MenuItem } from 'primevue/menuitem'
 import TieredMenu from 'primevue/tieredmenu'
 import { ref } from 'vue'
 
-export interface DropdownItem extends MenuItem {
+export interface PopupMenuItem extends MenuItem {
   buttonProps?: ButtonProps
 }
 
 defineProps<{
   buttonProps?: ButtonProps
-  items: DropdownItem[]
+  items: PopupMenuItem[]
 }>()
 
 const menu = ref()

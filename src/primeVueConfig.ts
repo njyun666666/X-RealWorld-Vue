@@ -272,6 +272,10 @@ export const primeVueConfig: PrimeVueConfiguration = {
     }
   },
   pt: {
+    confirmdialog: {
+      pcRejectButton: { label: { class: '!font-bold' } },
+      pcAcceptButton: { label: { class: '!font-bold' } }
+    },
     tablist: {
       inkbar: { class: '!duration-0' }
     }

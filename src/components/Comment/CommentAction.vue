@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, type HTMLAttributes } from 'vue'
-import DropdownMenu, { type DropdownItem } from '../UI/DropdownMenu.vue'
+import PopupMenu, { type PopupMenuItem } from '../UI/PopupMenu.vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'primevue/usetoast'
 import { cn } from '@/libs/utils'
@@ -21,7 +21,7 @@ const toast = useToast()
 const query = commentService.query(props.slug)
 const confirm = useConfirm()
 
-const items = ref<DropdownItem[]>([
+const items = ref<PopupMenuItem[]>([
   {
     label: 'action.Remove',
     icon: 'fa-solid fa-trash',
@@ -71,7 +71,7 @@ const doDelete = async () => {
 }
 </script>
 <template>
-  <DropdownMenu
+  <PopupMenu
     v-if="login.loginState && login.user.username === comment.author.username"
     :items="items"
     :buttonProps="{
@@ -84,5 +84,5 @@ const doDelete = async () => {
   >
     <font-awesome-icon v-if="isSubmitting" icon="fa-solid fa-circle-notch" spin />
     <font-awesome-icon v-else icon="fa-solid fa-ellipsis" />
-  </DropdownMenu>
+  </PopupMenu>
 </template>
