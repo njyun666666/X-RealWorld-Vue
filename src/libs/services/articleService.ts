@@ -2,16 +2,19 @@ import type { AxiosResponse } from 'axios'
 import realworldAPI from '../api/realworldAPI'
 import type { Profile } from './profileService'
 
+export interface SingleArticleViewModel extends ArticleBase<Article> {}
+export interface ArticleCreateModel extends ArticleBase<ArticleCreate> {}
+
+export interface ArticleBase<T> {
+  article: T
+}
+
 export interface ArticleModel {
   tag?: string
   author?: string
   favorited?: string
   limit?: number
   offset?: number
-}
-
-export interface SingleArticleViewModel {
-  article: Article
 }
 
 export interface MultipleArticleViewModel {
@@ -30,10 +33,6 @@ export interface Article {
   favorited: boolean
   favoritesCount: number
   author: Profile
-}
-
-export interface ArticleCreateModel {
-  article: ArticleCreate
 }
 
 export interface ArticleCreate {

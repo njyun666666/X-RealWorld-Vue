@@ -3,14 +3,19 @@ import { cn } from '@/libs/utils'
 import Button from 'primevue/button'
 import { RouterLink, type RouteLocationRaw } from 'vue-router'
 import { breakpoints } from '@/libs/common'
+import { useLoginStore } from '@/stores/login'
+import { computed } from 'vue'
 
 interface NavModel {
   icon: string
   name: string
   to: RouteLocationRaw
+  visible?: boolean
 }
 
-const items: NavModel[] = [
+const login = useLoginStore()
+
+const itemsConfig = computed<NavModel[]>(() => [
   {
     icon: 'fa-solid fa-house',
     name: 'page.Home',
@@ -22,11 +27,19 @@ const items: NavModel[] = [
     to: { name: 'search' }
   },
   {
+    icon: 'fa-solid fa-user',
+    name: 'page.Profile',
+    to: { name: 'profile', params: { username: login.loginState ? login.user.username : '0' } },
+    visible: login.loginState
+  },
+  {
     icon: 'fa-solid fa-gear',
     name: 'page.Settings',
     to: { name: 'settings' }
   }
-]
+])
+
+const items = computed(() => itemsConfig.value.filter((x) => x.visible ?? true))
 </script>
 <template>
   <RouterLink v-for="item in items" :key="item.name" :to="item.to" activeClass="group is-active">

@@ -3,20 +3,20 @@ import realworldAPI from '../api/realworldAPI'
 import appConst from '@/appConst'
 import type { Profile } from './profileService'
 
-export interface AddCommentModel {
-  comment: AddCommentBody
+export interface AddCommentModel extends CommentBase<AddCommentBody> {}
+export interface SingleCommentViewModel extends CommentBase<Comment> {}
+export interface MultipleCommentsViewModel extends CommentsBase<Comment[]> {}
+
+export interface CommentBase<T> {
+  comment: T
+}
+
+export interface CommentsBase<T> {
+  comments: T
 }
 
 export interface AddCommentBody {
   body: string
-}
-
-export interface SingleCommentViewModel {
-  comment: Comment
-}
-
-export interface MultipleCommentsViewModel {
-  comments: Comment[]
 }
 
 export interface Comment {

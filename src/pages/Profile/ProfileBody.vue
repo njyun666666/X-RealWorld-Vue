@@ -18,7 +18,10 @@ import Tabs from 'primevue/tabs'
 import TabList from 'primevue/tablist'
 import Tab from 'primevue/tab'
 import type { ArticleTabType } from '@/stores/article'
+import { useLoginStore } from '@/stores/login'
+import ProfileEditBtn from '@/components/Profile/ProfileEditBtn.vue'
 
+const login = useLoginStore()
 const route = useRoute()
 const username = ref<string>(route.params['username'] as string)
 const profileStore = useProfileStore()
@@ -99,7 +102,12 @@ watch(
         <ProfileImage :username="profile.username" :image="profile.image" />
       </div>
       <div class="flex grow justify-end gap-2 p-2">
-        <ProfileFollowBtn :profile="profile" />
+        <template v-if="login.loginState">
+          <ProfileEditBtn />
+        </template>
+        <template v-else>
+          <ProfileFollowBtn :profile="profile" />
+        </template>
       </div>
     </div>
     <div class="w-full overflow-hidden px-4">
