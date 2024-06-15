@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, type HTMLAttributes } from 'vue'
-import DropdownMenu, { type DropdownItem } from '../UI/DropdownMenu.vue'
+import PopupMenu, { type PopupMenuItem } from '../UI/PopupMenu.vue'
 import { useI18n } from 'vue-i18n'
 import { useToast } from 'primevue/usetoast'
 import { useArticleStore } from '@/stores/article'
@@ -27,7 +27,7 @@ const articleStore = useArticleStore()
 const dialog = useDialog()
 const confirm = useConfirm()
 
-const items = ref<DropdownItem[]>([
+const items = ref<PopupMenuItem[]>([
   {
     label: 'action.Edit',
     icon: 'fa-solid fa-pencil',
@@ -102,7 +102,7 @@ const doDelete = async () => {
 }
 </script>
 <template>
-  <DropdownMenu
+  <PopupMenu
     v-if="login.loginState && login.user.username === article.author.username"
     :items="items"
     :buttonProps="{
@@ -115,5 +115,5 @@ const doDelete = async () => {
   >
     <font-awesome-icon v-if="isSubmitting" icon="fa-solid fa-circle-notch" spin />
     <font-awesome-icon v-else icon="fa-solid fa-ellipsis" />
-  </DropdownMenu>
+  </PopupMenu>
 </template>

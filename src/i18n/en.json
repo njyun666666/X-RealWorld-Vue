@@ -13,7 +13,8 @@
     "GlobalFeed": "Global Feed",
     "Search": "Saerch",
     "Posts": "Posts",
-    "Likes": "Likes"
+    "Likes": "Likes",
+    "Profile": "Profile"
   },
   "datatable": {
     "RowsPerPage": "Rows per page",
@@ -49,7 +50,8 @@
     "CopyURL": "Copy url",
     "Post": "Post",
     "Follow": "follow",
-    "Unfollow": "unfollow"
+    "Unfollow": "unfollow",
+    "EditProfile": "Edit profile"
   },
   "title": {
     "Add": "Add {title}",
@@ -58,7 +60,8 @@
     "ConfirmText": "Do you want to {action} {title}?",
     "Article": "Article",
     "Comment": "Comment",
-    "PopularTags": "Popular Tags"
+    "PopularTags": "Popular Tags",
+    "Profile": "Profile"
   },
   "UserModel": {
     "email": "Email",
@@ -76,6 +79,11 @@
     "description": "Description",
     "body": "Content",
     "tag": "Tags"
+  },
+  "UserUpdateModel": {
+    "email": "Email",
+    "bio": "Shout bio about you",
+    "image": "URL of profile picture"
   },
   "message": {
     "required": "required",

@@ -246,7 +246,7 @@ const preset = definePreset(Aura, {
         light: {
           preview: {
             mask: {
-              background: 'rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0)',
               color: 'rgba(0,0,0,0)'
             }
           }
@@ -254,7 +254,7 @@ const preset = definePreset(Aura, {
         dark: {
           preview: {
             mask: {
-              background: 'rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0)',
               color: 'rgba(0,0,0,0)'
             }
           }
@@ -272,6 +272,10 @@ export const primeVueConfig: PrimeVueConfiguration = {
     }
   },
   pt: {
+    confirmdialog: {
+      pcRejectButton: { label: { class: '!font-bold' } },
+      pcAcceptButton: { label: { class: '!font-bold' } }
+    },
     tablist: {
       inkbar: { class: '!duration-0' }
     }

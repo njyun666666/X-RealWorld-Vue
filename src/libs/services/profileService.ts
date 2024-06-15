@@ -1,7 +1,9 @@
 import realworldAPI from '../api/realworldAPI'
 
-export interface ProfileViewModel {
-  profile: Profile
+export interface ProfileViewModel extends ProfileBase<Profile> {}
+
+export interface ProfileBase<T> {
+  profile: T
 }
 
 export interface Profile {
