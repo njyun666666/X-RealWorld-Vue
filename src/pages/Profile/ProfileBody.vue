@@ -102,7 +102,7 @@ watch(
         <ProfileImage :username="profile.username" :image="profile.image" />
       </div>
       <div class="flex grow justify-end gap-2 p-2">
-        <template v-if="login.loginState">
+        <template v-if="login.loginState && login.user.username == username">
           <ProfileEditBtn />
         </template>
         <template v-else>
