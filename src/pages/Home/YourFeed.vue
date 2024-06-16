@@ -10,5 +10,6 @@ const login = useLoginStore()
     :queryModel="{ author: login.user.username }"
     articleTabType="yourFeed"
     enableSavedScrollY
+    :key="login.currentUsername"
   />
 </template>

@@ -3,7 +3,9 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import ProfileBody from './ProfileBody.vue'
 import { watchWithFilter } from '@vueuse/core'
+import { useLoginStore } from '@/stores/login'
 
+const login = useLoginStore()
 const route = useRoute()
 const username = ref<string>(route.params['username'] as string)
 
@@ -24,5 +26,5 @@ watchWithFilter(
 )
 </script>
 <template>
-  <ProfileBody :key="username" />
+  <ProfileBody :key="`${username}/${login.currentUsername}`" />
 </template>

@@ -52,7 +52,7 @@ const onSubmit = handleSubmit(async (values) => {
   await userService
     .login({ user: values })
     .then(async ({ data }) => {
-      login.setUser(data.user)
+      login.login(data.user)
 
       if (routeQueryUrl) {
         await router.push(routeQueryUrl as string)

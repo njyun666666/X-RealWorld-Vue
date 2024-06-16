@@ -4,22 +4,34 @@ import { StorageSerializers, useStorage } from '@vueuse/core'
 import { userService, type UserViewModel } from '@/libs/services/userService'
 import { jwtDecode, type JwtPayload } from 'jwt-decode'
 import { useRoute, useRouter } from 'vue-router'
+import { useProfileStore } from './profile'
+import { useArticleStore } from './article'
 // import type { RoleType } from '@/appConst'
 
 export const useLoginStore = defineStore('login', () => {
   const router = useRouter()
   const route = useRoute()
+  const profileStore = useProfileStore()
+  const articleStore = useArticleStore()
   const user = useStorage<UserViewModel>('user', null, localStorage, {
     serializer: StorageSerializers.object
   })
-
   const loginState = computed(() => tokenPayload.value !== undefined)
+  const currentUsername = computed(() => (loginState.value ? user.value.username : undefined))
 
   const setUser = (data: UserViewModel) => {
     user.value = data
   }
 
+  const login = (data: UserViewModel) => {
+    profileStore.reset()
+    articleStore.reset()
+    setUser(data)
+  }
+
   const logout = () => {
+    profileStore.reset()
+    articleStore.reset()
     user.value = null
   }
 
@@ -69,7 +81,9 @@ export const useLoginStore = defineStore('login', () => {
   return {
     user,
     loginState,
+    currentUsername,
     setUser,
+    login,
     logout,
     tokenPayload,
     checkLogin,
