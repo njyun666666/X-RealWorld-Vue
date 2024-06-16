@@ -59,6 +59,15 @@ watch(
     following.value = val.following
   }
 )
+
+watch(
+  () => login.loginState,
+  (val) => {
+    if (!val) {
+      following.value = false
+    }
+  }
+)
 </script>
 <template>
   <Button

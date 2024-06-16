@@ -52,7 +52,7 @@ const toggle = (event: MouseEvent) => {
           >
             <template v-if="!login.loginState">
               <RouterLink
-                :to="{ name: 'login' }"
+                :to="{ name: 'login', query: { url: route.fullPath } }"
                 v-tooltip="{
                   value: $t('action.Login'),
                   disabled: breakpoints.active().value == 'xl'
@@ -65,7 +65,7 @@ const toggle = (event: MouseEvent) => {
               </RouterLink>
 
               <RouterLink
-                :to="{ name: 'register' }"
+                :to="{ name: 'register', query: { url: route.fullPath } }"
                 v-tooltip="{
                   value: $t('action.Register'),
                   disabled: breakpoints.active().value == 'xl'

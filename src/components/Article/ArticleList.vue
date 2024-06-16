@@ -3,11 +3,12 @@ import { type Article, type ArticleModel } from '@/libs/services/articleService'
 import { useArticleStore, type ArticleTabType } from '@/stores/article'
 import { useInfiniteQuery, type QueryFunctionContext } from '@tanstack/vue-query'
 import { useInfiniteScroll, useWindowScroll } from '@vueuse/core'
-import { computed, onActivated, onDeactivated, ref, watch } from 'vue'
+import { computed, onActivated, onBeforeMount, onDeactivated, ref, watch } from 'vue'
 import Button from 'primevue/button'
 import ArticleItem from './ArticleItem.vue'
 import ArticleItemSkeleton from './ArticleItemSkeleton.vue'
 import { sortBy } from 'lodash'
+import { useLoginStore } from '@/stores/login'
 
 const props = defineProps<{
   queryModel?: ArticleModel
@@ -15,6 +16,7 @@ const props = defineProps<{
   enableSavedScrollY?: boolean
 }>()
 
+const login = useLoginStore()
 const enable = ref(false)
 const articleStore = useArticleStore()
 const { y: scrollY } = useWindowScroll()
@@ -54,6 +56,14 @@ const articleList = computed<Article[]>(() => {
   }
 })
 
+const initialPageParam = ref<ArticleModel>({
+  ...props.queryModel,
+  limit: 10,
+  offset: 0
+})
+
+const nextPageParam = ref<ArticleModel>({ ...initialPageParam.value })
+
 const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => {
   const data = await articleStore
     .getArticles({ ...props.queryModel, ...query.pageParam })
@@ -62,21 +72,24 @@ const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => 
   const length = (query.pageParam?.offset || 0) + data.articles.length
   canLoadMore.value = length < data.articlesCount
 
+  nextPageParam.value = {
+    ...query.pageParam,
+    offset: length
+  }
+
   return {
     articles: data.articles,
-    nextCursor: {
-      ...query.pageParam,
-      offset: length
-    } as ArticleModel
+    nextCursor: nextPageParam.value
   }
 }
 
 const { fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
-  queryKey: ['ArticlesList', props.queryModel],
+  queryKey: ['ArticlesList', login.currentUsername, props.queryModel],
   queryFn: getData,
   staleTime: Infinity,
-  initialPageParam: { limit: 10 },
-  getNextPageParam: (lastPage) => lastPage.nextCursor
+  initialPageParam: initialPageParam.value,
+  getNextPageParam: () => nextPageParam.value
+  // getNextPageParam: (lastPage) => lastPage.nextCursor
 })
 
 const { isLoading: isLoadingMore } = useInfiniteScroll(
@@ -113,6 +126,13 @@ watch(scrollY, (y) => {
   if (enable.value && props.enableSavedScrollY) {
     articleStore.setSavedScrollY(props.articleTabType, y)
   }
+})
+
+onBeforeMount(() => {
+  // console.log('onBeforeMount', login.currentUsername, nextPageParam.value)
+  //   canLoadMore.value = true
+  //   nextPageParam.value = { ...nextPageParam.value }
+  //   console.log('onBeforeMount', 2, nextPageParam.value)
 })
 </script>
 

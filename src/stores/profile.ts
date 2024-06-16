@@ -7,6 +7,11 @@ export const useProfileStore = defineStore('profile', () => {
   const profile = ref<{ [username: string]: Profile }>({})
   const activeTab = ref<{ [key: string]: ArticleTabType }>({})
 
+  const reset = () => {
+    profile.value = {}
+    activeTab.value = {}
+  }
+
   const mergeProfile = (data: Profile, oldUsername?: string) => {
     profile.value[data.username] = data
 
@@ -43,6 +48,7 @@ export const useProfileStore = defineStore('profile', () => {
     activeTab,
     mergeProfile,
     getProfile,
-    getActiveTab
+    getActiveTab,
+    reset
   }
 })

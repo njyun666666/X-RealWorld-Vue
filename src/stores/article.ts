@@ -23,6 +23,19 @@ export const useArticleStore = defineStore('article', () => {
   const articleList = ref<Article[]>([])
   const favorited = ref<{ [username: string]: string[] }>({})
 
+  const reset = () => {
+    scrollY.value = {
+      yourFeed: 0,
+      globalFeed: 0,
+      search: 0,
+      profilePosts: 0,
+      profileLikes: 0
+    }
+    article.value = {}
+    articleList.value = []
+    favorited.value = {}
+  }
+
   const globalFeedList = computed(() => {
     return sortBy(articleList.value, ['createdAt']).reverse()
   })
@@ -108,6 +121,7 @@ export const useArticleStore = defineStore('article', () => {
     getArticles,
     getArticleBySlug,
     mergeArticle,
-    deleteArticle
+    deleteArticle,
+    reset
   }
 })

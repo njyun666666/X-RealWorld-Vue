@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 import Button from 'primevue/button'
-import type { HTMLAttributes } from 'vue'
+import { type HTMLAttributes } from 'vue'
 import { cn } from '@/libs/utils'
 
 interface Props {
@@ -10,9 +10,12 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const route = useRoute()
+const routeQueryUrl = route.query['url']
+const to = routeQueryUrl ?? '/'
 </script>
 <template>
-  <RouterLink to="/">
+  <RouterLink :to="String(to)">
     <Button text rounded :class="cn('h-12 w-full !p-2', props.class)">
       <img src="/src/assets/logo.svg" class="h-full max-h-full" />
       <span

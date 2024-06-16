@@ -2,7 +2,9 @@
 import { ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import ArticleBody from './ArticleBody.vue'
+import { useLoginStore } from '@/stores/login'
 
+const login = useLoginStore()
 const route = useRoute()
 const slug = ref<string>(route.params['slug'] as string)
 
@@ -11,5 +13,5 @@ watch(route, () => {
 })
 </script>
 <template>
-  <ArticleBody :key="slug" />
+  <ArticleBody :key="`${slug}/${login.currentUsername}`" />
 </template>
