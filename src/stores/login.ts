@@ -1,7 +1,7 @@
 import { computed } from 'vue'
 import { defineStore } from 'pinia'
 import { StorageSerializers, useStorage } from '@vueuse/core'
-import type { UserViewModel } from '@/libs/services/userService'
+import { userService, type UserViewModel } from '@/libs/services/userService'
 import { jwtDecode, type JwtPayload } from 'jwt-decode'
 import { useRoute, useRouter } from 'vue-router'
 // import type { RoleType } from '@/appConst'
@@ -44,6 +44,14 @@ export const useLoginStore = defineStore('login', () => {
     return false
   }
 
+  const authentication = async () => {
+    if (!loginState.value) return
+
+    await userService.authentication().then(({ data }) => {
+      setUser(data.user)
+    })
+  }
+
   // const checkRole = (roles?: RoleType[]) => {
   //   if (!roles) return true
 
@@ -64,6 +72,7 @@ export const useLoginStore = defineStore('login', () => {
     setUser,
     logout,
     tokenPayload,
-    checkLogin
+    checkLogin,
+    authentication
   }
 })

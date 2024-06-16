@@ -82,7 +82,7 @@
   },
   "UserUpdateModel": {
     "email": "Email",
-    "bio": "Shout bio about you",
+    "bio": "Short bio about you",
     "image": "URL of profile picture"
   },
   "message": {

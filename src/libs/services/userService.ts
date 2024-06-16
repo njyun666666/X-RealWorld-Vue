@@ -46,6 +46,10 @@ class UserService {
   update(data: UserUpdateModel) {
     return realworldAPI.put<UsersLoginViewModel>('/api/user', data)
   }
+
+  authentication() {
+    return realworldAPI.get<UsersLoginViewModel>('/api/user')
+  }
 }
 
 export const userService = new UserService()
