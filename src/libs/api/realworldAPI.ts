@@ -12,6 +12,8 @@ export interface ResponseErrors {
   errors: {
     [key: string]: string | string[]
   }
+  status: string
+  message: string
 }
 
 const baseURL = appConfig.REALWORLD_API

@@ -46,6 +46,14 @@ const newButton = merge({}, button, {
           activeBackground: '{surface.300}',
           color: '{surface.700}'
         }
+      },
+      outlined: {
+        contrast: {
+          hoverBackground: '{surface.200}',
+          activeBackground: '{surface.300}',
+          borderColor: '{surface.700}',
+          color: '{surface.950}'
+        }
       }
     },
     dark: {

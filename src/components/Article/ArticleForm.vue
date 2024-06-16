@@ -76,7 +76,11 @@ const onSubmit = handleSubmit(async (values) => {
       articleStore.mergeArticle(data.article, props.article?.slug)
       emit('close')
       resetForm()
-      toast.add({ severity: 'success', summary: t('message.AddSuccess'), life: 3000 })
+      toast.add({
+        severity: 'success',
+        summary: props.isAdd ? t('message.AddSuccess') : t('message.EditSuccess'),
+        life: 3000
+      })
 
       if (route.name == 'article') {
         router.replace({
@@ -87,7 +91,11 @@ const onSubmit = handleSubmit(async (values) => {
     })
     .catch((error: AxiosError<ResponseErrors>) => {
       console.log(error.response?.data)
-      toast.add({ severity: 'error', summary: t('message.AddFail'), life: 3000 })
+      toast.add({
+        severity: 'error',
+        summary: props.isAdd ? t('message.AddFail') : t('message.EditFail'),
+        life: 3000
+      })
     })
 })
 </script>
