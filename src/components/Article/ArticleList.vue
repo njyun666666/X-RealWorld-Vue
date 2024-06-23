@@ -84,7 +84,7 @@ const getData = async (query: QueryFunctionContext<unknown[], ArticleModel>) => 
 }
 
 const { fetchNextPage, isFetchingNextPage, isPending, isError } = useInfiniteQuery({
-  queryKey: ['ArticlesList', login.currentUsername, props.queryModel],
+  queryKey: ['ArticlesList', login.currentUsername, new Date(), props.queryModel],
   queryFn: getData,
   staleTime: Infinity,
   initialPageParam: initialPageParam.value,
@@ -130,9 +130,9 @@ watch(scrollY, (y) => {
 
 onBeforeMount(() => {
   // console.log('onBeforeMount', login.currentUsername, nextPageParam.value)
-  //   canLoadMore.value = true
-  //   nextPageParam.value = { ...nextPageParam.value }
-  //   console.log('onBeforeMount', 2, nextPageParam.value)
+  // canLoadMore.value = true
+  // nextPageParam.value = { ...nextPageParam.value }
+  // console.log('onBeforeMount', 2, nextPageParam.value)
 })
 </script>
 

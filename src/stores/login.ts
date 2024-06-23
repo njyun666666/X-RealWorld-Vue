@@ -6,6 +6,7 @@ import { jwtDecode, type JwtPayload } from 'jwt-decode'
 import { useRoute, useRouter } from 'vue-router'
 import { useProfileStore } from './profile'
 import { useArticleStore } from './article'
+import { commentService } from '@/libs/services/commentService'
 // import type { RoleType } from '@/appConst'
 
 export const useLoginStore = defineStore('login', () => {
@@ -26,12 +27,14 @@ export const useLoginStore = defineStore('login', () => {
   const login = (data: UserViewModel) => {
     profileStore.reset()
     articleStore.reset()
+    commentService.reset()
     setUser(data)
   }
 
   const logout = () => {
     profileStore.reset()
     articleStore.reset()
+    commentService.reset()
     user.value = null
   }
 

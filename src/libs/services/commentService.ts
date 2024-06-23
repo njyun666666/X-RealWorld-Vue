@@ -32,6 +32,10 @@ class CommentService {
     [slug: string]: UseQueryReturnType<Comment[], Error>
   } = {}
 
+  reset() {
+    this.queryList = {}
+  }
+
   query(slug: string) {
     if (!this.queryList[slug]) {
       this.queryList[slug] = useQuery({
