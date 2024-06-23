@@ -285,7 +285,7 @@ export const primeVueConfig: PrimeVueConfiguration = {
       pcAcceptButton: { label: { class: '!font-bold' } }
     },
     tablist: {
-      inkbar: { class: '!duration-0 max-w-full' }
+      inkbar: { class: '!duration-0 !hidden' }
     }
   }
 }
