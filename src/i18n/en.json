@@ -80,6 +80,10 @@
     "body": "Content",
     "tag": "Tags"
   },
+  "SearchModel": {
+    "tag": "tag",
+    "author": "author"
+  },
   "UserUpdateModel": {
     "email": "Email",
     "bio": "Short bio about you",

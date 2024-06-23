@@ -80,6 +80,10 @@
     "body": "內容",
     "tag": "標籤"
   },
+  "SearchModel": {
+    "tag": "標籤",
+    "author": "作者"
+  },
   "UserUpdateModel": {
     "email": "Email",
     "bio": "自我介紹",
