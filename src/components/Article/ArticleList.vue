@@ -29,9 +29,23 @@ const articleList = computed<Article[]>(() => {
     case 'yourFeed':
       return articleStore.yourFeedList
 
-    case 'search':
-      return articleStore.yourFeedList
+    case 'search': {
+      let list = articleStore.articleList
 
+      if (props.queryModel?.tag) {
+        list = list.filter((x) =>
+          x.tagList.some((tag) => tag.toLowerCase() == String(props.queryModel?.tag?.toLowerCase()))
+        )
+      }
+
+      if (props.queryModel?.author) {
+        list = list.filter(
+          (x) => x.author.username.toLowerCase() == props.queryModel?.author?.toLowerCase()
+        )
+      }
+
+      return sortBy(list, ['createdAt']).reverse()
+    }
     case 'profilePosts':
       return sortBy(
         articleStore.articleList.filter((x) => x.author.username == props.queryModel?.author),
