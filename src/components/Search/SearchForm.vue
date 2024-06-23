@@ -5,18 +5,25 @@ import * as z from 'zod'
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useRoute, useRouter } from 'vue-router'
+import { watchWithFilter } from '@vueuse/core'
+import type { ArticleModel } from '@/libs/services/articleService'
 
 const router = useRouter()
 const route = useRoute()
+
+const initValues: ArticleModel = {
+  tag: undefined,
+  author: undefined
+}
 
 const formSchema = z.object({
   tag: z.string().trim().optional(),
   author: z.string().trim().optional()
 })
 
-const { defineField, handleSubmit, errors, isSubmitting } = useForm({
-  validationSchema: toTypedSchema(formSchema),
-  initialValues: route.query
+const { defineField, handleSubmit, errors, isSubmitting, setValues } = useForm({
+  validationSchema: toTypedSchema(formSchema)
+  // initialValues: route.query
 })
 
 const [tag] = defineField('tag')
@@ -30,6 +37,24 @@ const onSubmit = handleSubmit(async (values) => {
 
   router.push({ name: 'search', query: param })
 })
+
+watchWithFilter(
+  () => [route.name, route.query],
+  () => {
+    setValues({ ...initValues, ...route.query })
+  },
+  {
+    immediate: true,
+
+    eventFilter: (invoke, { args }) => {
+      var [routeName] = args[0]
+
+      if (routeName == 'search') {
+        invoke()
+      }
+    }
+  }
+)
 </script>
 <template>
   <form @submit="onSubmit" novalidate class="flex flex-col gap-2">

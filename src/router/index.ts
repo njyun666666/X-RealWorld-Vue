@@ -93,7 +93,8 @@ const router = createRouter({
               name: 'search',
               meta: { title: 'page.Search' },
               components: {
-                default: () => import('@/pages/Search/SearchPage.vue')
+                default: () => import('@/pages/Search/SearchPage.vue'),
+                RightSidebar: () => import('@/pages/Search/SearchSidebar.vue')
               }
             }
           ]
