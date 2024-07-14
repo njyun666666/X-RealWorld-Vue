@@ -154,7 +154,6 @@ const router = createRouter({
 
 router.beforeEach((to) => {
   const login = useLoginStore()
-  const { t } = i18n.global
 
   if (to.meta.requiresAuth && !login.loginState) {
     return { name: 'login', query: { url: to.fullPath } }
@@ -163,14 +162,15 @@ router.beforeEach((to) => {
   // if (to.meta.roles && !login.checkRole(to.meta.roles)) {
   //   return { name: 'message', params: { message: 'Forbidden' } }
   // }
+})
 
-  router.afterEach((to, from, failure) => {
-    if (!failure && to.meta.title) {
-      nextTick(() => {
-        webTitle.value = t(to.meta.title as string)
-      })
-    }
-  })
+router.afterEach((to, from, failure) => {
+  const { t } = i18n.global
+  if (!failure && to.meta.title) {
+    nextTick(() => {
+      webTitle.value = t(to.meta.title as string)
+    })
+  }
 })
 
 export default router
