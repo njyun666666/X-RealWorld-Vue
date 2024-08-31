@@ -26,7 +26,7 @@ export interface Article {
   slug: string
   title: string
   description: string
-  body: string
+  body?: string
   tagList: string[]
   createdAt: Date
   updatedAt: Date
@@ -45,7 +45,7 @@ export interface ArticleCreate {
 class ArticleService {
   getArticleBySlug(slug: string) {
     return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`).then((res) => {
-      res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+      res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
       res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
       return res
     })
@@ -55,9 +55,10 @@ class ArticleService {
     return realworldAPI
       .get<MultipleArticleViewModel>('/api/articles', { params: data })
       .then((res) => {
+        console.log(res)
         res.data.articles.forEach((item) => {
-          item.body = item.body.replace(/\\n/g, '\n')
-          item.author.bio = (item.author.bio ?? '').replace(/\\n/g, '\n')
+          // item.body = item.body?.replace(/\\n/g, '\n')
+          item.author.bio = (item.author?.bio ?? '').replace(/\\n/g, '\n')
         })
         return res
       })
@@ -65,7 +66,7 @@ class ArticleService {
 
   createArticle(data: ArticleCreateModel) {
     return realworldAPI.post<SingleArticleViewModel>(`/api/articles`, data).then((res) => {
-      res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+      res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
       res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
       return res
     })
@@ -73,7 +74,7 @@ class ArticleService {
 
   updateArticle(slug: string, data: ArticleCreateModel) {
     return realworldAPI.put<SingleArticleViewModel>(`/api/articles/${slug}`, data).then((res) => {
-      res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+      res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
       res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
       return res
     })
@@ -106,7 +107,7 @@ class ArticleService {
     return realworldAPI
       .post<SingleArticleViewModel>(`/api/articles/${slug}/favorite`)
       .then((res) => {
-        res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+        res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
         res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
         return res
       })
@@ -116,7 +117,7 @@ class ArticleService {
     return realworldAPI
       .delete<SingleArticleViewModel>(`/api/articles/${slug}/favorite`)
       .then((res) => {
-        res.data.article.body = res.data.article.body.replace(/\\n/g, '\n')
+        res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
         res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
         return res
       })
