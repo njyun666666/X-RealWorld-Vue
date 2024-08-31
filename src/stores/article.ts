@@ -71,7 +71,7 @@ export const useArticleStore = defineStore('article', () => {
   const getArticleBySlug = async (slug: string) => {
     const exists = article.value[slug]
 
-    if (exists) {
+    if (exists?.body) {
       return exists
     }
 
@@ -84,6 +84,7 @@ export const useArticleStore = defineStore('article', () => {
 
   const getArticles = async (param?: ArticleModel) => {
     return await articleService.getArticles(param).then(({ data }) => {
+      console.log(data)
       data.articles.map((item) => {
         mergeArticle(item)
         profileStore.mergeProfile(item.author)

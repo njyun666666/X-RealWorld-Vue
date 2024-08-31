@@ -82,7 +82,7 @@ watch(
     <h2>{{ article?.title }}</h2>
 
     <p>{{ article.description }}</p>
-    <p v-html="article.body.replace(/\n/g, '<br/>')"></p>
+    <p v-html="article.body?.replace(/\n/g, '<br/>')"></p>
 
     <div class="space-y-4 pt-10">
       <ArticleTagList :tags="article.tagList" />
