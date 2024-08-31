@@ -55,7 +55,6 @@ class ArticleService {
     return realworldAPI
       .get<MultipleArticleViewModel>('/api/articles', { params: data })
       .then((res) => {
-        console.log(res)
         res.data.articles.forEach((item) => {
           // item.body = item.body?.replace(/\\n/g, '\n')
           item.author.bio = (item.author?.bio ?? '').replace(/\\n/g, '\n')
