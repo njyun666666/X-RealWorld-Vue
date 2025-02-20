@@ -7,12 +7,19 @@ import CommentFormDialog from './CommentFormDialog.vue'
 import type { Article } from '@/libs/services/articleService'
 import { useLoginStore } from '@/stores/login'
 import { useDialog } from '@/libs/common'
+import appConst from '@/appConst'
+import { useQuery } from '@tanstack/vue-query'
 
 const props = defineProps<{
   article: Article
 }>()
 
-const { isPending, data } = commentService.query(props.article.slug)
+const { isPending, data } = useQuery({
+  queryKey: ['comment', props.article.slug],
+  queryFn: async () =>
+    commentService.getComments(props.article.slug).then((res) => res.data.comments),
+  staleTime: appConst.StaleTime
+})
 const count = computed(() => data.value?.length || 0)
 const dialog = useDialog()
 const login = useLoginStore()
@@ -34,7 +41,6 @@ const handleClick = () => {
 <template>
   <Skeleton v-if="isPending" class="!h-9.5 !w-16 !rounded-full" />
   <Button
-    v-else
     severity="secondary"
     rounded
     text

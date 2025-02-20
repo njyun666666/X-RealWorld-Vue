@@ -35,20 +35,25 @@ export interface UserUpdate {
 }
 
 class UserService {
+  readonly loginUrl = '/api/users/login'
+  readonly registrationUrl = '/api/users'
+  readonly updateUrl = '/api/user'
+  readonly authenticationUrl = '/api/user'
+
   login(data: UsersLoginModel) {
-    return realworldAPI.post<UsersLoginViewModel>('/api/users/login', data)
+    return realworldAPI.post<UsersLoginViewModel>(this.loginUrl, data)
   }
 
   registration(data: UsersRegistrationModel) {
-    return realworldAPI.post<UsersLoginViewModel>('/api/users', data)
+    return realworldAPI.post<UsersLoginViewModel>(this.registrationUrl, data)
   }
 
   update(data: UserUpdateModel) {
-    return realworldAPI.put<UsersLoginViewModel>('/api/user', data)
+    return realworldAPI.put<UsersLoginViewModel>(this.updateUrl, data)
   }
 
   authentication() {
-    return realworldAPI.get<UsersLoginViewModel>('/api/user')
+    return realworldAPI.get<UsersLoginViewModel>(this.authenticationUrl)
   }
 }
 

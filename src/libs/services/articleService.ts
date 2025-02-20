@@ -43,17 +43,26 @@ export interface ArticleCreate {
 }
 
 class ArticleService {
+  readonly getArticleBySlugUrl = '/api/articles'
+  readonly getArticlesUrl = '/api/articles'
+  readonly createArticleUrl = '/api/articles'
+  readonly updateArticleUrl = '/api/articles'
+  readonly deleteArticleUrl = '/api/articles'
+  readonly addFavoriteUrl = '/api/articles/*/favorite'
+
   getArticleBySlug(slug: string) {
-    return realworldAPI.get<SingleArticleViewModel>(`/api/articles/${slug}`).then((res) => {
-      res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
-      res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
-      return res
-    })
+    return realworldAPI
+      .get<SingleArticleViewModel>(`${this.getArticleBySlugUrl}/${slug}`)
+      .then((res) => {
+        res.data.article.body = res.data.article.body?.replace(/\\n/g, '\n')
+        res.data.article.author.bio = (res.data.article.author.bio ?? '').replace(/\\n/g, '\n')
+        return res
+      })
   }
 
   getArticles(data?: ArticleModel) {
     return realworldAPI
-      .get<MultipleArticleViewModel>('/api/articles', { params: data })
+      .get<MultipleArticleViewModel>(this.getArticlesUrl, { params: data })
       .then((res) => {
         res.data.articles.forEach((item) => {
           // item.body = item.body?.replace(/\\n/g, '\n')
