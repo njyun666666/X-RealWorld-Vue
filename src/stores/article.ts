@@ -84,7 +84,6 @@ export const useArticleStore = defineStore('article', () => {
 
   const getArticles = async (param?: ArticleModel) => {
     return await articleService.getArticles(param).then(({ data }) => {
-      console.log(data)
       data.articles.map((item) => {
         mergeArticle(item)
         profileStore.mergeProfile(item.author)

@@ -28,6 +28,10 @@ export interface Comment {
 }
 
 class CommentService {
+  readonly addCommentsUrl = '/api/articles/*/comments'
+  readonly getCommentsUrl = '/api/articles/*/comments'
+  readonly deleteCommentsUrl = '/api/articles/*/comments'
+
   queryList: {
     [slug: string]: UseQueryReturnType<Comment[], Error>
   } = {}
@@ -40,11 +44,10 @@ class CommentService {
     if (!this.queryList[slug]) {
       this.queryList[slug] = useQuery({
         queryKey: [this.getComments.name, slug],
-        queryFn: () => this.getComments(slug).then((res) => res.data.comments),
+        queryFn: async () => await this.getComments(slug).then((res) => res.data.comments),
         staleTime: appConst.StaleTime
       })
     }
-
     return this.queryList[slug]
   }
 
@@ -52,7 +55,7 @@ class CommentService {
     return realworldAPI.post<SingleCommentViewModel>(`/api/articles/${slug}/comments`, data)
   }
 
-  getComments(slug: string) {
+  async getComments(slug: string) {
     return realworldAPI
       .get<MultipleCommentsViewModel>(`/api/articles/${slug}/comments`)
       .then((res) => {
