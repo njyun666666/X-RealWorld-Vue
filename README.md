@@ -1,6 +1,6 @@
 # Vue 3 + RealWorld API+ X Layout
 
-[Demo](https://vue-project-jyun.vercel.app/)
+[Demo](https://x-realworld-vue-jyun.vercel.app/)
 
 這是一個使用 Vue 3、RealWorld API 和 X (Twitter) layout 設計構建的 side project
 
