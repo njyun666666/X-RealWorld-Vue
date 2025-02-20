@@ -23,7 +23,7 @@
 
 ## 前端
 
-[GitHub](https://github.com/njyun666666/vue-project)
+[GitHub](https://github.com/njyun666666/X-RealWorld-Vue)
 
 ### 部署
 
