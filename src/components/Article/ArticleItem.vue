@@ -15,6 +15,9 @@ import CommentItem from '../Comment/CommentItem.vue'
 import ItemSlot from '../Slots/ItemSlot.vue'
 import { useLoginStore } from '@/stores/login'
 import ArticleAction from './ArticleAction.vue'
+import { useQuery } from '@tanstack/vue-query'
+import appConst from '@/appConst'
+import { faker } from '@faker-js/faker'
 
 const props = defineProps<{
   article: Article
@@ -35,12 +38,19 @@ const openNewWindow = () => {
   el.click()
 }
 
-const { isPending, data: comments } = commentService.query(props.article.slug)
+// const { isPending, data: comments } = commentService.query(props.article.slug)
+const { isPending, data: comments } = useQuery({
+  queryKey: ['comment', props.article.slug],
+  queryFn: async () =>
+    commentService.getComments(props.article.slug).then((res) => res.data.comments),
+  staleTime: appConst.StaleTime
+})
 
 const popularComments = computed(() => {
   return comments.value?.filter((item) => {
     if (item.author.username === props.article.author.username) return true
     if (login.loginState && item.author.username === login.user.username) return true
+    return faker.datatype.boolean()
   })
 })
 

@@ -45,4 +45,20 @@ app.use(ConfirmationService)
 app.directive('ripple', Ripple)
 app.directive('tooltip', Tooltip)
 
-app.mount('#app')
+enableMocking().then(() => {
+  app.mount('#app')
+})
+
+async function enableMocking() {
+  // if (process.env.NODE_ENV !== 'development') {
+  //   return
+  // }
+
+  const { worker } = await import('./mocks/browser')
+
+  // `worker.start()` returns a Promise that resolves
+  // once the Service Worker is up and ready to intercept requests.
+  return worker.start({
+    onUnhandledRequest: 'bypass'
+  })
+}

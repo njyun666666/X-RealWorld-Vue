@@ -5,8 +5,10 @@ export interface Tag {
 }
 
 class TagService {
+  readonly getTagsUrl = '/api/tags'
+
   getTags() {
-    return realworldAPI.get<Tag>(`/api/tags`)
+    return realworldAPI.get<Tag>(this.getTagsUrl)
   }
 }
 export const tagService = new TagService()

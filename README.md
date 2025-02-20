@@ -48,4 +48,4 @@
 
 ## 後端 API
 
-使用[RealWorld API](https://main--realworld-docs.netlify.app/docs/specs/frontend-specs/api#demo-api)
+使用Mock Service Worker、Faker模擬[RealWorld API](https://main--realworld-docs.netlify.app/specifications/frontend/api/)
